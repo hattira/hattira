@@ -1,17 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
   <head>
     <meta charset="utf-8" />
     <title>{% block head_title_base %}{% if SITE_NAME %}{{ SITE_NAME }} | {% endif %}{% block head_title %}{% endblock %}{% endblock %}</title>
-    {% block viewport %}
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Developer Events Around You">
+    <meta name="author" content="Pradip P Caulagi">
 
     {% block style_base %}
       <link href="//fonts.googleapis.com/css?family=Droid+Sans|Lekton" rel="stylesheet" type="text/css">
       <link href="//fonts.googleapis.com/css?family=Quicksand|Exo" rel='stylesheet' type='text/css'>
       <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
       <link href="{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='css/deau.css') }}" rel="stylesheet">
     {% endblock %}
 
     {% block html5shim %}
@@ -26,9 +27,20 @@
   </head>
   <body class="{% block body_class %}{% endblock %}" id="{% block body_id %}{% endblock %}">
 
-    <div class="navbar navbar-fixed-top">
-      <h1>Developer Events Around You</h1>
-    </div>
+    {% block masthead %}
+      <div class="container-fluid" id='masthead'>
+        <ul class='nav nav-pills pull-right'>
+          <li>
+            <a href='/login'>Login</a>
+          </li>
+        </ul>
+        <h1>
+          <a href='/'>deau:</a>
+          <span class='subheading'>Developer Events Around You<span>
+        </h1>
+        <hr>
+      </div>
+    {% endblock %}
 
     {% block body_base %}
       <div class="container" id='content-container'>
@@ -37,7 +49,12 @@
       </div>
     {% endblock %}
 
-    {% block footer_base %}
+    {% block footer %}
+      <div class="container-fluid" id='footer'>
+        <hr>
+        &copy;2013 Pradip P Caulagi.  Licensed under 
+        <a href='https://github.com/caulagi/deau'>MIT</a>
+      </div>
     {% endblock %}
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
