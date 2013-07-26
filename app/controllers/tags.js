@@ -4,7 +4,7 @@
  */
 
 var mongoose = require('mongoose')
-  , Article = mongoose.model('Article')
+  , Meetup = mongoose.model('Meetup')
 
 /**
  * List items tagged with a tag
@@ -20,12 +20,12 @@ exports.index = function (req, res) {
     criteria: criteria
   }
 
-  Article.list(options, function(err, articles) {
+  Meetup.list(options, function(err, meetups) {
     if (err) return res.render('500')
-    Article.count(criteria).exec(function (err, count) {
-      res.render('articles/index', {
-        title: 'Articles tagged ' + req.param('tag'),
-        articles: articles,
+    Meetup.count(criteria).exec(function (err, count) {
+      res.render('meetups/index', {
+        title: 'Meetups tagged ' + req.param('tag'),
+        meetups: meetups,
         page: page,
         pages: count / perPage
       })

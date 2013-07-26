@@ -27,10 +27,10 @@ var setTags = function (tags) {
 }
 
 /**
- * Article Schema
+ * Meetup Schema
  */
 
-var ArticleSchema = new Schema({
+var MeetupSchema = new Schema({
   title: {type : String, default : '', trim : true},
   body: {type : String, default : '', trim : true},
   user: {type : Schema.ObjectId, ref : 'User'},
@@ -51,19 +51,19 @@ var ArticleSchema = new Schema({
  * Validations
  */
 
-ArticleSchema.path('title').validate(function (title) {
+MeetupSchema.path('title').validate(function (title) {
   return title.length > 0
-}, 'Article title cannot be blank')
+}, 'Meetup title cannot be blank')
 
-ArticleSchema.path('body').validate(function (body) {
+MeetupSchema.path('body').validate(function (body) {
   return body.length > 0
-}, 'Article body cannot be blank')
+}, 'Meetup body cannot be blank')
 
 /**
  * Pre-remove hook
  */
 
-ArticleSchema.pre('remove', function (next) {
+MeetupSchema.pre('remove', function (next) {
   var imager = new Imager(imagerConfig, 'S3')
   var files = this.image.files
 
@@ -79,7 +79,7 @@ ArticleSchema.pre('remove', function (next) {
  * Methods
  */
 
-ArticleSchema.methods = {
+MeetupSchema.methods = {
 
   /**
    * Save article and upload image
@@ -136,7 +136,7 @@ ArticleSchema.methods = {
  * Statics
  */
 
-ArticleSchema.statics = {
+MeetupSchema.statics = {
 
   /**
    * Find article by id
@@ -174,4 +174,4 @@ ArticleSchema.statics = {
 
 }
 
-mongoose.model('Article', ArticleSchema)
+mongoose.model('Meetup', MeetupSchema)

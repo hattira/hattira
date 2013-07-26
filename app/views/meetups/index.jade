@@ -1,0 +1,37 @@
+extends ../layouts/default
+
+block main
+  h1= title
+
+block content
+  - if (meetups.length)
+    - each meetup in meetups
+      .meetup
+        h3
+          a(href='/meetups/'+meetup._id, title=meetup.title) #{meetup.title}
+        p= meetup.body
+
+        .meta.muted
+          span= formatDate(meetup.createdAt)
+          &nbsp; - &nbsp;
+          - if (meetup.user)
+            span Author &nbsp;
+
+            - var name = meetup.user.name ? meetup.user.name : meetup.user.username
+
+            a(href="/users/"+meetup.user._id)= name
+          &nbsp; - &nbsp;
+          - if (meetup.tags)
+            - each tag in meetup.tags.split(',')
+              &nbsp;
+              a.tag(href="/tags/"+tag)
+                i.icon-tags
+                |  #{tag}
+
+    - if (pages > 1)
+      .pagination
+        ul
+          != createPagination(pages, page)
+  - else
+    p.muted No meetups.&nbsp;
+      a(href="/meetups/new") create one

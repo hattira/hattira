@@ -10,14 +10,14 @@ var async = require('async')
  */
 
 var users = require('../app/controllers/users')
-  , articles = require('../app/controllers/articles')
+  , meetups = require('../app/controllers/meetups')
   , auth = require('./middlewares/authorization')
 
 /**
  * Route middlewares
  */
 
-var articleAuth = [auth.requiresLogin, auth.article.hasAuthorization]
+var meetupAuth = [auth.requiresLogin, auth.meetup.hasAuthorization]
 
 /**
  * Expose routes
@@ -47,23 +47,23 @@ module.exports = function (app, passport) {
 
   app.param('userId', users.user)
 
-  // article routes
-  app.get('/articles', articles.index)
-  app.get('/articles/new', auth.requiresLogin, articles.new)
-  app.post('/articles', auth.requiresLogin, articles.create)
-  app.get('/articles/:id', articles.show)
-  app.get('/articles/:id/edit', articleAuth, articles.edit)
-  app.put('/articles/:id', articleAuth, articles.update)
-  app.del('/articles/:id', articleAuth, articles.destroy)
+  // meetup routes
+  app.get('/meetups', meetups.index)
+  app.get('/meetups/new', auth.requiresLogin, meetups.new)
+  app.post('/meetups', auth.requiresLogin, meetups.create)
+  app.get('/meetups/:id', meetups.show)
+  app.get('/meetups/:id/edit', meetupAuth, meetups.edit)
+  app.put('/meetups/:id', meetupAuth, meetups.update)
+  app.del('/meetups/:id', meetupAuth, meetups.destroy)
 
-  app.param('id', articles.load)
+  app.param('id', meetups.load)
 
   // home route
-  app.get('/', articles.index)
+  app.get('/', meetups.index)
 
   // comment routes
   var comments = require('../app/controllers/comments')
-  app.post('/articles/:id/comments', auth.requiresLogin, comments.create)
+  app.post('/meetups/:id/comments', auth.requiresLogin, comments.create)
 
   // tag routes
   var tags = require('../app/controllers/tags')

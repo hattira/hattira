@@ -28,7 +28,7 @@ exports.user = {
  *  Article authorization routing middleware
  */
 
-exports.article = {
+exports.meetup = {
   hasAuthorization : function (req, res, next) {
     if (req.article.user.id != req.user.id) {
       req.flash('info', 'You are not authorized')
