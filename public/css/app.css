@@ -25,3 +25,7 @@ body {
   margin-top: 60px;
   text-align: center;
 }
+
+#footer .license {
+  margin-left: 10px;
+}
