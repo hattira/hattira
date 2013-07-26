@@ -29,3 +29,141 @@ body {
 #footer .license {
   margin-left: 10px;
 }
+
+#login {
+  margin: 60px;
+  font-size: 1.4em;
+  text-align: center
+}
+
+/** ----------------------------------------------------------
+ * https://github.com/necolas/css3-social-signin-buttons
+ * ----------------------------------------------------------
+ */
+
+/**
+ * Button Object
+ */
+
+/**
+ * 1. Corrects inability to style clickable 'input' types in iOS
+ * 2. Remove excess padding in IE6/7
+ * 3. IE6/7 inline-block hack for native block-level elements
+ */
+
+.btn-auth,
+.btn-auth:visited {
+    position: relative;
+    display: inline-block;
+    height: 22px;
+    padding: 0 1em;
+    border: 1px solid #999;
+    border-radius: 2px;
+    margin: 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 22px;
+    white-space: nowrap;
+    cursor: pointer;
+    color: #222;
+    background: #fff;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* iOS */
+    -webkit-appearance: none; /* 1 */
+    /* IE6/7 hacks */
+    *overflow: visible;  /* 2 */
+    *display: inline; /* 3 */
+    *zoom: 1; /* 3 */
+}
+
+.btn-auth:hover,
+.btn-auth:focus,
+.btn-auth:active {
+    color: #222;
+    text-decoration: none;
+}
+
+.btn-auth:before {
+    content: "";
+    float: left;
+    width: 22px;
+    height: 22px;
+    background: url(/static/img/auth-icons.png) no-repeat 99px 99px;
+}
+
+/**
+ * 36px
+ */
+
+.btn-auth.large {
+    height: 36px;
+    line-height: 36px;
+    font-size: 20px;
+}
+
+.btn-auth.large:before {
+    width: 36px;
+    height: 36px;
+}
+
+/*
+ * Remove excess padding and border in FF3+
+ */
+
+.btn-auth::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/* Twitter
+   ========================================================================== */
+
+.btn-twitter,
+.btn-twitter:visited {
+    border-color: #a6cde6;
+    color: #327695;
+    background: #cfe4f0;
+    /* css3 */
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f1f5f7), to(rgba(255, 255, 255, 0)));
+    background-image: -webkit-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+    background-image: -moz-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+    background-image: -ms-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+    background-image: -o-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+    background-image: linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+    -webkit-box-shadow: inset 0 1px 0 #fff;
+    box-shadow: inset 0 1px 0 #fff;
+}
+
+.btn-twitter:hover,
+.btn-twitter:focus,
+.btn-twitter:active {
+    color: #327695;
+    border-color: #8dc2e4;
+    background-color: #cadde9;
+}
+
+.btn-twitter:active {
+    background: #cadde9;
+    -webkit-box-shadow: inset 0 1px 0 #bbd6e7;
+    box-shadow: inset 0 1px 0 #bbd6e7;
+}
+
+/*
+ * Icon
+ */
+
+.btn-twitter:before {
+    margin: 0 0.6em 0 -0.6em;
+    background-position: -22px 0;
+}
+
+.btn-twitter.large:before {
+    background-position: -36px -22px;
+}
