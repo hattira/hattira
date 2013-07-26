@@ -59,7 +59,7 @@ module.exports = function (app, passport) {
   app.param('id', articles.load)
 
   // home route
-  app.get('/', auth.requiresLogin, articles.index)
+  app.get('/', articles.index)
 
   // comment routes
   var comments = require('../app/controllers/comments')

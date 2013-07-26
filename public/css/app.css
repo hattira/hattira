@@ -1,23 +1,17 @@
 body {
-  padding-top: 60px;
+  padding-top: 20px;
 }
 
-.container {
-  width: auto;
-  max-width: 680px;
+#masthead h1 {
+  font-size: 28px;
 }
 
-.article, .comment {
-  padding: 15px 0;
-  border-top: 1px solid #e8e8e8;
+#masthead h1 .subheading {
+  font-size: 50%;
+  margin-left: 10px;
 }
 
-
-.error {
-  color: #FF2602;
+#masthead ul {
+  margin: 10px 40px;
 }
 
-.form-actions {
-  background: #fff;
-  border: 0;
-}
