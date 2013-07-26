@@ -22,7 +22,7 @@ module.exports = function (app, config, passport) {
   }))
 
   app.use(express.favicon())
-  app.use(express.static(config.root + '/public'))
+  app.use('/static', express.static(config.root + '/public'))
 
   // don't use logger for test env
   if (process.env.NODE_ENV !== 'test') {
