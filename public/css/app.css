@@ -1,14 +1,19 @@
 body {
   padding-top: 20px;
+  font-family: Cuprum, arial, serif;
+  font-size: 16px;
 }
 
 #masthead h1 {
-  font-size: 28px;
+  font-size: 34px;
 }
 
 #masthead h1 .subheading {
-  font-size: 50%;
-  margin-left: 10px;
+  font-size: 56%;
+  margin-left: 20px;
+  font-family: 'Dancing Script', cursive;
+  letter-spacing: 4px;
+  color: #bbb;
 }
 
 #masthead ul {
