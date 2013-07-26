@@ -1,12 +1,17 @@
-# deau - Developer Events Around You
+# deau - Developer Events Around U
 
 A crowd sourced listing of developer events.
-Built with love using Flask and Mongodb
+
+Built with love using Nodejs and Mongodb.  
 
 ## Dev setup
 
-        $ pip install -r requirements.txt
-        $ python run.py
+        $ npm install
+        $ nodemon server.js
+
+## Tests
+    
+        $ npm test
 
 ## License
 
