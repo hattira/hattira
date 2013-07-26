@@ -11,8 +11,8 @@ module.exports = {
       name: 'deau: Developer Events Around U'
     },
     twitter: {
-      clientID: "CONSUMER_KEY",
-      clientSecret: "CONSUMER_SECRET",
+      clientID: "j9X8kVVckZIjepCH9G2zNQ",
+      clientSecret: "YdVw6jciDdVzAIeptYjo0ZTIHqIeXXccordtb0fmm6U",
       callbackURL: "http://localhost:3000/auth/twitter/callback"
     },
   },
