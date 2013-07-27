@@ -38,5 +38,10 @@
     "should": "latest",
     "mocha": "latest",
     "nodemon": "latest"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/caulagi/deau.git"
   }
 }
