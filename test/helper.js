@@ -5,7 +5,7 @@
 
 var mongoose = require('mongoose')
   , async = require('async')
-  , Article = mongoose.model('Article')
+  , Meetup = mongoose.model('Meetup')
   , User = mongoose.model('User')
 
 /**
@@ -25,7 +25,7 @@ exports.clearDb = function (done) {
       })
     },
     function (cb) {
-      Article.find().exec(function (err, apps) {
+      Meetup.find().exec(function (err, apps) {
         async.forEach(apps, callback, cb)
       })
     }
