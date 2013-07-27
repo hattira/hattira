@@ -5,8 +5,27 @@
 
 var mongoose = require('mongoose')
   , Meetup = mongoose.model('Meetup')
-  , utils = require('../../lib/utils')
+  , async = require('async')
+  , util = require('util')
+  , misc = require('../../lib/misc')
+  , request = require('request')
   , _ = require('underscore')
+
+// https://gist.github.com/qiao/1626318
+function getClientIp(req) {
+  var ipAddress;
+  var forwardedIpsStr = req.header('x-forwarded-for'); 
+  if (forwardedIpsStr) {
+    var forwardedIps = forwardedIpsStr.split(',');
+    ipAddress = forwardedIps[0];
+  }
+  if (!ipAddress) {
+    ipAddress = req.connection.remoteAddress;
+  }
+
+  return '14.96.97.255'
+  return ipAddress
+}
 
 /**
  * Load
@@ -35,12 +54,37 @@ exports.index = function(req, res){
     page: page
   }
 
-  Meetup.list(options, function(err, meetups) {
-    if (err) return res.render('500')
+  function get_area(req, callback) {
+    var ip = getClientIp(req)
+      , url = util.format("http://freegeoip.net/json/%s", ip)
+    request(url, function(err, response, body) {
+      if (err) callback(err)
+      callback(null, body)
+    })
+  }
+
+  function get_meetups(req, callback) {
+    Meetup.list(options, function(err, meetups) {
+      if (err) return callback(error)
+      Meetup.count().exec(function (err, count) {
+        callback(null, meetups)
+      })
+    })
+  }
+
+  async.series([
+    function(callback) {
+      return get_area(req, callback)
+    },
+    function(callback) {
+      return get_meetups(req, callback)
+    }
+  ], function(err, results) {
     Meetup.count().exec(function (err, count) {
       res.render('meetups/index', {
         title: 'Meetups',
-        meetups: meetups,
+        meetups: results[1],
+        area: JSON.parse(results[0]),
         page: page + 1,
         pages: Math.ceil(count / perPage)
       })
@@ -76,7 +120,7 @@ exports.create = function (req, res) {
     res.render('meetups/new', {
       title: 'New Meetup',
       meetup: meetup,
-      errors: utils.errors(err.errors || err)
+      errors: misc.errors(err.errors || err)
     })
   })
 }

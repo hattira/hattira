@@ -30,6 +30,7 @@
     "underscore": "latest",
     "view-helpers": "latest",
     "async": "latest",
+    "request": "latest",
     "forever": "latest"
   },
   "devDependencies": {
