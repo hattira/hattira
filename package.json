@@ -26,7 +26,6 @@
     "connect-flash": "latest",
     "passport": "latest",
     "passport-twitter": "latest",
-    "imager": "latest",
     "underscore": "latest",
     "view-helpers": "latest",
     "async": "latest",
