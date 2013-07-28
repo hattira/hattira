@@ -1,47 +1,65 @@
 extends ../layouts/default
 
-
-block main
-  h1= title
-  hr
-
 block content
   - var action = '/meetups'
   - action += meetup.isNew? '' : '/' + meetup.id
 
-  .row
-    .span7
+  .row-fluid
       form.form-horizontal(method="post", action=action, enctype="multipart/form-data")
+        fieldset
+          legend #{title}
 
-        input(type="hidden", name="_csrf", value="#{csrf_token}")
+          input(type="hidden", name="_csrf", value="#{csrf_token}")
 
-        - if (!meetup.isNew)
-          input(type="hidden", name="_method", value="PUT")
+          - if (!meetup.isNew)
+            input(type="hidden", name="_method", value="PUT")
 
-        .control-group
-          label.control-label(for='title') Title
-          .controls
-            input#title.input-xlarge(type='text', name="title", value=meetup.title, placeholder='Enter the title')
+          .control-group
+            label.control-label(for='title') Title
+            .controls
+              input#title.input-xxlarge(type='text', name="title", value=meetup.title)
+              span.help-block What is this event about?
 
-        .control-group
-          label.control-label(for='title') Image
-          .controls
-            input(type='file', name="image[]")
+          .control-group
+            label.control-label(for='desc') Description
+            .controls
+              textarea#desc.input-xxlarge(type='text', rows="5", name="description")
+              span.help-block What is this event, why should people come and who should come
 
-        .control-group
-          label.control-label(for='desc') Body
-          .controls
-            textarea#desc.input-xlarge(type='text', rows="5", name="body", placeholder='Enter the meetup description')=meetup.body
+          .control-group
+            label.control-label(for='meetupDate') Happening on 
+            .controls
+              input#meetupDate.input-large(type='text', name="meetupDate", value=meetup.meetupDate)
+              span.help-block Date of the event
 
-        .control-group
-          label.control-label(for='desc') Tags
-          .controls
-            input#tags(type='text', name="tags", value=meetup.tags, placeholder='Enter the tags')
+          .control-group
+            label.control-label(for='venue') Venue
+            .controls
+              input#venue.input-xxlarge(type='text', name="venue", value=meetup.venue)
+              span.help-block Address where the event will happen
 
-        .form-actions
-          button.btn.btn-primary(type='submit') Save changes
-          &nbsp;
-          a.btn(href='/meetups', title="cancel") Cancel
+          .control-group
+            label.control-label(for='latitude') Latitude
+            .controls
+              input#venue.input-xlarge(type='text', name="latitude", value=meetup.latitude)
+              span.help-block Latitude of the venue
+
+          .control-group
+            label.control-label(for='longitude') Longitude
+            .controls
+              input#venue.input-xlarge(type='text', name="longitude", value=meetup.longitude)
+              span.help-block Longitude of the venue
+
+          .control-group
+            label.control-label(for='tags') Tags
+            .controls
+              input#tags.input-xxlarge(type='text', name="tags", value=meetup.tags)
+              span.help-block Comma separated list of tags. Ex: python, web development, programming
+
+          .form-actions
+            button.btn.btn-primary(type='submit') Save changes
+            &nbsp;
+            a.btn(href='/meetups', title="cancel") Cancel
 
     .span5
       - if (!meetup.isNew && meetup.image && meetup.image.files && meetup.image.files.length)

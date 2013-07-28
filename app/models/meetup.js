@@ -30,12 +30,19 @@ var setTags = function (tags) {
 
 var MeetupSchema = new Schema({
   title: {type : String, default : '', trim : true},
-  body: {type : String, default : '', trim : true},
+  description: {type : String, default : '', trim : true},
+  meetupDate: {type : Date, default : '', trim : true},
+  venue: {type : String, default : '', trim : true},
+  latitude: {type : Number, default : '', trim : true},
+  longitude: {type : Number, default : '', trim : true},
   user: {type : Schema.ObjectId, ref : 'User'},
   comments: [{
     body: { type : String, default : '' },
     user: { type : Schema.ObjectId, ref : 'User' },
     createdAt: { type : Date, default : Date.now }
+  }],
+  attending: [{
+    user: { type : Schema.ObjectId, ref : 'User' },
   }],
   tags: {type: [], get: getTags, set: setTags},
   createdAt  : {type : Date, default : Date.now}
@@ -49,10 +56,21 @@ MeetupSchema.path('title').validate(function (title) {
   return title.length > 0
 }, 'Meetup title cannot be blank')
 
-MeetupSchema.path('body').validate(function (body) {
-  return body.length > 0
-}, 'Meetup body cannot be blank')
+MeetupSchema.path('description').validate(function (description) {
+  return description && description.length > 0
+}, 'Meetup description cannot be blank')
 
+MeetupSchema.path('venue').validate(function (venue) {
+  return venue && venue.length > 0
+}, 'Meetup venue is required')
+
+MeetupSchema.path('latitude').validate(function (latitude) {
+  return latitude && typeof latitude === 'number'
+}, 'Meetup latitude is required')
+
+MeetupSchema.path('longitude').validate(function (longitude) {
+  return longitude && typeof longitude === 'number'
+}, 'Meetup longitude is required')
 
 /**
  * Methods

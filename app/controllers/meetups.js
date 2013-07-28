@@ -111,10 +111,10 @@ exports.create = function (req, res) {
   var meetup = new Meetup(req.body)
   meetup.user = req.user
 
-  meetup.uploadAndSave(req.files.image, function (err) {
+  meetup.save(function (err, doc, count) {
     if (!err) {
       req.flash('success', 'Successfully created meetup!')
-      return res.redirect('/meetups/'+meetup._id)
+      return res.redirect('/meetups/'+doc._id)
     }
 
     res.render('meetups/new', {
