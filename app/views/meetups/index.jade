@@ -9,7 +9,7 @@ block content
       .meetup
         h3
           a(href='/meetups/'+meetup._id, title=meetup.title) #{meetup.title}
-        p= meetup.body
+        p= meetup.description
 
         .meta.muted
           span= formatDate(meetup.createdAt)

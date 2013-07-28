@@ -6,13 +6,14 @@ block main
 block content
   .row
     .span9
-      p=meetup.body
+      p=meetup.description
       .meta.muted
         - if (meetup.user)
           - var name = meetup.user.name ? meetup.user.name : meetup.user.username
-          p Author -&nbsp;
+          p
             a(href="/users/"+meetup.user._id)= name
-        p.muted= formatDate(meetup.createdAt, "%b %d, %Y at %I:%M %p")
+            , &nbsp;
+            = formatDate(meetup.createdAt, "%b %d, %Y at %I:%M %p")
         - if (meetup.tags)
           .tags
             - each tag in meetup.tags.split(',')
