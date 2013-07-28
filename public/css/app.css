@@ -36,6 +36,11 @@ body {
   text-align: center
 }
 
+.vline {
+  border-left: 1px solid #ddd;
+  height: 500px;
+}
+
 /** ----------------------------------------------------------
  * https://github.com/necolas/css3-social-signin-buttons
  * ----------------------------------------------------------

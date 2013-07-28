@@ -4,8 +4,8 @@ block main
   h1= meetup.title
 
 block content
-  .row
-    .span9
+  .row-fluid
+    .span6
       p=meetup.description
       .meta.muted
         - if (meetup.user)
@@ -21,22 +21,27 @@ block content
                   i.icon-tags
                   |  #{tag}
                 &nbsp;&nbsp;
-    .span3
-      - if (!meetup.isNew && meetup.image && meetup.image.files && meetup.image.files.length)
-        img(src=meetup.image.cdnUri + '/mini_' + meetup.image.files[0])
+      p
+        br
+        form.center.form-inline.confirm(action="/meetups/"+meetup.id, method="post")
+          input(type='hidden', name='_csrf', value="#{csrf_token}")
+          a.btn(href='/meetups/'+meetup._id+'/edit', title="edit") Edit
+          &nbsp;&nbsp;
+          input(type="hidden", name="_method", value="DELETE")
+          button.btn.btn-danger(type="submit") delete
 
-  p
-    br
-    form.center.form-inline.confirm(action="/meetups/"+meetup.id, method="post")
-      input(type='hidden', name='_csrf', value="#{csrf_token}")
-      a.btn(href='/meetups/'+meetup._id+'/edit', title="edit") Edit
-      &nbsp;&nbsp;
-      input(type="hidden", name="_method", value="DELETE")
-      button.btn.btn-danger(type="submit") delete
+      p
+        br
+        h3 Comments
+        - each comment in meetup.comments
+          include ../comments/comment
+        include ../comments/form
 
-  p
-    br
-    h3 Comments
-    - each comment in meetup.comments
-      include ../comments/comment
-    include ../comments/form
+    .span1.vline
+
+    .span5
+      dl
+        dt Venue
+        dd= meetup.venue
+        dt Date &amp; time
+        dd= meetup.meetupDate
