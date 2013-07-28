@@ -1,8 +1,9 @@
 extends ../layouts/default
 
 block content
-  .city
-    .pull-right Showing upcoming events in #{area.city}, #{area.region_name}, #{area.country_name}
+  -if (area)
+    .city
+      .pull-right Showing upcoming events in #{area.city}, #{area.region_name}, #{area.country_name}
   h1= title
   - if (meetups.length)
     - each meetup in meetups
