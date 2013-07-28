@@ -144,14 +144,14 @@ exports.update = function(req, res){
   var meetup = req.meetup
   meetup = _.extend(meetup, req.body)
 
-  meetup.uploadAndSave(req.files.image, function(err) {
+  meetup.save(function(err, doc) {
     if (!err) {
       return res.redirect('/meetups/' + meetup._id)
     }
 
     res.render('meetups/edit', {
       title: 'Edit Meetup',
-      meetup: meetup,
+      meetup: doc,
       errors: err.errors
     })
   })
