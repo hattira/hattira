@@ -10,13 +10,13 @@ var mongoose = require('mongoose')
  */
 
 exports.create = function (req, res) {
-  var article = req.article
+  var meetup = req.meetup
   var user = req.user
 
-  if (!req.body.body) return res.redirect('/articles/'+ article.id)
+  if (!req.body.body) return res.redirect('/meetups/'+ meetup.id)
 
-  article.addComment(user, req.body, function (err) {
+  meetup.addComment(user, req.body, function (err) {
     if (err) return res.render('500')
-    res.redirect('/articles/'+ article.id)
+    res.redirect('/meetups/'+ meetup.id)
   })
 }

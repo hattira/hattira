@@ -70,7 +70,7 @@ MeetupSchema.pre('remove', function (next) {
   // if there are files associated with the item, remove from the cloud too
   imager.remove(files, function (err) {
     if (err) return next(err)
-  }, 'article')
+  }, 'meetup')
 
   next()
 })
@@ -82,7 +82,7 @@ MeetupSchema.pre('remove', function (next) {
 MeetupSchema.methods = {
 
   /**
-   * Save article and upload image
+   * Save meetup and upload image
    *
    * @param {Object} images
    * @param {Function} cb
@@ -101,7 +101,7 @@ MeetupSchema.methods = {
         self.image = { cdnUri : cdnUri, files : files }
       }
       self.save(cb)
-    }, 'article')
+    }, 'meetup')
   },
 
   /**
@@ -122,7 +122,7 @@ MeetupSchema.methods = {
     })
 
     notify.comment({
-      article: this,
+      meetup: this,
       currentUser: user,
       comment: comment.body
     })
@@ -139,7 +139,7 @@ MeetupSchema.methods = {
 MeetupSchema.statics = {
 
   /**
-   * Find article by id
+   * Find meetup by id
    *
    * @param {ObjectId} id
    * @param {Function} cb
@@ -154,7 +154,7 @@ MeetupSchema.statics = {
   },
 
   /**
-   * List articles
+   * List meetups
    *
    * @param {Object} options
    * @param {Function} cb
