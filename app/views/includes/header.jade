@@ -1,14 +1,21 @@
 
 #masthead
-  ul.nav.nav-pills.pull-right
+  .pull-right
     if (req.isAuthenticated())
-      li
-        a(href="/users/"+req.user.id, title="Profile") Profile
-      li
-        a(href="/logout", title="logout") Logout
+      .dropdown
+        a(data-toggle="dropdown", href="#").dropdown-toggle
+          img(src=req.user.twitter.profile_image_url, class="img-polaroid")
+        ul(role="menu").dropdown-menu.pull-right
+          li
+            a(href="/users/"+req.user.id, title="Profile") Profile
+          li.divider
+          li
+            a(href="/logout", title="logout") Logout
     else
-      li
-        a(href="/login", title="Login") Login or signup
+      .input-prepend
+        span.add-on
+          i.icon-user
+        a(href="/login", class="btn") Login or signup
   h1
     a.brand(href='/') deau:
     span.subheading Developer Events Around You
