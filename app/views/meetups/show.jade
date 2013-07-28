@@ -14,13 +14,13 @@ block content
             a(href="/users/"+meetup.user._id)= name
             &nbsp; - &nbsp;
             = formatDate(meetup.createdAt, "%b %d, %Y at %I:%M %p")
-        - if (meetup.tags)
-          .tags
-            - each tag in meetup.tags.split(',')
-              a.tag(href="/tags/"+tag)
-                i.icon-tags
-                |  #{tag}
-              &nbsp;&nbsp;
+            - if (meetup.tags)
+              &nbsp; - &nbsp;
+              - each tag in meetup.tags.split(',')
+                a.tag(href="/tags/"+tag)
+                  i.icon-tags
+                  |  #{tag}
+                &nbsp;&nbsp;
     .span3
       - if (!meetup.isNew && meetup.image && meetup.image.files && meetup.image.files.length)
         img(src=meetup.image.cdnUri + '/mini_' + meetup.image.files[0])
