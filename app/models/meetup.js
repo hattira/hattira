@@ -88,18 +88,20 @@ MeetupSchema.methods = {
    */
 
   addComment: function (user, comment, cb) {
-    var notify = require('../mailer/notify')
+    //var notify = require('../mailer/notify')
 
     this.comments.push({
       body: comment.body,
       user: user._id
     })
 
+    /*
     notify.comment({
       meetup: this,
       currentUser: user,
       comment: comment.body
     })
+    */
 
     this.save(cb)
   }
