@@ -29,17 +29,6 @@ exports.login = function (req, res) {
 }
 
 /**
- * Show sign up form
- */
-
-exports.signup = function (req, res) {
-  res.render('users/signup', {
-    title: 'Sign up',
-    user: new User()
-  })
-}
-
-/**
  * Logout
  */
 
@@ -84,9 +73,9 @@ exports.create = function (req, res) {
  *  Show profile
  */
 
-exports.show = function (req, res) {
+exports.profile = function (req, res) {
   var user = req.profile
-  res.render('users/show', {
+  res.render('users/profile', {
     title: user.name,
     user: user
   })

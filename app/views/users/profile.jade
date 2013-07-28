@@ -1,0 +1,23 @@
+extends ../layouts/default
+
+block content
+  - var name = user.name ? user.name : user.username
+  - var url = user.twitter.profile_image_url.replace('_normal', '')
+
+  .row-fluid
+    .span4.offset2
+      img(src=url, alt=name)
+    .span4
+      .lead #{name}
+      ul.unstyled
+        li 
+          strong Website: &nbsp;
+          - each website in user.twitter.entities.url.urls
+              a(href=website.expanded_url) #{website.display_url}
+              ,&nbsp;
+        li
+          strong Location: &nbsp;
+          = user.twitter.location
+        li
+          strong Description: &nbsp;
+          = user.twitter.description

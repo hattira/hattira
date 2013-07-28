@@ -27,7 +27,6 @@ module.exports = function (app, passport) {
 
   // user routes
   app.get('/login', users.login)
-  app.get('/signup', users.signup)
   app.get('/logout', users.logout)
   app.post('/users', users.create)
   app.post('/users/session',
@@ -35,7 +34,7 @@ module.exports = function (app, passport) {
       failureRedirect: '/login',
       failureFlash: 'Invalid email or password.'
     }), users.session)
-  app.get('/users/:userId', users.show)
+  app.get('/users/:userId', users.profile)
   app.get('/auth/twitter',
     passport.authenticate('twitter', {
       failureRedirect: '/login'
