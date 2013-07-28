@@ -25,14 +25,14 @@ exports.user = {
 }
 
 /*
- *  Article authorization routing middleware
+ *  meetup authorization routing middleware
  */
 
 exports.meetup = {
   hasAuthorization : function (req, res, next) {
-    if (req.article.user.id != req.user.id) {
+    if (req.meetup.user.id != req.user.id) {
       req.flash('info', 'You are not authorized')
-      return res.redirect('/articles/'+req.article.id)
+      return res.redirect('/meetup/'+req.meetup.id)
     }
     next()
   }
