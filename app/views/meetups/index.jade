@@ -20,8 +20,8 @@ block content
             - var name = meetup.user.name ? meetup.user.name : meetup.user.username
 
             a(href="/users/"+meetup.user._id)= name
-          &nbsp; - &nbsp;
           - if (meetup.tags)
+            &nbsp; - &nbsp;
             - each tag in meetup.tags.split(',')
               &nbsp;
               a.tag(href="/tags/"+tag)
