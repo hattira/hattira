@@ -7,15 +7,25 @@
           img(src=req.user.twitter.profile_image_url, class="img-polaroid")
         ul(role="menu").dropdown-menu.pull-right
           li
+            a(href="/meetups/new") Create new event
+          li.divider
+          li
             a(href="/users/"+req.user.id, title="Profile") Profile
           li.divider
           li
             a(href="/logout", title="logout") Logout
     else
-      .input-prepend
-        span.add-on
-          i.icon-user
-        a(href="/login", class="btn") Login or signup
+      ul.nav.nav-pills
+        li
+          .input-prepend
+            span.add-on
+              i.icon-user
+            a(href="/login", class="btn") Login or signup
+        li &nbsp;
+        li
+          a(href="/meetups/new")
+            i.icon-plus-sign
+            | &nbsp;Create new event
   h1
     a.brand(href='/') deau:
     span.subheading Developer Events Around You
