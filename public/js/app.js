@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
-  $('#meetupDate').datepicker();
+  $('#meetupDate').datetimepicker({
+    format: 'yyyy-mm-dd hh:ii'
+  });
 
 });
