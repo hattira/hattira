@@ -4,7 +4,7 @@ block main
   h1= meetup.title
 
 block content
-  .row-fluid
+  .row-fluid.vspace-two
     .span6
       p=meetup.description
       .meta.muted
@@ -43,5 +43,7 @@ block content
       dl
         dt Venue
         dd= meetup.venue
-        dt Date &amp; time
-        dd= meetup.meetupDate
+        dt.vspace-one Start date &amp; time
+        dd= meetup.startDate
+        dt.vspace-one End date &amp; time
+        dd= meetup.endDate

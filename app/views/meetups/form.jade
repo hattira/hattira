@@ -1,14 +1,17 @@
 extends ../layouts/default
 
+block main
+  h1= title
+  if (meetup.isNew)
+    hr
+
 block content
   - var action = '/meetups'
-  - action += meetup.isNew? '' : '/' + meetup.id
+  - action += meetup.isNew? '/new' : '/' + meetup.id
 
   .row-fluid
       form.form-horizontal(method="post", action=action, enctype="multipart/form-data")
         fieldset
-          legend #{title}
-
           input(type="hidden", name="_csrf", value="#{csrf_token}")
 
           - if (!meetup.isNew)
