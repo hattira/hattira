@@ -31,7 +31,8 @@ var setTags = function (tags) {
 var MeetupSchema = new Schema({
   title: {type : String, default : '', trim : true},
   description: {type : String, default : '', trim : true},
-  meetupDate: {type : Date, default : '', trim : true},
+  startDate: {type : Date, default : '', trim : true},
+  endDate: {type : Date, default : '', trim : true},
   venue: {type : String, default : '', trim : true},
   latitude: {type : Number, default : '', trim : true},
   longitude: {type : Number, default : '', trim : true},
@@ -63,6 +64,14 @@ MeetupSchema.path('description').validate(function (description) {
 MeetupSchema.path('venue').validate(function (venue) {
   return venue && venue.length > 0
 }, 'Meetup venue is required')
+
+MeetupSchema.path('startDate').validate(function (val) {
+  return val && val.getTime && val.getTime()
+}, 'Meetup startDate is required')
+
+MeetupSchema.path('endDate').validate(function (val) {
+  return val && val.getTime && val.getTime()
+}, 'Meetup endDate is required')
 
 MeetupSchema.path('latitude').validate(function (latitude) {
   return latitude && typeof latitude === 'number'

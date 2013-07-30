@@ -29,8 +29,10 @@ block content
           .control-group
             label.control-label(for='meetupDate') Happening on 
             .controls
-              input#meetupDate.input(type='text', name="meetupDate", value=meetup.meetupDate)
-              span.help-block Date of the event
+              input#startDate.input(type='text', name="startDate",
+                  value=meetup.startDate, placeholder="Start date and time")
+              input#endDate.input(type='text', name="endDate",
+                  value=meetup.endDate, placeholder="End date and time")
 
           .control-group
             label.control-label(for='venue') Venue
@@ -60,7 +62,3 @@ block content
             button.btn.btn-primary(type='submit') Save changes
             &nbsp;
             a.btn(href='/meetups', title="cancel") Cancel
-
-    .span5
-      - if (!meetup.isNew && meetup.image && meetup.image.files && meetup.image.files.length)
-        img(src=meetup.image.cdnUri + "/mini_" + meetup.image.files[0])

@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
-  $('#meetupDate').datetimepicker({
-    format: 'yyyy-mm-dd hh:ii'
-  });
+  $('#startDate').datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
+  $('#endDate').datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
 
 });
