@@ -3,7 +3,22 @@
     .row-fluid
       hr
     .row-fluid
-      | &copy; 2013 
-      a(href='http://caulagi.com', title='Pradip Caulagi homepage') Pradip P Caulagi.
-      span.license Licensed under 
-        a(href='https://github.com/caulagi/deau/blob/master/LICENSE', title='MIT licensed') MIT.
+      .pull-right
+        ul.nav.nav-list
+          li
+            a(href='/meetups/new')
+              i.icon-plus-sign
+              | Create new event
+          li
+            a(href='/feedback')
+              i.icon-comment
+              | Feedback - tell us what you think
+          li
+            a(href='/about')
+              i.icon-info-sign
+              | About
+      p
+        | &copy; 2013 &nbsp;
+        a(href='http://caulagi.com') Pradip P Caulagi.
+        span.license Licensed under 
+        a(href='https://github.com/caulagi/deau/blob/master/LICENSE') MIT
