@@ -11,6 +11,24 @@ body {
 .vspace-four { margin-top: 4em; }
 .vspace-five { margin-top: 5em; }
 
+.red { color: #c33; }
+.blue { color: #6cc; }
+.green { color: #9c0; }
+.orange { color: #f90; }
+
+#marketing {
+  margin: 40px 20%;
+}
+
+#marketing h1 {
+  font-size: 54px;
+}
+
+#marketing .intro{
+  font-size: 24px;
+  line-height: 30px;
+}
+
 #masthead h1 {
   font-size: 34px;
 }
