@@ -16,6 +16,15 @@ body {
 .green { color: #9c0; }
 .orange { color: #f90; }
 
+.vline {
+  border-left: 1px solid #ddd;
+  height: 500px;
+}
+
+.centered {
+  text-align: center;
+}
+
 #marketing {
   margin: 40px 20%;
 }
@@ -59,9 +68,17 @@ body {
   text-align: center
 }
 
-.vline {
-  border-left: 1px solid #ddd;
-  height: 500px;
+#about .intro {
+  display: inline;
+  font-size: 24px;
+  line-height: 34px;
+  margin-top: 2em;
+}
+
+#about #signoff {
+  text-align: center;
+  font-size: 22px;
+  font-family: courier serif;
 }
 
 /** ----------------------------------------------------------

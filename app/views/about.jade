@@ -1,0 +1,35 @@
+extends layouts/default.jade
+
+block main
+  h1 About us
+    sup *
+  hr
+block content
+  #about
+    .row-fluid
+      .span3.offset2
+        img(src='http://farm7.staticflickr.com/6043/6358910241_3935434319.jpg', alt='research')
+      .offset1.intro.span4
+        | Over 2 years of market research, user studies, ideation,
+        | prototyping, fail-fast.
+    .row-fluid.vspace-two
+      .span3.offset2
+        img(src='http://farm4.staticflickr.com/3297/5778595034_76156d161e.jpg', alt='enterprise')
+      .offset1.intro.span4
+        | Enterprise ready.  Built with Enterprise Java, EJB, Servlet,
+        | JBoss.  Works with
+        em.orange &nbsp;Internet Explorer&nbsp;
+        | on Windows 98 and Windows NT.
+    .row-fluid.vspace-two
+      .span3.offset2
+        img(src='http://farm6.staticflickr.com/5137/5528709001_2452607132.jpg', alt='fault-tolerant')
+      .offset1.intro.span4
+        | Fault tolerant, State of art data centers, built-in redundancy,
+        | hourly backup, 1028 bit encryption, SSL
+    #signoff.row-fluid.vspace-five
+      | Request your personalised demo in Kannada from our
+      | sales team today - caulagi AT gmail DOT com
+    .row-fluid.vspace-one.centered
+      small
+        | *Kidding aside, this is a hobby project.  Contributions are welcome -
+        a(href='https://github.com/caulagi/deau/') &nbsp;GIT

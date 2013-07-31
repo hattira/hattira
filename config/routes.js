@@ -72,4 +72,7 @@ module.exports = function (app, passport) {
   app.get('/feedback', feedback.new)
   app.post('/feedback', feedback.create)
 
+  app.get('/about', function (req, res) {
+    res.render('about')
+  })
 }
