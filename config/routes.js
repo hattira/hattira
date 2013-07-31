@@ -68,4 +68,8 @@ module.exports = function (app, passport) {
   var tags = require('../app/controllers/tags')
   app.get('/tags/:tag', tags.index)
 
+  var feedback = require('../app/controllers/feedback')
+  app.get('/feedback', feedback.new)
+  app.post('/feedback', feedback.create)
+
 }

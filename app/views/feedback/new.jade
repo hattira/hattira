@@ -1,0 +1,40 @@
+extends ../layouts/default
+
+block main
+  h1= title
+  hr
+
+block content
+  .row-fluid
+      form.form-horizontal(method="post", action="/feedback", enctype="multipart/form-data")
+        fieldset
+          input(type="hidden", name="_csrf", value="#{csrf_token}")
+
+          .control-group
+            label.control-label(for='name') Name 
+            .controls
+              input#title.input-xxlarge(type='text', name="name", value=feedback.name)
+              span.help-block Please give us your name
+
+          .control-group
+            label.control-label(for='email') Email
+            .controls
+              input#title.input-xxlarge(type='email', name="email", value=feedback.email)
+              span.help-block Your email.  We won't spam you!
+
+          .control-group
+            label.control-label(for='title') Title
+            .controls
+              input#title.input-xxlarge(type='text', name="title", value=feedback.title)
+              span.help-block What is this feedback about?
+
+          .control-group
+            label.control-label(for='body') Comment 
+            .controls
+              textarea#desc.input-xxlarge(type='text', rows="5", name="body")
+              span.help-block Go ahead, say it!
+
+          .form-actions
+            button.btn.btn-primary(type='submit') Submit
+            &nbsp;
+            a.btn(href='/', title="cancel") Cancel
