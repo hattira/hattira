@@ -21,14 +21,15 @@ block content
                   i.icon-tags
                   |  #{tag}
                 &nbsp;&nbsp;
-      p
-        br
-        form.center.form-inline.confirm(action="/meetups/"+meetup.id, method="post")
-          input(type='hidden', name='_csrf', value="#{csrf_token}")
-          a.btn(href='/meetups/'+meetup._id+'/edit', title="edit") Edit
-          &nbsp;&nbsp;
-          input(type="hidden", name="_method", value="DELETE")
-          button.btn.btn-danger(type="submit") delete
+      - if (allow_edit)
+        p
+          br
+          form.center.form-inline.confirm(action="/meetups/"+meetup.id, method="post")
+            input(type='hidden', name='_csrf', value="#{csrf_token}")
+            a.btn(href='/meetups/'+meetup._id+'/edit', title="edit") Edit
+            &nbsp;&nbsp;
+            input(type="hidden", name="_method", value="DELETE")
+            button.btn.btn-danger(type="submit") delete
 
       p
         br

@@ -161,10 +161,11 @@ exports.update = function(req, res){
  * Show
  */
 
-exports.show = function(req, res){
+exports.show = function(req, res, next){
   res.render('meetups/show', {
     title: req.meetup.title,
-    meetup: req.meetup
+    meetup: req.meetup,
+    allow_edit: req.meetup.user.id === req.user.id
   })
 }
 
