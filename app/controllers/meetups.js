@@ -82,7 +82,7 @@ exports.index = function(req, res){
   ], function(err, results) {
     Meetup.count().exec(function (err, count) {
       res.render('meetups/index', {
-        title: 'Meetups',
+        title: 'Upcoming events',
         meetups: results[1],
         area: JSON.parse(results[0]),
         page: page + 1,
