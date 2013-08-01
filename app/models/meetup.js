@@ -31,9 +31,13 @@ var setTags = function (tags) {
 var MeetupSchema = new Schema({
   title: {type : String, default : '', trim : true},
   description: {type : String, default : '', trim : true},
+  website: {type : String, default : '', trim : true},
   startDate: {type : Date, default : '', trim : true},
   endDate: {type : Date, default : '', trim : true},
   venue: {type : String, default : '', trim : true},
+  city: {type: String, default : '', trim : true},
+  state: {type: String, default : '', trim : true},
+  country: {type: String, default : '', trim : true},
   latitude: {type : Number, default : '', trim : true},
   longitude: {type : Number, default : '', trim : true},
   user: {type : Schema.ObjectId, ref : 'User'},
@@ -46,6 +50,7 @@ var MeetupSchema = new Schema({
     user: { type : Schema.ObjectId, ref : 'User' },
   }],
   tags: {type: [], get: getTags, set: setTags},
+  isFree: {type: Boolean},
   createdAt  : {type : Date, default : Date.now}
 })
 
@@ -65,6 +70,18 @@ MeetupSchema.path('venue').validate(function (venue) {
   return venue && venue.length > 0
 }, 'Meetup venue is required')
 
+MeetupSchema.path('city').validate(function (city) {
+  return city && city.length > 0
+}, 'Meetup city is required')
+
+MeetupSchema.path('state').validate(function (state) {
+  return state && state.length > 0
+}, 'Meetup state is required')
+
+MeetupSchema.path('country').validate(function (country) {
+  return country && country.length > 0
+}, 'Meetup country is required')
+
 MeetupSchema.path('startDate').validate(function (val) {
   return val && val.getTime && val.getTime()
 }, 'Meetup startDate is required')
@@ -80,6 +97,10 @@ MeetupSchema.path('latitude').validate(function (latitude) {
 MeetupSchema.path('longitude').validate(function (longitude) {
   return longitude && typeof longitude === 'number'
 }, 'Meetup longitude is required')
+
+MeetupSchema.path('isFree').validate(function (isFree) {
+  return isFree && typeof isFree === 'boolean'
+}, 'Meetup isFree is required')
 
 /**
  * Methods

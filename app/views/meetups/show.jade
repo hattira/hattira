@@ -1,7 +1,16 @@
 extends ../layouts/default
 
 block main
-  h1= meetup.title
+      h1= meetup.title
+      -if (meetup.website)
+        p(style='margin: 0; font-size: 1.2em')
+          a(href="#{meetup.website}", target="_blank") #{meetup.website}
+      p(style='margin: 0')
+        | #{meetup.venue}, #{meetup.city}, #{meetup.state}, #{meetup.country}
+      .green
+        = formatDatetime(meetup.startDate)
+        | &nbsp;to&nbsp;
+        = formatDatetime(meetup.endDate)
 
 block content
   .row-fluid.vspace-two
@@ -42,13 +51,6 @@ block content
     .span1.vline
 
     .span5
-      dl
-        dt Venue
-        dd= meetup.venue
-        dt.vspace-one Start date &amp; time
-        dd= meetup.startDate
-        dt.vspace-one End date &amp; time
-        dd= meetup.endDate
       #map-canvas
 
 block extra_js

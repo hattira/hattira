@@ -26,8 +26,14 @@ block content
           .control-group
             label.control-label(for='desc') Description
             .controls
-              textarea#desc.input-xxlarge(type='text', rows="5", name="description")
+              textarea.input-xxlarge(rows="5", name="description", value=meetup.description)
               span.help-block What is this event, why should people come and who should come
+
+          .control-group
+            label.control-label(for='website') Website
+            .controls
+              input#website.input-xxlarge(type='text', name="website", value=meetup.website)
+              span.help-block Does this event have a website?
 
           .control-group
             label.control-label(for='meetupDate') Happening on 
@@ -40,19 +46,34 @@ block content
           .control-group
             label.control-label(for='venue') Venue
             .controls
-              input#venue.input-xxlarge(type='text', name="venue", value=meetup.venue)
+              input.input-xxlarge(type='text', name="venue", value=meetup.venue)
               span.help-block Address where the event will happen
+
+          .control-group
+            label.control-label(for='city') City
+            .controls
+              input.input-xlarge(type='text', name="city", value=meetup.city)
+
+          .control-group
+            label.control-label(for='state') State
+            .controls
+              input.input-xlarge(type='text', name="state", value=meetup.state)
+
+          .control-group
+            label.control-label(for='country') Country
+            .controls
+              input.input-xlarge(type='text', name="country", value=meetup.country)
 
           .control-group
             label.control-label(for='latitude') Latitude
             .controls
-              input#venue.input-xlarge(type='text', name="latitude", value=meetup.latitude)
+              input.input-xlarge(type='text', name="latitude", value=meetup.latitude)
               span.help-block Latitude of the venue
 
           .control-group
             label.control-label(for='longitude') Longitude
             .controls
-              input#venue.input-xlarge(type='text', name="longitude", value=meetup.longitude)
+              input.input-xlarge(type='text', name="longitude", value=meetup.longitude)
               span.help-block Longitude of the venue
 
           .control-group
@@ -60,6 +81,12 @@ block content
             .controls
               input#tags.input-xxlarge(type='text', name="tags", value=meetup.tags)
               span.help-block Comma separated list of tags. Ex: python, web development, programming
+
+          .control-group
+            label.control-label(for='isFree') Free event
+            .controls
+              input.input-xxlarge(type='checkbox', name="isFree", value=meetup.isFree)
+              span.help-block Is the entry to the event free?
 
           .form-actions
             button.btn.btn-primary(type='submit') Save changes

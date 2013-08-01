@@ -16,6 +16,10 @@ body {
 .green { color: #9c0; }
 .orange { color: #f90; }
 
+.meetup-date {
+  font-size: 1.2em;
+  margin: 12px 0;
+}
 .vline {
   border-left: 1px solid #ddd;
   height: 500px;
