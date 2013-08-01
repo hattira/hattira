@@ -35,7 +35,7 @@ describe('Meetups', function () {
       .get('/meetups')
       .expect('Content-Type', /html/)
       .expect(200)
-      .expect(/Meetups/)
+      .expect(/Upcoming events/)
       .end(done)
     })
   })
