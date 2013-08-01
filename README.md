@@ -7,6 +7,10 @@ possible.  Please see [credits][2] for a full listing)
 
 ## Dev setup
 
+* Install mongodb
+
+* Install dependencies and start node
+
         $ npm install
         $ nodemon server.js
 
