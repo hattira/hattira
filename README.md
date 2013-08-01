@@ -1,5 +1,7 @@
 # deau - Developer Events Around U
 
+[![Build Status](https://travis-ci.org/caulagi/deau.png?branch=master)](https://travis-ci.org/caulagi/deau)
+
 A crowd sourced listing of developer events.  Built with love 
 using Nodejs and Mongodb.  (Of course, there are several libraries
 and projects other than node and mongodb that have made this
