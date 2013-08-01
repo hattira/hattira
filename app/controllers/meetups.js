@@ -162,10 +162,16 @@ exports.update = function(req, res){
  */
 
 exports.show = function(req, res, next){
+  var allow_edit = false;
+
+  if (req.user && req.user.id && req.meetup.user.id == req.user.id) {
+    allow_edit = true
+  }
+
   res.render('meetups/show', {
     title: req.meetup.title,
     meetup: req.meetup,
-    allow_edit: req.meetup.user.id === req.user.id
+    allow_edit: allow_edit
   })
 }
 

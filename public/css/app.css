@@ -81,6 +81,11 @@ body {
   font-family: courier serif;
 }
 
+#map-canvas {
+  height: 300px;
+  width: 100%;
+}
+
 /** ----------------------------------------------------------
  * https://github.com/necolas/css3-social-signin-buttons
  * ----------------------------------------------------------

@@ -48,3 +48,8 @@ block content
         dd= meetup.startDate
         dt.vspace-one End date &amp; time
         dd= meetup.endDate
+      #map-canvas
+
+block extra_js
+  script.
+    showMap(#{meetup.latitude}, #{meetup.longitude})
