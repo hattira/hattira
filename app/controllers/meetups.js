@@ -80,10 +80,23 @@ exports.index = function(req, res){
       return get_meetups(req, callback)
     }
   ], function(err, results) {
+    var meetups = results[1],
+      tags = []
+
+    meetups.forEach(function(meetup, index) {
+      meetup.tags.split(',').forEach(function (tag, index) {
+        tag = tag.trim()
+        if (tag && !tags[tag]) {
+          tags.push(tag)
+        }
+      })
+    })
+
     Meetup.count().exec(function (err, count) {
       res.render('meetups/index', {
         title: 'Upcoming events',
-        meetups: results[1],
+        meetups: meetups,
+        tags: tags,
         area: JSON.parse(results[0]),
         page: page + 1,
         pages: Math.ceil(count / perPage)
