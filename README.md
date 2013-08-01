@@ -16,6 +16,8 @@ possible.  Please see [credits][2] for a full listing)
 
 ## Tests
     
+* Some basics tests at the moment
+
         $ npm test
 
 ## License
