@@ -1,18 +1,20 @@
-function showMap(lat, lon) {
-  var mapOptions = {
-    center: new google.maps.LatLng(lat, lon),
-    zoom: 8,
+function showMap(address) {
+  var pos, mapOptions, map, marker;
+  pos = new google.maps.LatLng(address.latitude, address.longitude);
+  mapOptions = {
+    zoom: 7,
+    center: pos,
     mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-
-  var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+  }
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  marker = new google.maps.Marker({
+    position: pos,
+    map: map,
+    title: address.venue
+  });
 }
 
 $(document).ready(function () {
-
   $('#startDate').datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
   $('#endDate').datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
-
-  //google.maps.event.addDomListener(window, 'load', initialize);
-
 });

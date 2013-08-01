@@ -51,8 +51,20 @@ block content
     .span1.vline
 
     .span5
-      #map-canvas
+      - if (showAttendingAction)
+        .row-fluid
+          .span6.offset3
+            #attending.btn.btn-primary.btn-block.btn-large
+              | I'm attending
+        #map-canvas.vspace-three
+      - else
+        #map-canvas
 
 block extra_js
   script.
-    showMap(#{meetup.latitude}, #{meetup.longitude})
+    var address = {
+      latitude: #{meetup.latitude},
+      longitude: #{meetup.longitude},
+      venue: "#{meetup.venue}"
+    }
+    showMap(address)
