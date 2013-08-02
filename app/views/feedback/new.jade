@@ -38,3 +38,7 @@ block content
             button.btn.btn-primary(type='submit') Submit
             &nbsp;
             a.btn(href='/', title="cancel") Cancel
+
+block extra_js
+  script.
+    mixpanel.track('Feedback page')
