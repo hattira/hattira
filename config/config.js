@@ -8,7 +8,7 @@ module.exports = {
     db: 'mongodb://localhost/deau_dev',
     root: rootPath,
     app: {
-      name: 'deau: Developer Events Around U'
+      name: 'deau: Developer Events Around You'
     },
     twitter: {
       clientID: "j9X8kVVckZIjepCH9G2zNQ",
@@ -20,7 +20,7 @@ module.exports = {
     db: 'mongodb://localhost/deau_test',
     root: rootPath,
     app: {
-      name: 'deau: Developer Events Around U'
+      name: 'deau: Developer Events Around You'
     },
     twitter: {
       clientID: "CONSUMER_KEY",
@@ -28,5 +28,16 @@ module.exports = {
       callbackURL: "http://localhost:3000/auth/twitter/callback"
     },
   },
-  production: {}
+  production: {
+    db: process.env.MONGOHQ_URL || 'mongodb://localhost/deau_prod',
+    root: rootPath,
+    app: {
+      name: 'deau: Developer Events Around You'
+    },
+    twitter: {
+      clientID: process.env.TWITTER_CONSUMER_KEY,
+      clientSecret: process.env.TWITTER_CONSUMER_SECRET,
+      callbackURL: "http://deau.pw/auth/twitter/callback"
+    },
+  }
 }
