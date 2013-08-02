@@ -122,9 +122,6 @@ exports.new = function(req, res){
 exports.create = function (req, res) {
   var meetup = new Meetup(req.body)
   meetup.user = req.user
-  meetup.attending.push({
-    user: req.user._id
-  })
 
   meetup.save(function (err, doc, count) {
     if (!err) {
