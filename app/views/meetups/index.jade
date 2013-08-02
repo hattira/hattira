@@ -12,8 +12,11 @@ block content
       .span8
         - each meetup in meetups
           .meetup
+            .pull-right starting at #{formatDatetime(meetup.startDate)}
             h3
               a(href='/meetups/'+meetup._id, title=meetup.title) #{meetup.title}
+              -if (meetup.isFree)
+                span.free.badge.badge-success free
             p= meetup.description
 
             .muted

@@ -11,6 +11,13 @@ body {
 .vspace-four { margin-top: 4em; }
 .vspace-five { margin-top: 5em; }
 
+.free {
+  font-size: 12px;
+  margin-left: 10px;
+  position: relative;
+  top: -10px;
+}
+
 .no-margin { margin: 0 }
 
 .red { color: #c33; }

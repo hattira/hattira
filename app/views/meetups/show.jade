@@ -2,12 +2,14 @@ extends ../layouts/default
 
 block main
       h1= meetup.title
+        -if (meetup.isFree)
+          span.free.badge.badge-success free
       -if (meetup.website)
         p.no-margin
           a(href="#{meetup.website}", target="_blank") #{meetup.website}
       p.no-margin
         | #{meetup.venue}, #{meetup.city}, #{meetup.state}, #{meetup.country}
-      .green
+      .orange
         = formatDatetime(meetup.startDate)
         | &nbsp;to&nbsp;
         = formatDatetime(meetup.endDate)
