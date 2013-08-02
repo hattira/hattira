@@ -188,7 +188,7 @@ exports.show = function(req, res, next){
   }
 
   meetup.attending.forEach(function (attendee, index) {
-    if (user.id === attendee.user.id) {
+    if (user && user.id && user.id === attendee.user.id) {
       showAttending = false
     }
   })
