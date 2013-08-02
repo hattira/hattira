@@ -10,7 +10,14 @@
   "homepage": "http://deau.pw",
   "version": "0.1.0",
   "private": false,
-  "author": "Pradip Caulagi <caulagi@gmail.com> (http://caulagi.com)",
+  "author": {
+    "name": "Pradip Caulagi,
+    "email": "caulagi@gmail.com",
+    "url": "http://caulagi.com"
+  },
+  "bugs": {
+    "url": "https://github.com/caulagi/deau/issues"
+  },
   "engines": {
     "node": "0.10.x",
     "npm":  "1.2.x"
