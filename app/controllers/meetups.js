@@ -123,7 +123,9 @@ exports.new = function(req, res){
 exports.create = function (req, res) {
   var meetup = new Meetup(req.body)
   meetup.user = req.user
-  meetup.attending.push(req.user)
+  meetup.attending.push({
+    user: req.user._id
+  })
 
   meetup.save(function (err, doc, count) {
     if (!err) {
@@ -176,21 +178,59 @@ exports.update = function(req, res){
  */
 
 exports.show = function(req, res, next){
-  var allow_edit = false;
+  var allowEdit = false
+    , showAttending = true
+    , meetup = req.meetup
+    , user = req.user
 
-  if (req.user && req.user.id && req.meetup.user.id == req.user.id) {
+  if (user && user.id && meetup.user.id == user.id) {
     allow_edit = true
   }
+
+  meetup.attending.forEach(function (attendee, index) {
+    if (user.id === attendee.user.id) {
+      showAttending = false
+    }
+  })
 
   res.render('meetups/show', {
     title: req.meetup.title,
     meetup: req.meetup,
-    allow_edit: allow_edit
+    allowEdit: allowEdit,
+    showAttending: showAttending
   })
 }
 
 /**
- * Delete an meetup
+ * Attending
+ */
+
+exports.attending = function(req, res) {
+  var includeUser = true
+    , meetup = req.meetup
+  
+  meetup.attending.forEach(function (user, index) {
+    if (req.user.id == user.id) {
+      includeUser = false
+    }
+  })
+
+  if (!includeUser) {
+    req.flash('error', 'Nothing to do!  You are already attending')
+    res.redirect('/meetups/'+meetup.id)
+  }
+
+  meetup.attending.push({
+    user: req.user
+  })
+  meetup.save(function (err, doc, count) {
+    req.flash('info', 'Marked as attending!')
+    res.redirect('/meetups/'+meetup.id)
+  })
+}
+
+/**
+ * Delete the meetup
  */
 
 exports.destroy = function(req, res){

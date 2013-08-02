@@ -11,6 +11,8 @@ body {
 .vspace-four { margin-top: 4em; }
 .vspace-five { margin-top: 5em; }
 
+.no-margin { margin: 0 }
+
 .red { color: #c33; }
 .blue { color: #6cc; }
 .green { color: #9c0; }

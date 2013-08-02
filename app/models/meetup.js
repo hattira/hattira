@@ -102,20 +102,8 @@ MeetupSchema.path('isFree').validate(function (isFree) {
   return isFree && typeof isFree === 'boolean'
 }, 'Meetup isFree is required')
 
-/**
- * Methods
- */
 
 MeetupSchema.methods = {
-
-  /**
-   * Add comment
-   *
-   * @param {User} user
-   * @param {Object} comment
-   * @param {Function} cb
-   * @api private
-   */
 
   addComment: function (user, comment, cb) {
     //var notify = require('../mailer/notify')
@@ -134,6 +122,12 @@ MeetupSchema.methods = {
     */
 
     this.save(cb)
+  },
+
+  addAttending: function (user, cb) {
+    this.attending.push({
+      user: user._id
+    })
   }
 
 }
@@ -156,6 +150,7 @@ MeetupSchema.statics = {
     this.findOne({ _id : id })
       .populate('user', 'name email username')
       .populate('comments.user')
+      .populate('attending.user')
       .exec(cb)
   },
 

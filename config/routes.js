@@ -52,6 +52,7 @@ module.exports = function (app, passport) {
   app.post('/meetups/new', auth.requiresLogin, meetups.create)
   app.get('/meetups/:id', meetups.show)
   app.get('/meetups/:id/edit', meetupAuth, meetups.edit)
+  app.put('/meetups/:id/attending', auth.requiresLogin, meetups.attending)
   app.put('/meetups/:id', meetupAuth, meetups.update)
   app.del('/meetups/:id', meetupAuth, meetups.destroy)
 
