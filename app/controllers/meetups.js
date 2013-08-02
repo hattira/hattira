@@ -7,7 +7,7 @@ var mongoose = require('mongoose')
   , Meetup = mongoose.model('Meetup')
   , async = require('async')
   , util = require('util')
-  , misc = require('../../lib/misc')
+  , errors = require('../../lib/errors')
   , request = require('request')
   , _ = require('underscore')
 
@@ -135,7 +135,7 @@ exports.create = function (req, res) {
     res.render('meetups/new', {
       title: 'New Meetup',
       meetup: meetup,
-      errors: misc.errors(err.errors || err)
+      errors: errors.format(err.errors || err)
     })
   })
 }

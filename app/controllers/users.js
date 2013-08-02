@@ -5,7 +5,7 @@
 
 var mongoose = require('mongoose')
   , User = mongoose.model('User')
-  , misc = require('../../lib/misc')
+  , errors = require('../../lib/errors')
 
 exports.signin = function (req, res) {}
 
@@ -55,7 +55,7 @@ exports.create = function (req, res) {
   user.save(function (err) {
     if (err) {
       return res.render('users/signup', {
-        errors: misc.errors(err.errors),
+        errors: errors.format(err.errors),
         user: user,
         title: 'Sign up'
       })

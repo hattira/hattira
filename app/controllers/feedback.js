@@ -1,7 +1,7 @@
 
 var mongoose = require('mongoose')
   , Feedback = mongoose.model('Feedback')
-  , misc = require('../../lib/misc')
+  , errors = require('../../lib/errors')
 
 exports.new = function(req, res){
   res.render('feedback/new', {
@@ -23,7 +23,7 @@ exports.create = function (req, res) {
     res.render('feedback/new', {
       title: 'Feedback',
       feedback: feedback,
-      errors: misc.errors(err.errors || err)
+      errors: errors.format(err.errors || err)
     })
   })
 }
