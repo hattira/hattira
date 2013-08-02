@@ -1,7 +1,7 @@
 
 /*!
- * nodejs-express-mongoose-demo
- * Copyright(c) 2013 Madhusudhan Srinivasa <madhums8@gmail.com>
+ * deau - developer events around you
+ * Copyright(c) 2013 Pradip Caulagi <caulagi@gmail.com>
  * MIT Licensed
  */
 
