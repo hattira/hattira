@@ -1,4 +1,4 @@
-# deau - Developer Events Around U
+# [deau][3] - Developer Events Around You
 
 [![Build Status](https://travis-ci.org/caulagi/deau.png?branch=master)](https://travis-ci.org/caulagi/deau)
 
@@ -28,3 +28,4 @@ Licensed under [MIT][1]
 
 [1]: https://github.com/caulagi/deau/blob/master/LICENSE
 [2]: https://github.com/caulagi/deau/blob/master/CREDITS
+[3]: http://deau.pw
