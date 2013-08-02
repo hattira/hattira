@@ -7,8 +7,6 @@ var mongoose = require('mongoose')
   , User = mongoose.model('User')
   , errors = require('../../lib/errors')
 
-exports.signin = function (req, res) {}
-
 /**
  * Auth callback
  */
@@ -43,30 +41,6 @@ exports.logout = function (req, res) {
 
 exports.session = function (req, res) {
   res.redirect('/')
-}
-
-/**
- * Create user
- */
-
-exports.create = function (req, res) {
-  var user = new User(req.body)
-  user.provider = 'local'
-  user.save(function (err) {
-    if (err) {
-      return res.render('users/signup', {
-        errors: errors.format(err.errors),
-        user: user,
-        title: 'Sign up'
-      })
-    }
-
-    // manually login the user once successfully signed up
-    req.logIn(user, function(err) {
-      if (err) return next(err)
-      return res.redirect('/')
-    })
-  })
 }
 
 /**
