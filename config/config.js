@@ -15,6 +15,7 @@ module.exports = {
       clientSecret: "YdVw6jciDdVzAIeptYjo0ZTIHqIeXXccordtb0fmm6U",
       callbackURL: "http://localhost:3000/auth/twitter/callback"
     },
+    MIXPANEL_ID: "86d6a0a2e95c442691e4dc5543dbc833"
   },
   test: {
     db: 'mongodb://localhost/deau_test',
@@ -27,6 +28,7 @@ module.exports = {
       clientSecret: "CONSUMER_SECRET",
       callbackURL: "http://localhost:3000/auth/twitter/callback"
     },
+    MIXPANEL_ID: "86d6a0a2e95c442691e4dc5543dbc833"
   },
   production: {
     db: process.env.MONGOHQ_URL || 'mongodb://localhost/deau_prod',
@@ -39,5 +41,6 @@ module.exports = {
       clientSecret: process.env.TWITTER_CONSUMER_SECRET,
       callbackURL: "http://deau.pw/auth/twitter/callback"
     },
+    MIXPANEL_ID: process.env.MIXPANEL_ID || "86d6a0a2e95c442691e4dc5543dbc833"
   }
 }

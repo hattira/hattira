@@ -37,6 +37,7 @@ module.exports = function (app, config, passport) {
     // expose package.json to views
     app.use(function (req, res, next) {
       res.locals.pkg = pkg
+      res.locals.MIXPANEL_ID = config.MIXPANEL_ID
       next()
     })
 

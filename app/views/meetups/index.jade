@@ -60,3 +60,7 @@ block content
   - else
     p.muted No meetups.&nbsp;
       a(href="/meetups/new") create one
+
+block extra_js
+  script.
+    mixpanel.track('Event listing (index) page')

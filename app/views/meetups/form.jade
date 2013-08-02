@@ -92,3 +92,7 @@ block content
             button.btn.btn-primary(type='submit') Save changes
             &nbsp;
             a.btn(href='/meetups', title="cancel") Cancel
+
+block extra_js
+  script.
+    mixpanel.track('Event edit page')

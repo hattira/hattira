@@ -3,3 +3,7 @@ extends ../layouts/default
 block content
   #login
     a(href="/auth/twitter", class="btn-auth btn-twitter large") Login with twitter
+
+block extra_js
+  script.
+    mixpanel.track('Login page')

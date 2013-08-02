@@ -72,6 +72,7 @@ block content
 
 block extra_js
   script.
+    mixpanel.track('Show event page')
     var address = {
       latitude: #{meetup.latitude},
       longitude: #{meetup.longitude},

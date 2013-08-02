@@ -21,3 +21,7 @@ block content
         li
           strong Description: &nbsp;
           = user.twitter.description
+
+block extra_js
+  script.
+    mixpanel.track('User profile page')
