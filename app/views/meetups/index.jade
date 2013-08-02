@@ -46,9 +46,10 @@ block content
       .span3
         h3 Tags
         - if (tags.length)
-          -each tag in tags
-            a.tag(href="/tags/"+tag) #{tag}
-            | &nbsp;,&nbsp;
+          ul.unstyled
+            -each tag in tags
+              li
+                a.tag(href="/tags/"+tag) #{tag}
         - else
            | There are no tags yet
 

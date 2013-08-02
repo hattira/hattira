@@ -95,7 +95,7 @@ exports.index = function(req, res){
       res.render('meetups/index', {
         title: 'Upcoming events',
         meetups: meetups,
-        tags: tags,
+        tags: _.initial(tags, 20),
         area: JSON.parse(results[0]),
         page: page + 1,
         pages: Math.ceil(count / perPage)

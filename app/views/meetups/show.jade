@@ -31,9 +31,9 @@ block content
               strong Tags: &nbsp;
               - each tag in meetup.tags.split(',')
                 a.tag(href="/tags/"+tag)
+                  | &nbsp;
                   i.icon-tags
-                  |  #{tag}
-                &nbsp;&nbsp;
+                  | #{tag}
           p
             | Attending:
             - each attendee in meetup.attending
