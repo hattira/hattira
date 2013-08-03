@@ -3,10 +3,11 @@ extends ../layouts/default
 block content
   include ../includes/marketing
 
-  -if (area)
+  -if (req.city)
+    -var city = req.city
     .city
-      .pull-right Showing upcoming events in #{area.city},
-        | #{area.region_name}, #{area.country_name}
+      .pull-right Showing upcoming events in #{city.name},
+        | #{city.state}, #{city.country.name}
   h1= title
   - if (meetups.length)
     .row-fluid
