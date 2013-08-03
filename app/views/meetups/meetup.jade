@@ -1,0 +1,24 @@
+.meetup
+  .pull-right starting at #{formatDatetime(meetup.startDate)}
+  h3
+    a(href='/meetups/'+meetup._id, title=meetup.title) #{meetup.title}
+    -if (meetup.isFree)
+      span.free.badge.badge-success free
+  p= meetup.description
+
+  .muted
+    .pull-right.blue #{meetup.attending.length} attending
+    - var name = meetup.user.name ? meetup.user.name : meetup.user.username
+    | Created by &nbsp;
+    a(href="/users/"+meetup.user._id)= name
+    | &nbsp;on&nbsp;
+    span= formatDate(meetup.createdAt)
+
+    - if (meetup.tags)
+      p
+        strong Tags: &nbsp;
+        - each tag in meetup.tags.split(',')
+          &nbsp;
+          a.tag(href="/tags/"+tag)
+            i.icon-tags
+            | &nbsp;#{tag}

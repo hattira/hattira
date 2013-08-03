@@ -10,6 +10,7 @@ body {
 .vspace-three { margin-top: 3em; }
 .vspace-four { margin-top: 4em; }
 .vspace-five { margin-top: 5em; }
+.align-right { text-align: right; }
 
 .free {
   font-size: 12px;

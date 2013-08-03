@@ -5,61 +5,25 @@ block content
 
   -if (area)
     .city
-      .pull-right Showing upcoming events in #{area.city}, #{area.region_name}, #{area.country_name}
+      .pull-right Showing upcoming events in #{area.city},
+        | #{area.region_name}, #{area.country_name}
   h1= title
   - if (meetups.length)
     .row-fluid
-      .span8
+      .span9
         - each meetup in meetups
-          .meetup
-            .pull-right starting at #{formatDatetime(meetup.startDate)}
-            h3
-              a(href='/meetups/'+meetup._id, title=meetup.title) #{meetup.title}
-              -if (meetup.isFree)
-                span.free.badge.badge-success free
-            p= meetup.description
-
-            .muted
-              .pull-right.blue #{meetup.attending.length} attending
-              - var name = meetup.user.name ? meetup.user.name : meetup.user.username
-              | Created by &nbsp;
-              a(href="/users/"+meetup.user._id)= name
-              | &nbsp;on&nbsp;
-              span= formatDate(meetup.createdAt)
-
-              - if (meetup.tags)
-                p
-                  strong Tags: &nbsp;
-                  - each tag in meetup.tags.split(',')
-                    &nbsp;
-                    a.tag(href="/tags/"+tag)
-                      i.icon-tags
-                      |  #{tag}
+          include ./meetup
 
         - if (pages > 1)
           .pagination
             ul
               != createPagination(pages, page)
 
-      .span1.vline
+      .span2.offset1
+        include ./browse
 
-      .span3
-        h3 Tags
-        - if (tags.length)
-          ul.unstyled
-            -each tag in tags
-              li
-                a.tag(href="/tags/"+tag) #{tag}
-        - else
-           | There are no tags yet
-
-        h3.vspace-two Cities near you
-        p.vspace-one Coming soon
-          
-
-          
   - else
-    p.muted No meetups.&nbsp;
+    p.muted No meetups yet in your city.&nbsp;
       a(href="/meetups/new") create one
 
 block extra_js
