@@ -11,6 +11,10 @@ possible.  Please see [credits][2] for a full listing)
 
 * Install mongodb
 
+* Load data about cities and countries
+
+        $ node data/loadCities.js
+
 * Install dependencies and start node
 
         $ npm install

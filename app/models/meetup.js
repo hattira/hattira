@@ -35,9 +35,7 @@ var MeetupSchema = new Schema({
   startDate: {type : Date, default : '', trim : true},
   endDate: {type : Date, default : '', trim : true},
   venue: {type : String, default : '', trim : true},
-  city: {type: String, default : '', trim : true},
-  state: {type: String, default : '', trim : true},
-  country: {type: String, default : '', trim : true},
+  city: {type: Schema.ObjectId, ref : 'City'},
   latitude: {type : Number, default : '', trim : true},
   longitude: {type : Number, default : '', trim : true},
   user: {type : Schema.ObjectId, ref : 'User'},
@@ -73,14 +71,6 @@ MeetupSchema.path('venue').validate(function (venue) {
 MeetupSchema.path('city').validate(function (city) {
   return city && city.length > 0
 }, 'Meetup city is required')
-
-MeetupSchema.path('state').validate(function (state) {
-  return state && state.length > 0
-}, 'Meetup state is required')
-
-MeetupSchema.path('country').validate(function (country) {
-  return country && country.length > 0
-}, 'Meetup country is required')
 
 MeetupSchema.path('startDate').validate(function (val) {
   return val && val.getTime && val.getTime()

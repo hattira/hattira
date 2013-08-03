@@ -5,6 +5,7 @@
 
 var mongoose = require('mongoose')
   , Meetup = mongoose.model('Meetup')
+  , City = mongoose.model('City')
   , async = require('async')
   , util = require('util')
   , errors = require('../../lib/errors')
@@ -23,6 +24,7 @@ function getClientIp(req) {
     ipAddress = req.connection.remoteAddress;
   }
 
+  return '8.8.8.8'
   return ipAddress
 }
 
@@ -46,60 +48,71 @@ exports.load = function(req, res, next, id){
  */
 
 exports.index = function(req, res){
-  var page = (req.param('page') > 0 ? req.param('page') : 1) - 1
-  var perPage = 30
-  var options = {
-    perPage: perPage,
-    page: page
-  }
 
-  function get_area(req, callback) {
-    var ip = getClientIp(req)
-      , url = util.format("http://freegeoip.net/json/%s", ip)
-    request(url, function(err, response, body) {
-      if (err) callback(err)
-      callback(null, body)
-    })
-  }
+  var ip = getClientIp(req)
+    , url = util.format("http://freegeoip.net/json/%s", ip)
 
-  function get_meetups(req, callback) {
-    Meetup.list(options, function(err, meetups) {
-      if (err) return callback(error)
-      Meetup.count().exec(function (err, count) {
-        callback(null, meetups)
-      })
-    })
-  }
+  request(url, function(err, response, body) {
+    var searchParams = {}
 
-  async.series([
-    function(callback) {
-      return get_area(req, callback)
-    },
-    function(callback) {
-      return get_meetups(req, callback)
+    body = JSON.parse(body)
+    searchParams.fingerprint = City.getFingerprint(body.city)
+    searchParams.state = body.region_name
+    searchParams.country = body.country_code
+
+    if (err) {
+      return res.render('500')
     }
-  ], function(err, results) {
-    var meetups = results[1],
-      tags = []
 
-    meetups.forEach(function(meetup, index) {
-      meetup.tags.split(',').forEach(function (tag, index) {
-        tag = tag.trim()
-        if (tag && !tags[tag]) {
-          tags.push(tag)
-        }
-      })
+    City.load(searchParams, function(err, city) {
+      console.log(searchParams, city)
+      if (err) {
+        return res.render('404')
+      }
+      return res.redirect(util.format('/meetups/by-city/%s', city.id))
     })
+  })
+}
 
+/**
+ * List by city
+ */
+
+exports.byCity = function(req, res, next, city, state, country){
+
+  var page = (req.param('page') > 0 ? req.param('page') : 1) - 1
+    , perPage = 30
+    , tags = []
+    , options = {
+        perPage: perPage,
+        page: page,
+        city: city
+      }
+
+  Meetup.list(options, function(err, meetups) {
+    if (err) return callback(error)
     Meetup.count().exec(function (err, count) {
-      res.render('meetups/index', {
-        title: 'Upcoming events',
-        meetups: meetups,
-        tags: _.first(tags, 20),
-        area: JSON.parse(results[0]),
-        page: page + 1,
-        pages: Math.ceil(count / perPage)
-      })
+      callback(null, meetups)
+    })
+  })
+
+  _.each(meetups, function(meetup, index) {
+    _.each(meetup.tags.split(','), function (tag, index) {
+      tag = tag.trim()
+      if (tag && !tags[tag]) {
+        tags.push(tag)
+      }
+    })
+  })
+
+  Meetup.count().exec(function (err, count) {
+    res.render('meetups/index', {
+      title: 'Upcoming events',
+      meetups: meetups,
+      tags: _.first(tags, 20),
+      area: JSON.parse(results[0]),
+      page: page + 1,
+      pages: Math.ceil(count / perPage)
     })
   })
 }

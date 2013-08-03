@@ -39,6 +39,7 @@ module.exports = function (app, passport) {
 
   // meetup routes
   app.get('/meetups', meetups.index)
+  app.get('/meetups/by-city/:id', meetups.byCity)
   app.get('/meetups/new', auth.requiresLogin, meetups.new)
   app.post('/meetups/new', auth.requiresLogin, meetups.create)
   app.get('/meetups/:id', meetups.show)
