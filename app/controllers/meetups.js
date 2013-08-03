@@ -26,7 +26,6 @@ function getClientIp(req) {
     ipAddress = req.connection.remoteAddress;
   }
 
-  return '8.8.8.8'
   return ipAddress
 }
 
