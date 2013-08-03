@@ -29,8 +29,20 @@ var CitySchema = new Schema({
 
 CitySchema.statics = {
 
-  load: function (id, cb) {
+  byId: function (id, cb) {
     this.findOne({ _id : id })
+      .populate('country', 'name')
+      .exec(cb)
+  },
+
+  byFingerprint: function (fp, cb) {
+    this.findOne({ fingerprint: fp })
+      .populate('country', 'name')
+      .exec(cb)
+  },
+
+  byParams: function (params, cb) {
+    this.findOne(params)
       .populate('country', 'name')
       .exec(cb)
   },

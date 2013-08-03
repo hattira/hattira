@@ -4,6 +4,8 @@
  */
 
 var mongoose = require('mongoose')
+  , env = process.env.NODE_ENV || 'development'
+  , config = require('../../config/config')[env]
   , Meetup = mongoose.model('Meetup')
   , City = mongoose.model('City')
   , async = require('async')
@@ -53,20 +55,14 @@ exports.index = function(req, res){
     , url = util.format("http://freegeoip.net/json/%s", ip)
 
   request(url, function(err, response, body) {
-    var searchParams = {}
+    var fp = City.getFingerprint(JSON.parse(body).city)
 
-    body = JSON.parse(body)
-    searchParams.fingerprint = City.getFingerprint(body.city)
-    searchParams.state = body.region_name
-    searchParams.country = body.country_code
+    if (err) return res.render('500')
 
-    if (err) {
-      return res.render('500')
-    }
-
-    City.load(searchParams, function(err, city) {
-      console.log(searchParams, city)
+    //TODO: Handle the case where lookup by fingerprint fails
+    City.byFingerprint(fp, function(err, city) {
       if (err) {
+        console.log('Failed to lookup city with fp:', fp)
         return res.render('404')
       }
       return res.redirect(util.format('/meetups/by-city/%s', city.id))
@@ -78,41 +74,31 @@ exports.index = function(req, res){
  * List by city
  */
 
-exports.byCity = function(req, res, next, city, state, country){
+exports.byCity = function(req, res, next){
 
   var page = (req.param('page') > 0 ? req.param('page') : 1) - 1
-    , perPage = 30
     , tags = []
-    , options = {
-        perPage: perPage,
-        page: page,
-        city: city
-      }
+    , options = { perPage: config.items_per_page, page: page }
 
+  options.criteria = {city: req.city}
   Meetup.list(options, function(err, meetups) {
-    if (err) return callback(error)
+    if (err) return next(error)
     Meetup.count().exec(function (err, count) {
-      callback(null, meetups)
-    })
-  })
-
-  _.each(meetups, function(meetup, index) {
-    _.each(meetup.tags.split(','), function (tag, index) {
-      tag = tag.trim()
-      if (tag && !tags[tag]) {
-        tags.push(tag)
-      }
-    })
-  })
-
-  Meetup.count().exec(function (err, count) {
-    res.render('meetups/index', {
-      title: 'Upcoming events',
-      meetups: meetups,
-      tags: _.first(tags, 20),
-      area: JSON.parse(results[0]),
-      page: page + 1,
-      pages: Math.ceil(count / perPage)
+      _.each(meetups, function(meetup, index) {
+        _.each(meetup.tags.split(','), function (tag, index) {
+          tag = tag.trim()
+          if (tag && !tags[tag]) {
+            tags.push(tag)
+          }
+        })
+      })
+      res.render('meetups/index', {
+        title: 'Upcoming events',
+        meetups: meetups,
+        tags: _.first(tags, 20),
+        page: page + 1,
+        pages: Math.ceil(count / config.items_per_page)
+      })
     })
   })
 }

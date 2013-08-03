@@ -5,6 +5,7 @@ var rootPath = require('path').normalize(__dirname + '/..')
 var _base = {
   db: 'mongodb://localhost/deau',
   root: rootPath,
+  items_per_page: 30,
   app: {
     name: 'deau: Developer Events Around You'
   },
