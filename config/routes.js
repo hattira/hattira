@@ -11,7 +11,6 @@ var async = require('async')
 
 var users = require('../app/controllers/users')
   , meetups = require('../app/controllers/meetups')
-  , cities = require('../app/controllers/cities')
   , auth = require('./middlewares/authorization')
 
 /**
@@ -49,11 +48,17 @@ module.exports = function (app, passport) {
   app.put('/meetups/:id', meetupAuth, meetups.update)
   app.del('/meetups/:id', meetupAuth, meetups.destroy)
 
-  app.param('cityId', cities.load)
   app.param('id', meetups.load)
 
   // home route
   app.get('/', meetups.index)
+
+  // city routes
+  var cities = require('../app/controllers/cities')
+  app.get('/cities/search/:query', cities.search)
+
+  app.param('cityId', cities.load)
+  app.param('query', cities.find)
 
   // comment routes
   var comments = require('../app/controllers/comments')

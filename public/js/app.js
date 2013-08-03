@@ -17,4 +17,12 @@ function showMap(address) {
 $(document).ready(function () {
   $('#startDate').datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
   $('#endDate').datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
+
+  $('#citySearch').typeahead({
+    source: function (query, process) {
+      return $.get('/cities/search/'+query, function(data) {
+        return process(data)
+      })
+    }
+  })
 });

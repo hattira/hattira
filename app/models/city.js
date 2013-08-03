@@ -41,6 +41,12 @@ CitySchema.statics = {
       .exec(cb)
   },
 
+  byName: function(query, cb) {
+    this.find({ name: new RegExp(query, "i") })
+      .populate('country', 'name')
+      .exec(cb)
+  },
+
   byParams: function (params, cb) {
     this.findOne(params)
       .populate('country', 'name')

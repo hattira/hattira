@@ -52,29 +52,22 @@ block content
           .control-group
             label.control-label(for='city') City
             .controls
-              input.input-xlarge(type='text', name="city", value=meetup.city)
-
-          .control-group
-            label.control-label(for='state') State
-            .controls
-              input.input-xlarge(type='text', name="state", value=meetup.state)
-
-          .control-group
-            label.control-label(for='country') Country
-            .controls
-              input.input-xlarge(type='text', name="country", value=meetup.country)
+              input#citySearch.input-xxlarge(type='text', name="city",
+                value=meetup.city, autocomplete="off")
 
           .control-group
             label.control-label(for='latitude') Latitude
             .controls
               input.input-xlarge(type='text', name="latitude", value=meetup.latitude)
-              span.help-block Latitude of the venue
+              span.help-block Latitude of venue.  Find
+                a(href='http://www.latlong.net/', target='_blank') &nbsp;here
 
           .control-group
             label.control-label(for='longitude') Longitude
             .controls
               input.input-xlarge(type='text', name="longitude", value=meetup.longitude)
-              span.help-block Longitude of the venue
+              span.help-block Longitude of venue.  Find
+                a(href='http://www.latlong.net/', target='_blank') &nbsp;here
 
           .control-group
             label.control-label(for='tags') Tags
