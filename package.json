@@ -1,13 +1,13 @@
 {
-  "name": "deau",
-  "description": "Developer Events Around You",
+  "name": "eiyc",
+  "description": "Events In Your City",
   "keywords": [
     "express",
     "mongoose",
     "mongodb",
     "passport"
   ],
-  "homepage": "http://deau.pw",
+  "homepage": "http://eiyc.pw",
   "version": "0.1.0",
   "private": false,
   "author": {
@@ -16,7 +16,7 @@
     "url": "http://caulagi.com"
   },
   "bugs": {
-    "url": "https://github.com/caulagi/deau/issues"
+    "url": "https://github.com/caulagi/eiyc/issues"
   },
   "engines": {
     "node": "0.10.x",
@@ -49,6 +49,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/caulagi/deau.git"
+    "url": "https://github.com/caulagi/eiyc.git"
   }
 }

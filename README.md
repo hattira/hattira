@@ -1,11 +1,13 @@
-# [deau][3] - Developer Events Around You
+# [eiyc][1] - Events In Your City
 
-[![Build Status](https://travis-ci.org/caulagi/deau.png?branch=master)](https://travis-ci.org/caulagi/deau)
+[![Build Status](https://travis-ci.org/caulagi/eiyc.png?branch=master)](https://travis-ci.org/caulagi/eiyc)
 
-A crowd sourced listing of developer events.  Built with love 
-using Nodejs and Mongodb.  (Of course, there are several libraries
-and projects other than node and mongodb that have made this
-possible.  Please see [credits][2] for a full listing)
+eiyc, pronouced eeeiiiccc is a webapp to allow people
+to easily track what is happening in a city.  Anybody
+can create a listing for free, and it will have some
+social features like following.
+
+Built with love using Nodejs and Mongodb.
 
 ## Dev setup
 
@@ -30,6 +32,6 @@ possible.  Please see [credits][2] for a full listing)
 
 Licensed under [MIT][1]
 
-[1]: https://github.com/caulagi/deau/blob/master/LICENSE
-[2]: https://github.com/caulagi/deau/blob/master/CREDITS
-[3]: http://deau.pw
+[1]: https://github.com/caulagi/eiyc/blob/master/LICENSE
+[2]: https://github.com/caulagi/eiyc/blob/master/CREDITS
+[3]: http://eiyc.pw

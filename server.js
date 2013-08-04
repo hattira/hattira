@@ -1,6 +1,6 @@
 
 /*!
- * deau - developer events around you
+ * eiyc - events in your city
  * Copyright(c) 2013 Pradip Caulagi <caulagi@gmail.com>
  * MIT Licensed
  */
