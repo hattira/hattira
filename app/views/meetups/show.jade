@@ -8,7 +8,9 @@ block main
         p.no-margin
           a(href="#{meetup.website}", target="_blank") #{meetup.website}
       p.no-margin
-        | #{meetup.venue}, #{meetup.city}, #{meetup.state}, #{meetup.country}
+        | #{meetup.venue}, &nbsp;
+        a(href='/meetups/by-city/#{meetup.city.id}') #{meetup.city.name}
+        | &nbsp;, #{meetup.city.state}, #{meetup.city.country.name}
       .orange
         = formatDatetime(meetup.startDate)
         | &nbsp;to&nbsp;

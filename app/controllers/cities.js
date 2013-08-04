@@ -14,7 +14,7 @@ var mongoose = require('mongoose')
 
 exports.load = function(req, res, next, id){
 
-  City.byId(id, function (err, city) {
+  City.load(id, function (err, city) {
     if (err) return next(err)
     if (!city) return next(new Error('not found'))
     req.city = city
@@ -27,10 +27,16 @@ exports.load = function(req, res, next, id){
  */
 
 exports.find = function(req, res, next, query) {
-  City.byName(query, function (err, cities) {
+  var options = { 
+    criteria: {name: new RegExp(query, "i")}
+  }
+
+  City.list(options, function (err, cities) {
     if (err) return next(err)
-    req.cities = cities
-    next()
+    City.count().exec(function (err, count) {
+      req.cities = cities
+      next()
+    })
   })
 }
 

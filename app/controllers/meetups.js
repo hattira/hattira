@@ -34,8 +34,6 @@ function getClientIp(req) {
  */
 
 exports.load = function(req, res, next, id){
-  var User = mongoose.model('User')
-
   Meetup.load(id, function (err, meetup) {
     if (err) return next(err)
     if (!meetup) return next(new Error('not found'))
@@ -55,16 +53,20 @@ exports.index = function(req, res){
 
   request(url, function(err, response, body) {
     var fp = City.getFingerprint(JSON.parse(body).city)
+      , options = { criteria: { fingerprint: fp } }
 
     if (err) return res.render('500')
 
     //TODO: Handle the case where lookup by fingerprint fails
-    City.byFingerprint(fp, function(err, city) {
+    City.list(options, function(err, cities) {
       if (err) {
         console.log('Failed to lookup city with fp:', fp)
         return res.render('404')
       }
-      return res.redirect(util.format('/meetups/by-city/%s', city.id))
+
+      City.count().exec(function (err, count) {
+        return res.redirect(util.format('/meetups/by-city/%s', cities[0].id))
+      })
     })
   })
 }
@@ -79,9 +81,9 @@ exports.byCity = function(req, res, next){
     , tags = []
     , options = { perPage: config.items_per_page, page: page }
 
-  options.criteria = {city: req.city}
+  options.criteria = {city: req.city.id}
   Meetup.list(options, function(err, meetups) {
-    if (err) return next(error)
+    if (err) return next(err)
     Meetup.count().exec(function (err, count) {
       _.each(meetups, function(meetup, index) {
         _.each(meetup.tags.split(','), function (tag, index) {
@@ -117,20 +119,43 @@ exports.new = function(req, res){
  * Create an meetup
  */
 
-exports.create = function (req, res) {
-  var meetup = new Meetup(req.body)
-  meetup.user = req.user
+exports.create = function (req, res, next) {
+  var options = {
+        criteria: {
+          name: req.body.city.split(',')[0],
+          state: req.body.city.split(',')[1].trim(),
+        }
+      }
 
-  meetup.save(function (err, doc, count) {
-    if (!err) {
-      req.flash('success', 'Successfully created meetup!')
-      return res.redirect('/meetups/'+doc._id)
-    }
+  City.list(options, function (err, cities) {
+    if (err) return next(err)
 
-    res.render('meetups/new', {
-      title: 'New Meetup',
-      meetup: meetup,
-      errors: errors.format(err.errors || err)
+    City.count().exec(function (err, count) {
+      if ( !cities.length ) {
+        return res.render('meetups/new', {
+          title: 'New Meetup',
+          meetup: new Meetup(req.body),
+          errors: ["Unable to find city with that name"]
+        })
+      }
+      
+      // something weird.  We need to set the city before
+      // doing new Meetup
+      req.body.city = cities[0].id
+      var meetup = new Meetup(req.body)
+      meetup.user = req.user
+      meetup.save(function (err, doc, count) {
+        if (!err) {
+          req.flash('success', 'Successfully created meetup!')
+          return res.redirect('/meetups/'+doc._id)
+        }
+
+        return res.render('meetups/new', {
+          title: 'New Meetup',
+          meetup: meetup,
+          errors: errors.format(err.errors || err)
+        })
+      })
     })
   })
 }
