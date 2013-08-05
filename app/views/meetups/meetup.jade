@@ -4,7 +4,7 @@
     a(href='/meetups/'+meetup._id, title=meetup.title) #{meetup.title}
     -if (meetup.isFree)
       span.free.badge.badge-success free
-  p= meetup.description
+  div !{meetup.description}
 
   .muted
     .pull-right.blue #{meetup.attending.length} attending

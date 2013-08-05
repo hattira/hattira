@@ -87,6 +87,7 @@ exports.byCity = function(req, res, next){
     if (err) return next(err)
     Meetup.count().exec(function (err, count) {
       _.each(meetups, function(meetup, index) {
+        meetup.description = markdown.toHTML(meetup.description.slice(0,250)+'...')
         _.each(meetup.tags.split(','), function (tag, index) {
           tag = tag.trim()
           if (tag && !tags[tag]) {
