@@ -1,8 +1,11 @@
 body {
-  padding-top: 20px;
   padding-bottom: 40px;
   font-family: Cuprum, arial, serif;
   font-size: 16px;
+}
+
+hr {
+  border-top: 1px solid #ccc;
 }
 
 .vspace-one { margin-top: 1em; }
@@ -31,7 +34,7 @@ body {
   margin: 12px 0;
 }
 .vline {
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #222;
   height: 500px;
 }
 
@@ -39,17 +42,31 @@ body {
   text-align: center;
 }
 
+
+#content-container {
+  margin-top: 7px;
+}
+
 #marketing {
-  margin: 40px 20%;
+  margin: 8px 20%;
 }
 
 #marketing h1 {
   font-size: 54px;
+  margin-top: 50px;
 }
 
 #marketing .intro{
   font-size: 24px;
   line-height: 30px;
+}
+
+#masthead {
+  height: 60px;
+  border-bottom: 1px solid #afafaf;
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black;
 }
 
 #masthead h1 {
@@ -68,8 +85,8 @@ body {
   margin: 10px 40px;
 }
 
-#footer {
-  margin-top: 60px;
+#footer .container {
+  margin-bottom: 60px;
 }
 
 #footer .license {
@@ -98,6 +115,10 @@ body {
 #map-canvas {
   height: 300px;
   width: 100%;
+}
+
+#content-container, #footer {
+  background: url('/static/img/grey.png') repeat;
 }
 
 /** ----------------------------------------------------------
