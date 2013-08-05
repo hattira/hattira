@@ -53,7 +53,9 @@ exports.index = function(req, res){
     , url = util.format("http://freegeoip.net/json/%s", ip)
 
   request(url, function(err, response, body) {
-    var fp = City.getFingerprint(JSON.parse(body).city)
+    var freegeo = JSON.parse(body)
+      , city = freegeo.city || config.fallbackCity
+      , fp = City.getFingerprint(city)
       , options = { criteria: { fingerprint: fp } }
 
     if (err) return res.render('500')

@@ -14,6 +14,7 @@ var _base = {
     clientSecret: "YdVw6jciDdVzAIeptYjo0ZTIHqIeXXccordtb0fmm6U",
     callbackURL: "http://localhost:3000/auth/twitter/callback"
   },
+  fallbackCity: 'Bangalore',
   MIXPANEL_ID: process.env.MIXPANEL_ID || "86d6a0a2e95c442691e4dc5543dbc833"
 }
 
