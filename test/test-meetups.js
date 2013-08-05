@@ -9,6 +9,8 @@ var mongoose = require('mongoose')
   , app = require('../server')
   , context = describe
   , User = mongoose.model('User')
+  , City = mongoose.model('City')
+  , Country = mongoose.model('Country')
   , Meetup = mongoose.model('Meetup')
   , agent = request.agent(app)
 
@@ -19,23 +21,36 @@ var count
  */
 
 describe('Meetups', function () {
+  var india
+    , bangalore
+
   before(function (done) {
-    // create a user
-    var user = new User({
-      name: 'Foo bar',
-      username: 'foobar',
-      provider: 'twitter'
+    india = new Country ({
+      "name" : "India",
+      "twoLetterCode" : "IN",
+      "threeLetterCode" : "IND",
+      "continent" : "AS",
+      "timezone" : "Asia/Kolkata",
+      "gmtOffset" : 5.5
     })
-    user.save(done)
+    india.save()
+    bangalore = new City({
+      "name" : "Bangalore",
+      "fingerprint" : "bangalore", 
+      "latitude" : 12.97194,
+      "longitude" : 77.59369,
+      "state" : "Karnataka",
+      "country" : india.id,
+    })
+    bangalore.save(done)
   })
 
   describe('GET /meetups', function () {
     it('should respond with Content-Type text/html', function (done) {
       agent
       .get('/meetups')
-      .expect('Content-Type', /html/)
-      .expect(200)
-      .expect(/Upcoming events/)
+      .expect('Content-Type', /plain/)
+      .expect(302)
       .end(done)
     })
   })
