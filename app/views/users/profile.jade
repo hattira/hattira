@@ -12,9 +12,10 @@ block content
       ul.unstyled
         li 
           strong Website: &nbsp;
-          - each website in user.twitter.entities.url.urls
-              a(href=website.expanded_url) #{website.display_url}
-              ,&nbsp;
+          - if (user.twitter.entities.url && user.twitter.entities.url.urls)
+            - each website in user.twitter.entities.url.urls
+                a(href=website.expanded_url) #{website.display_url}
+                ,&nbsp;
         li
           strong Location: &nbsp;
           = user.twitter.location
