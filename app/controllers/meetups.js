@@ -12,6 +12,7 @@ var mongoose = require('mongoose')
   , util = require('util')
   , errors = require('../../lib/errors')
   , request = require('request')
+  , markdown = require( "markdown" ).markdown
   , _ = require('underscore')
 
 // https://gist.github.com/qiao/1626318
@@ -210,6 +211,11 @@ exports.show = function(req, res, next){
     if (user && user.id && user.id === attendee.user.id) {
       showAttending = false
     }
+  })
+
+  meetup.description = markdown.toHTML(meetup.description)
+  _.each(meetup.comments, function(comment, index) {
+    meetup.comments[index].body = markdown.toHTML(comment.body)
   })
 
   res.render('meetups/show', {

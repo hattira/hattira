@@ -19,7 +19,7 @@ block main
 block content
   .row-fluid.vspace-two
     .span6
-      p=meetup.description
+      p !{meetup.description}
       .meta.muted
         - if (meetup.user)
           - var name = meetup.user.name ? meetup.user.name : meetup.user.username
@@ -56,6 +56,7 @@ block content
         h3 Comments
         - each comment in meetup.comments
           include ../comments/comment
+        .vspace-three
         include ../comments/form
 
     .span1.vline

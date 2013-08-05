@@ -10,81 +10,81 @@ block content
   - action += meetup.isNew? '/new' : '/' + meetup.id
 
   .row-fluid
-      form.form-horizontal(method="post", action=action, enctype="multipart/form-data")
-        fieldset
-          input(type="hidden", name="_csrf", value="#{csrf_token}")
+    form.form-horizontal(method="post", action=action, enctype="multipart/form-data")
+      input(type="hidden", name="_csrf", value="#{csrf_token}")
 
-          - if (!meetup.isNew)
-            input(type="hidden", name="_method", value="PUT")
+      - if (!meetup.isNew)
+        input(type="hidden", name="_method", value="PUT")
 
-          .control-group
-            label.control-label(for='title') Title
-            .controls
-              input#title.input-xxlarge(type='text', name="title", value=meetup.title)
-              span.help-block What is this event about?
+      .control-group
+        label.control-label(for='title') Title
+        .controls
+          input#title.input-xxlarge(type='text', name="title", value=meetup.title)
+          span.help-block What is this event about?
 
-          .control-group
-            label.control-label(for='desc') Description
-            .controls
-              textarea.input-xxlarge(rows="5", name="description", value=meetup.description)
-              span.help-block What is this event, why should people come and who should come
+      .control-group
+        label.control-label(for='desc') Description
+        .controls
+          textarea.input-xxlarge(rows="12", name="description", value=meetup.description)
+          span.help-block What is this event, why should people come and who should come.  You can use &nbsp;
+            a(href="http://daringfireball.net/projects/markdown/", target="_blank") markdown.
 
-          .control-group
-            label.control-label(for='website') Website
-            .controls
-              input#website.input-xxlarge(type='text', name="website", value=meetup.website)
-              span.help-block Does this event have a website?
+      .control-group
+        label.control-label(for='website') Website
+        .controls
+          input#website.input-xxlarge(type='text', name="website", value=meetup.website)
+          span.help-block Does this event have a website?
 
-          .control-group
-            label.control-label(for='meetupDate') Happening on 
-            .controls
-              input#startDate.input(type='text', name="startDate",
-                  value=meetup.startDate, placeholder="Start date and time")
-              input#endDate.input(type='text', name="endDate",
-                  value=meetup.endDate, placeholder="End date and time")
+      .control-group
+        label.control-label(for='meetupDate') Happening on 
+        .controls
+          input#startDate.input(type='text', name="startDate",
+              value=meetup.startDate, placeholder="Start date and time")
+          input#endDate.input(type='text', name="endDate",
+              value=meetup.endDate, placeholder="End date and time")
 
-          .control-group
-            label.control-label(for='venue') Venue
-            .controls
-              input.input-xxlarge(type='text', name="venue", value=meetup.venue)
-              span.help-block Address where the event will happen
+      .control-group
+        label.control-label(for='venue') Venue
+        .controls
+          input.input-xxlarge(type='text', name="venue", value=meetup.venue)
+          span.help-block Address where the event will happen
 
-          .control-group
-            label.control-label(for='city') City
-            .controls
-              input#citySearch.input-xxlarge(type='text', name="city",
-                value=meetup.city, autocomplete="off")
+      .control-group
+        label.control-label(for='city') City
+        .controls
+          input#citySearch.input-xxlarge(type='text', name="city",
+            value=meetup.city, autocomplete="off")
 
-          .control-group
-            label.control-label(for='latitude') Latitude
-            .controls
-              input.input-xlarge(type='text', name="latitude", value=meetup.latitude)
-              span.help-block Latitude of venue.  Find
-                a(href='http://www.latlong.net/', target='_blank') &nbsp;here
+      .control-group
+        label.control-label(for='latitude') Latitude
+        .controls
+          input.input-xlarge(type='text', name="latitude", value=meetup.latitude)
+          span.help-block Latitude of venue.  Find
+            a(href='http://www.latlong.net/', target='_blank') &nbsp;here
 
-          .control-group
-            label.control-label(for='longitude') Longitude
-            .controls
-              input.input-xlarge(type='text', name="longitude", value=meetup.longitude)
-              span.help-block Longitude of venue.  Find
-                a(href='http://www.latlong.net/', target='_blank') &nbsp;here
+      .control-group
+        label.control-label(for='longitude') Longitude
+        .controls
+          input.input-xlarge(type='text', name="longitude", value=meetup.longitude)
+          span.help-block Longitude of venue.  Find
+            a(href='http://www.latlong.net/', target='_blank') &nbsp;here
 
-          .control-group
-            label.control-label(for='tags') Tags
-            .controls
-              input#tags.input-xxlarge(type='text', name="tags", value=meetup.tags)
-              span.help-block Comma separated list of tags. Ex: python, web development, programming
+      .control-group
+        label.control-label(for='tags') Tags
+        .controls
+          input#tags.input-xxlarge(type='text', name="tags", value=meetup.tags)
+          span.help-block Comma separated list of tags. Ex: python, web development, programming
 
-          .control-group
-            label.control-label(for='isFree') Free event
-            .controls
-              input.input-xxlarge(type='checkbox', name="isFree", value=meetup.isFree)
-              span.help-block Is the entry to the event free?
+      .control-group
+        label.control-label(for='isFree') Free event
+        .controls
+          input.input-xxlarge(type='checkbox', name="isFree", value=meetup.isFree)
+          span.help-block Is the entry to the event free?
 
-          .form-actions
-            button.btn.btn-primary(type='submit') Save changes
-            &nbsp;
-            a.btn(href='/meetups', title="cancel") Cancel
+      .form-actions
+        button.btn.btn-primary(type='submit') Save changes
+        &nbsp;
+        a.btn(href='/meetups', title="cancel") Cancel
 
 block extra_js
   script.
