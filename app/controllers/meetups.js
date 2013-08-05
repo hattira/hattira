@@ -122,10 +122,13 @@ exports.new = function(req, res){
  */
 
 exports.create = function (req, res, next) {
-  var options = {
+  var input = req.body.city.split(',')
+    , city = (input.length && input[0]) || ''
+    , state = (input.length > 1 && input[1].trim()) || ''
+    , options = {
         criteria: {
-          name: req.body.city.split(',')[0],
-          state: req.body.city.split(',')[1].trim(),
+          name: city,
+          state: state
         }
       }
 
