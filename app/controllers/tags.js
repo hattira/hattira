@@ -5,6 +5,7 @@
 
 var mongoose = require('mongoose')
   , Meetup = mongoose.model('Meetup')
+  , markdown = require( "markdown" ).markdown
 
 /**
  * List items tagged with a tag
@@ -27,6 +28,7 @@ exports.index = function (req, res) {
     }
 
     meetups.forEach(function(meetup, index) {
+      meetup.description = markdown.toHTML(meetup.description.slice(0,250)+'...')
       meetup.tags.split(',').forEach(function (tag, index) {
         tag = tag.trim()
         if (tag && !tags[tag]) {
