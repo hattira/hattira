@@ -13,6 +13,7 @@ var mongoose = require('mongoose')
   , Country = mongoose.model('Country')
   , Meetup = mongoose.model('Meetup')
   , agent = request.agent(app)
+  , util = require('util')
 
 var count
 
@@ -51,6 +52,7 @@ describe('Meetups', function () {
       .get('/meetups')
       .expect('Content-Type', /plain/)
       .expect(302)
+      .expect('Location', util.format('/meetups/by-city/%s', bangalore.id))
       .end(done)
     })
   })
