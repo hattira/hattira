@@ -70,7 +70,7 @@ exports.index = function(req, res){
       City.count().exec(function (err, count) {
         var cityId = config.fallbackCityId
         if (cities.length > 0) {
-          cityId = cities[0].id)
+          cityId = cities[0].id
         }
         return res.redirect(util.format('/meetups/by-city/%s', cityId))
       })
