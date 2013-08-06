@@ -15,7 +15,7 @@ var _base = {
     callbackURL: "http://localhost:3000/auth/twitter/callback"
   },
   fallbackCity: 'Bangalore',
-  fallbackCityId: '51fd5227920fc2020000522c',
+  fallbackCityId: '51fe014e1f004ba72300522c',
   MIXPANEL_ID: process.env.MIXPANEL_ID || "86d6a0a2e95c442691e4dc5543dbc833"
 }
 

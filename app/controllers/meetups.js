@@ -106,7 +106,8 @@ exports.byCity = function(req, res, next){
         meetups: meetups,
         tags: _.first(tags, 20),
         page: page + 1,
-        pages: Math.ceil(count / config.items_per_page)
+        pages: Math.ceil(count / config.items_per_page),
+        fallbackCityId: config.fallbackCityId
       })
     })
   })
