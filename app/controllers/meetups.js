@@ -68,7 +68,11 @@ exports.index = function(req, res){
       }
 
       City.count().exec(function (err, count) {
-        return res.redirect(util.format('/meetups/by-city/%s', cities[0].id))
+        var cityId = config.fallbackCityId
+        if (cities.length > 0) {
+          cityId = cities[0].id)
+        }
+        return res.redirect(util.format('/meetups/by-city/%s', cityId))
       })
     })
   })
