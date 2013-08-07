@@ -9,10 +9,10 @@ var _base = {
   app: {
     name: 'sntd: Sommething New To Do - events in your city'
   },
-  twitter: {
-    clientID: "j9X8kVVckZIjepCH9G2zNQ",
-    clientSecret: "YdVw6jciDdVzAIeptYjo0ZTIHqIeXXccordtb0fmm6U",
-    callbackURL: "http://localhost:3000/auth/twitter/callback"
+  facebook: {
+    clientID: "1406466249565794",
+    clientSecret: "a2f0757486db1fb8ec396bf16dd86d97",
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
   },
   fallbackCity: 'Bangalore',
   fallbackCityId: '51fe014e1f004ba72300522c',

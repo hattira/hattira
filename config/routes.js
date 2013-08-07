@@ -29,9 +29,9 @@ module.exports = function (app, passport) {
   app.get('/login', users.login)
   app.get('/logout', users.logout)
   app.get('/users/:userId', users.profile)
-  app.get('/auth/twitter', passport.authenticate('twitter'))
-  app.get('/auth/twitter/callback',
-    passport.authenticate('twitter', {
+  app.get('/auth/facebook', passport.authenticate('facebook'))
+  app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
       failureRedirect: '/login'
     }), users.authCallback)
 
@@ -74,5 +74,11 @@ module.exports = function (app, passport) {
 
   app.get('/about', function (req, res) {
     res.render('about')
+  })
+  app.get('/terms', function (req, res) {
+    res.render('terms')
+  })
+  app.get('/privacy', function (req, res) {
+    res.render('privacy')
   })
 }

@@ -3,8 +3,8 @@
   .pull-right
     if (req.isAuthenticated())
       .dropdown
-        a(data-toggle="dropdown", href="#").dropdown-toggle
-          img(src=req.user.twitter.profile_image_url, class="img-polaroid")
+        | Hello &nbsp;
+        a(data-toggle="dropdown", href="#").dropdown-toggle= req.user.name
         ul(role="menu").dropdown-menu.pull-right
           li
             a(href="/meetups/new") Create new event

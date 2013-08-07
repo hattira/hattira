@@ -97,6 +97,13 @@ hr {
   color: #bbb;
 }
 
+#masthead .pull-right {
+  margin-top: 15px;
+}
+#masthead .pull-right .dropdown a {
+  margin-right: 15px;
+}
+
 #masthead ul {
   margin: 10px 40px;
 }
@@ -223,48 +230,48 @@ hr {
     padding: 0;
 }
 
-/* Twitter
+/* Facebook (extends .btn-auth)
    ========================================================================== */
 
-.btn-twitter,
-.btn-twitter:visited {
-    border-color: #a6cde6;
-    color: #327695;
-    background: #cfe4f0;
-    /* css3 */
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f1f5f7), to(rgba(255, 255, 255, 0)));
-    background-image: -webkit-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
-    background-image: -moz-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
-    background-image: -ms-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
-    background-image: -o-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
-    background-image: linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
-    -webkit-box-shadow: inset 0 1px 0 #fff;
-    box-shadow: inset 0 1px 0 #fff;
+.btn-facebook,
+.btn-facebook:visited {
+    border-color: #29447e;
+    border-bottom-color: #1a356e;
+    color: #fff;
+    background-color: #5872a7;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#637bad), to(#5872a7));
+    background-image: -webkit-linear-gradient(#637bad, #5872a7);
+    background-image: -moz-linear-gradient(#637bad, #5872a7);
+    background-image: -ms-linear-gradient(#637bad, #5872a7);
+    background-image: -o-linear-gradient(#637bad, #5872a7);
+    background-image: linear-gradient(#637bad, #5872a7);
+    -webkit-box-shadow: inset 0 1px 0 #879ac0;
+    box-shadow: inset 0 1px 0 #879ac0;
 }
 
-.btn-twitter:hover,
-.btn-twitter:focus,
-.btn-twitter:active {
-    color: #327695;
-    border-color: #8dc2e4;
-    background-color: #cadde9;
+.btn-facebook:hover,
+.btn-facebook:focus {
+    color: #fff;
+    background-color: #3b5998;
 }
 
-.btn-twitter:active {
-    background: #cadde9;
-    -webkit-box-shadow: inset 0 1px 0 #bbd6e7;
-    box-shadow: inset 0 1px 0 #bbd6e7;
+.btn-facebook:active {
+    color: #fff;
+    background: #4f6aa3;
+    -webkit-box-shadow: inset 0 1px 0 #45619d;
+    box-shadow: inset 0 1px 0 #45619d;
 }
 
 /*
  * Icon
  */
 
-.btn-twitter:before {
-    margin: 0 0.6em 0 -0.6em;
-    background-position: -22px 0;
+.btn-facebook:before {
+    border-right: 1px solid #465f94;
+    margin: 0 1em 0 -1em;
+    background-position: 0 0;
 }
 
-.btn-twitter.large:before {
-    background-position: -36px -22px;
+.btn-facebook.large:before {
+    background-position: 0 -22px;
 }

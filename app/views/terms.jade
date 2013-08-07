@@ -1,0 +1,13 @@
+extends ../layouts/default
+
+block content
+  h2 Terms of service
+  ul
+    li We will try to keep the website available.
+    li We will not share your email.
+
+  p.vspace-two ... as far as possible.
+
+block extra_js
+  script.
+    mixpanel.track('Terms page')
