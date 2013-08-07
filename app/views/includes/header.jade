@@ -3,8 +3,8 @@
   .pull-right
     if (req.isAuthenticated())
       .dropdown
-        | Hello &nbsp;
-        a(data-toggle="dropdown", href="#").dropdown-toggle= req.user.name
+        a(data-toggle="dropdown", href="#").dropdown-toggle
+          img(src="https://graph.facebook.com/#{req.user.facebook.id}/picture", alt="Profile image")
         ul(role="menu").dropdown-menu.pull-right
           li
             a(href="/meetups/new") Create new event
