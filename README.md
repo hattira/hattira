@@ -20,7 +20,7 @@ Built with love using Nodejs and Mongodb.
 * Install dependencies and start node
 
         $ npm install
-        $ nodemon server.js
+        $ node_modules/.bin/nodemon server.js 
 
 ## Tests
     
