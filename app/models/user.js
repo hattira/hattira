@@ -17,7 +17,7 @@ var UserSchema = new Schema({
   username: { type: String, default: '' },
   provider: { type: String, default: '' },
   authToken: { type: String, default: '' },
-  twitter: {},
+  facebook: {},
 })
 
 
