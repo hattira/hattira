@@ -8,6 +8,10 @@ hr {
   border-top: 1px solid #ccc;
 }
 
+.align-center {
+  text-align: center;
+}
+
 .vspace-one { margin-top: 1em; }
 .vspace-two { margin-top: 2em; }
 .vspace-three { margin-top: 3em; }
