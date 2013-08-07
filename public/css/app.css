@@ -42,6 +42,22 @@ hr {
   text-align: center;
 }
 
+.meetup {
+  border: 1px solid #ddd;
+}
+
+.meetup .date {
+  background-color: #563d7c;
+  color: #cdbfe3;
+  font-size: 1.3em;
+  text-align: right;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.meetup .attending {
+  margin: 10px 0;
+}
 
 #content-container {
   margin-top: 7px;
