@@ -81,4 +81,7 @@ module.exports = function (app, passport) {
   app.get('/privacy', function (req, res) {
     res.render('privacy')
   })
+  app.get('/support', function (req, res) {
+    res.render('support')
+  })
 }
