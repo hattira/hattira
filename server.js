@@ -1,6 +1,6 @@
 
 /*!
- * eiyc - events in your city
+ * sntd - something new to do
  * Copyright(c) 2013 Pradip Caulagi <caulagi@gmail.com>
  * MIT Licensed
  */

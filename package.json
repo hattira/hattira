@@ -1,13 +1,13 @@
 {
-  "name": "eiyc",
-  "description": "Events In Your City",
+  "name": "sntd",
+  "description": "Something New To Do - events In Your City",
   "keywords": [
     "express",
     "mongoose",
     "mongodb",
     "passport"
   ],
-  "homepage": "http://eiyc.pw",
+  "homepage": "http://sntd.pw",
   "version": "0.1.0",
   "private": false,
   "author": {
@@ -16,7 +16,7 @@
     "url": "http://caulagi.com"
   },
   "bugs": {
-    "url": "https://github.com/caulagi/eiyc/issues"
+    "url": "https://github.com/caulagi/sntd/issues"
   },
   "engines": {
     "node": "0.10.x",
@@ -50,6 +50,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/caulagi/eiyc.git"
+    "url": "https://github.com/caulagi/sntd.git"
   }
 }

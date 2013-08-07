@@ -3,11 +3,11 @@ var rootPath = require('path').normalize(__dirname + '/..')
   , _ = require('underscore')
 
 var _base = {
-  db: 'mongodb://localhost/eiyc',
+  db: 'mongodb://localhost/sntd',
   root: rootPath,
   items_per_page: 30,
   app: {
-    name: 'eiyc: Events In Your City'
+    name: 'sntd: Sommething New To Do - events in your city'
   },
   twitter: {
     clientID: "j9X8kVVckZIjepCH9G2zNQ",
@@ -26,7 +26,7 @@ var development = _.extend({}, _base, { db: _base.db+'_dev' })
       twitter: {
         clientID: process.env.TWITTER_CONSUMER_KEY,
         clientSecret: process.env.TWITTER_CONSUMER_SECRET,
-        callbackURL: "http://eiyc.pw/auth/twitter/callback"
+        callbackURL: "http://sntd.pw/auth/twitter/callback"
       },
       fallbackCityId: '51fd5227920fc2020000522c'
     })

@@ -1,8 +1,8 @@
-# [eiyc][1] - Events In Your City
+# [sntd][1] - Something New To Do
 
-[![Build Status](https://travis-ci.org/caulagi/eiyc.png?branch=master)](https://travis-ci.org/caulagi/eiyc)
+[![Build Status](https://travis-ci.org/caulagi/sntd.png?branch=master)](https://travis-ci.org/caulagi/sntd)
 
-eiyc, pronouced eeeiiiccc is a webapp to allow people
+sntd - Something New To Do - is a webapp to allow people
 to easily track what is happening in a city.  Anybody
 can create a listing for free, and it will have some
 social features like following.
@@ -32,6 +32,6 @@ Built with love using Nodejs and Mongodb.
 
 Licensed under [MIT][1]
 
-[1]: https://github.com/caulagi/eiyc/blob/master/LICENSE
-[2]: https://github.com/caulagi/eiyc/blob/master/CREDITS
-[3]: http://eiyc.pw
+[1]: https://github.com/caulagi/sntd/blob/master/LICENSE
+[2]: https://github.com/caulagi/sntd/blob/master/CREDITS
+[3]: http://sntd.pw
