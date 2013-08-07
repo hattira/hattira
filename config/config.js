@@ -23,10 +23,10 @@ var development = _.extend({}, _base, { db: _base.db+'_dev' })
   , test        = _.extend({}, _base, { db: _base.db+'_test' })
   , production  = _.extend({}, _base, {
       db: process.env.MONGOHQ_URL || _base.db+'_prod',
-      twitter: {
-        clientID: process.env.TWITTER_CONSUMER_KEY,
-        clientSecret: process.env.TWITTER_CONSUMER_SECRET,
-        callbackURL: "http://sntd.pw/auth/twitter/callback"
+      facebook: {
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        callbackURL: "http://sntd.pw/auth/facebook/callback"
       },
       fallbackCityId: '51fd5227920fc2020000522c'
     })
