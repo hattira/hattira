@@ -198,8 +198,8 @@ exports.update = function(req, res){
 
     res.render('meetups/edit', {
       title: 'Edit Meetup',
-      meetup: doc,
-      errors: err.errors
+      meetup: meetup,
+      errors: errors.format(err.errors || err)
     })
   })
 }
@@ -214,12 +214,12 @@ exports.show = function(req, res, next){
     , meetup = req.meetup
     , user = req.user
 
-  if (user && user.id && meetup.user.id == user.id) {
-    allow_edit = true
+  if (user && user.id && (meetup.user.id == user.id)) {
+    allowEdit = true
   }
 
   meetup.attending.forEach(function (attendee, index) {
-    if (user && user.id && user.id === attendee.user.id) {
+    if (user && user.id && (user.id === attendee.user.id)) {
       showAttending = false
     }
   })

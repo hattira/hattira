@@ -25,7 +25,7 @@ block content
       .control-group
         label.control-label(for='desc') Description
         .controls
-          textarea.input-xxlarge(rows="12", name="description", value=meetup.description)
+          textarea.input-xxlarge(rows="12", name="description")= meetup.description
           span.help-block What is this event, why should people come and who should come.  You can use &nbsp;
             a(href="http://daringfireball.net/projects/markdown/", target="_blank") markdown.
 
@@ -53,7 +53,7 @@ block content
         label.control-label(for='city') City
         .controls
           input#citySearch.input-xxlarge(type='text', name="city",
-            value=meetup.city, autocomplete="off")
+            value=meetup.city.id, autocomplete="off")
 
       .control-group
         label.control-label(for='latitude') Latitude
