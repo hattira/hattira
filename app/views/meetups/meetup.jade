@@ -3,7 +3,12 @@
 
 .meetup.span4
   .container-fluid
-    .date on &nbsp;#{formatDate(meetup.startDate)}
+    .date
+      - if ((meetup.startDate.getDate() == meetup.endDate.getDate()) && (meetup.startDate.getMonth() == meetup.endDate.getMonth()))
+        | on
+      - else
+        | from
+      &nbsp;#{formatDate(meetup.startDate)}
     h3
       a(href='/meetups/'+meetup._id, title=meetup.title) #{meetup.title}
       -if (meetup.isFree)
