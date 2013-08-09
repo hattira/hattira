@@ -52,8 +52,12 @@ block content
       .control-group
         label.control-label(for='city') City
         .controls
-          input#citySearch.input-xxlarge(type='text', name="city",
-            value=meetup.city.id, autocomplete="off")
+          - if (meetup.city)
+            input#citySearch.input-xxlarge(type='text', name="city",
+              value=meetup.city.id, autocomplete="off")
+          - else
+            input#citySearch.input-xxlarge(type='text', name="city",
+              autocomplete="off")
 
       .control-group
         label.control-label(for='latitude') Latitude
