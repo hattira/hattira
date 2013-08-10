@@ -27,6 +27,7 @@ function getClientIp(req) {
     ipAddress = req.connection.remoteAddress;
   }
 
+  return '103.247.135.125'
   return ipAddress
 }
 
@@ -53,12 +54,15 @@ exports.index = function(req, res){
     , url = util.format("http://freegeoip.net/json/%s", ip)
 
   request(url, function(err, response, body) {
+    if (err || response.statusCode != 200) {
+      return res.redirect(util.format('/meetups/by-city/%s', config.fallbackCityId))
+    }
+
     var freegeo = JSON.parse(body)
       , city = freegeo.city || config.fallbackCity
       , fp = City.getFingerprint(city)
       , options = { criteria: { fingerprint: fp } }
 
-    if (err) return res.render('500')
 
     //TODO: Handle the case where lookup by fingerprint fails
     City.list(options, function(err, cities) {
