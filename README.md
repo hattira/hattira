@@ -5,7 +5,7 @@
 sntd - Something New To Do - is a webapp to allow people
 to easily track what is happening in a city.  Anybody
 can create a listing for free, and it will have some
-social features like following.
+social features like following by tags and people.
 
 Built with love using Nodejs and Mongodb.
 
