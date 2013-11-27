@@ -1,0 +1,23 @@
+mixin datePrefix(startDate, endDate)
+  - if ((startDate.getDate() == endDate.getDate()) && (startDate.getMonth() == endDate.getMonth()) && (startDate.getYear() == endDate.getYear()))
+    | on
+  - else
+    | from
+  
+mixin renderMeetup(meetup, index)
+  - if ((index % 3) == 0)
+    <div class='row-fluid vspace-one'>
+  .meetup.span4
+    .container-fluid
+      .date
+        +datePrefix(meetup.startDate, meetup.endDate)
+        &nbsp;#{formatDate(meetup.startDate)}
+      h3
+        a(href='/meetups/'+meetup._id, title=meetup.title) #{meetup.title}
+        -if (meetup.isFree)
+          span.free.badge.badge-success free
+      div !{meetup.description}
+      .attending
+        a(href='/meetups/'+meetup._id) #{meetup.attending.length} attending
+  - if ((index % 3) == 2 || ((index + 1) == attributes.end))
+    </div>

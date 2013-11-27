@@ -1,4 +1,5 @@
 extends ../layouts/default
+include ../includes/mixins
 
 block content
   include ../includes/marketing
@@ -13,7 +14,7 @@ block content
     .row-fluid
       .span9
         - each meetup, index in meetups
-          include ./meetup
+          +renderMeetup(meetup, index)(end=meetups.length)
 
         - if (pages > 1)
           .pagination
