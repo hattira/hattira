@@ -9,12 +9,19 @@ block content
     .city
       .pull-right Showing upcoming events in #{city.name},
         | #{city.state}, #{city.country.name}
-  h1= title
-  - if (meetups.length)
+
+  - if (upcoming.length || past.length)
     .row-fluid
       .span9
-        - each meetup, index in meetups
-          +renderMeetup(meetup, index)(end=meetups.length)
+        - if (upcoming.length)
+          h2 Upcoming events
+          - each meetup, index in upcoming
+            +renderMeetup(meetup, index)(end=upcoming.length)
+
+        - if (past.length)
+          h2.vspace-two Past events
+          - each meetup, index in past 
+            +renderMeetup(meetup, index)(end=past.length)
 
         - if (pages > 1)
           .pagination
@@ -29,6 +36,7 @@ block content
       a(href="/meetups/new") Create one
     p Or see listing for &nbsp;
       a(href="/meetups/by-city/#{fallbackCityId}") Bangalore
+
 
 block extra_js
   script.

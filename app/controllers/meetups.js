@@ -82,20 +82,29 @@ exports.index = function(req, res){
 }
 
 /**
- * List by city
+ * Render meetups based on the search criteria
  */
 
-exports.byCity = function(req, res, next){
-
+exports.bySearchCriteria = function(req, res, next, options) {
   var page = (req.param('page') > 0 ? req.param('page') : 1) - 1
     , tags = []
-    , options = { perPage: config.items_per_page, page: page }
+     
+  _.extend(options, { perPage: config.items_per_page, page: page })
 
-  options.criteria = {city: req.city.id}
   Meetup.list(options, function(err, meetups) {
     if (err) return next(err)
     Meetup.count().exec(function (err, count) {
+      var past = []
+        , upcoming = []
+        , now = new Date().getTime()
+
       _.each(meetups, function(meetup, index) {
+        if (meetup.startDate.getTime() < now && meetup.endDate.getTime() > now) {
+          upcoming.push(meetup)
+        } else {
+          past.push(meetup)
+        }
+
         meetup.description = markdown.toHTML(meetup.description.slice(0,250)+'...')
         _.each(meetup.tags.split(','), function (tag, index) {
           tag = tag.trim()
@@ -106,7 +115,8 @@ exports.byCity = function(req, res, next){
       })
       res.render('meetups/index', {
         title: 'Upcoming events',
-        meetups: meetups,
+        past: past,
+        upcoming: upcoming,
         tags: _.first(tags, 20),
         page: page + 1,
         pages: Math.ceil(count / config.items_per_page),
@@ -114,6 +124,15 @@ exports.byCity = function(req, res, next){
       })
     })
   })
+}
+
+/**
+ * List by city
+ */
+
+exports.byCity = function(req, res, next){
+
+  return module.exports.bySearchCriteria(req, res, next, {city: req.city.id})
 }
 
 /**
