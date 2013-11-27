@@ -29,11 +29,13 @@ module.exports = function (app, passport) {
   app.get('/login', users.login)
   app.get('/logout', users.logout)
   app.get('/users/:userId', users.profile)
+  app.get('/users/registration/complete', users.askEmail)
+  app.post('/users/registration/complete', auth.requiresLogin, users.user, users.updateEmail)
   app.get('/auth/facebook', passport.authenticate('facebook'))
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
       failureRedirect: '/login'
-    }), users.authCallback)
+    }), users.askEmail, users.authCallback)
 
   app.param('userId', users.user)
 

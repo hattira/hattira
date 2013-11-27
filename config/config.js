@@ -28,7 +28,8 @@ var development = _.extend({}, _base, { db: _base.db+'_dev' })
         clientSecret: process.env.FACEBOOK_APP_SECRET,
         callbackURL: "http://sntd.pw/auth/facebook/callback"
       },
-      fallbackCityId: '51fd5227920fc2020000522c'
+      fallbackCityId: '51fd5227920fc2020000522c',
+      debug: false
     })
 
 module.exports = {
