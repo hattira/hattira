@@ -1,4 +1,3 @@
-
 var rootPath = require('path').normalize(__dirname + '/..')
   , _ = require('underscore')
 
