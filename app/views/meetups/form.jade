@@ -38,10 +38,16 @@ block content
       .control-group
         label.control-label(for='meetupDate') Happening on 
         .controls
-          input#startDate.input(type='text', name="startDate",
-              value=meetup.startDate, placeholder="Start date and time")
-          input#endDate.input(type='text', name="endDate",
-              value=meetup.endDate, placeholder="End date and time")
+          #startDate.input-append.date
+            input(type='text', name="startDate",
+                value=meetup.startDate, data-format="yyyy-MM-dd hh:mm", placeholder="Start date and time")
+            span.add-on
+              i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+          #endDate.input-append.date
+            input(type='text', name="endDate",
+                value=meetup.endDate, data-format="yyyy-MM-dd hh:mm", placeholder="End date and time")
+            span.add-on
+              i(data-time-icon="icon-time", data-date-icon="icon-calendar")
 
       .control-group
         label.control-label(for='venue') Venue
