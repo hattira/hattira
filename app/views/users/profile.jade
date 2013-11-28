@@ -1,8 +1,15 @@
 extends ../layouts/default
 
 block content
-  h2 Profile of #{user.name}
-  p.vspace-two We will be back with something interesting in a bit.
+  h2.vspace-two Profile of #{user.name}
+  .offset1
+    .vspace-two Meetups posted by #{user.name}
+    .row-fluid
+      .offset1
+        ul.vspace-one
+          - for meetup in meetups
+            li
+              a(href='/meetups/#{meetup._id}') #{meetup.title}
 
 block extra_js
   script.

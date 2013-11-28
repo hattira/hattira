@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
   , User = mongoose.model('User')
+  , Meetup = mongoose.model('Meetup')
   , errors = require('../../lib/errors')
 
 exports.authCallback = function (req, res, next) {
@@ -22,11 +23,20 @@ exports.session = function (req, res) {
   res.redirect('/')
 }
 
-exports.profile = function (req, res) {
+exports.profile = function (req, res, next) {
   var user = req.profile
-  res.render('users/profile', {
-    title: user.name,
-    user: user
+    , options = {criteria: {user: user._id}}
+
+  Meetup.list(options, function(err, meetups) {
+    if (err) { return next(err) }
+
+    Meetup.count().exec(function (err, count) {
+      res.render('users/profile', { 
+        title: user.name,
+        user: user,
+        meetups: meetups
+      })
+    })
   })
 }
 
