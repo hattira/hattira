@@ -108,7 +108,7 @@ exports.bySearchCriteria = function(req, res, next, options) {
         meetup.description = markdown.toHTML(meetup.description.slice(0,250)+'...')
         _.each(meetup.tags.split(','), function (tag, index) {
           tag = tag.trim()
-          if (tag && _.indexOf(tags, tag) !== -1) {
+          if (tag && _.indexOf(tags, tag) === -1) {
             tags.push(tag)
           }
         })
