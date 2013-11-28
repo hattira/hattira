@@ -114,7 +114,7 @@ exports.bySearchCriteria = function(req, res, next, options) {
         })
       })
       res.render('meetups/index', {
-        title: 'Upcoming events',
+        title: 'Events around you',
         past: past,
         upcoming: upcoming,
         tags: _.first(tags, 20),
