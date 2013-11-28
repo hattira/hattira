@@ -132,7 +132,8 @@ exports.bySearchCriteria = function(req, res, next, options) {
 
 exports.byCity = function(req, res, next){
 
-  return module.exports.bySearchCriteria(req, res, next, {city: req.city.id})
+  var options = { criteria: {city: req.city.id} }
+  return module.exports.bySearchCriteria(req, res, next, options)
 }
 
 /**
