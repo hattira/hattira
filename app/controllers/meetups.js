@@ -99,7 +99,7 @@ exports.bySearchCriteria = function(req, res, next, options) {
         , now = new Date().getTime()
 
       _.each(meetups, function(meetup, index) {
-        if (meetup.startDate.getTime() < now && meetup.endDate.getTime() > now) {
+        if (meetup.endDate.getTime() > now) {
           upcoming.push(meetup)
         } else {
           past.push(meetup)
