@@ -1,12 +1,15 @@
 extends layouts/default
 
 block main
-  h1 Oops something went wrong
-  br
-  span 500
-
-block content
-  pre= error
+  .align-center.vspace-five.row-fluid
+    h1 Internal server error
+    br
+    span.span8.offset2
+      | Oops!  There was a problem completing your request!  
+      | This is our fault.
+      | We have been notified.  We are on it.  You can also send us a
+      a(href="/feedback") &nbsp;feedback&nbsp;
+      | if you would like to have a conversation about it.
 
 block extra_js
   script.
