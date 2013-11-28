@@ -81,9 +81,17 @@ hr {
   margin-top: 50px;
 }
 
-#marketing .intro{
+.cursive {
+  font-family: 'Dancing Script', cursive;
+}
+
+#marketing .intro {
   font-size: 24px;
   line-height: 30px;
+}
+
+#marketing .cursive {
+  font-size: 28px;
 }
 
 #masthead {
