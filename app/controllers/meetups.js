@@ -317,7 +317,7 @@ exports.share = function(req, res, next) {
         access_token: user.authToken,
         message: message,
         link: 'http://sntd.pw/meetups/'+meetup._id,
-        caption: meetup.title,
+        name: meetup.title,
         description: markdown.toHTML(meetup.description.slice(0,250)+'...')
     }
 
