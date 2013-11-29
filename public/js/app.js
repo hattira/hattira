@@ -25,4 +25,49 @@ $(document).ready(function () {
       })
     }
   })
+
+  $('#attending').submit(function(e) {
+    var id = $(this.meetup_id).val()
+      , csrf = $(this._csrf).val()
+    e.preventDefault()
+
+    $.ajax({
+      url: '/meetups/'+id+'/attending',
+      type: 'PUT',
+      data: {_csrf: csrf},
+      dataType: "json",
+      success: function(result) {
+        var node = $('#feedback-box')
+        node.html(result.message).removeClass('hide')
+        if (result.status === 'ok') {
+          node.addClass('alert-success')
+          location.reload()
+        } else {
+          node.addClass('alert-error')
+        }
+      }
+    })
+  })
+
+  $('#share').submit(function(e) {
+    var id = $(this.meetup_id).val()
+      , csrf = $(this._csrf).val()
+    e.preventDefault();
+
+    $.ajax({
+      url: '/meetups/'+id+'/share',
+      type: 'PUT',
+      data: {_csrf: csrf},
+      dataType: "json",
+      success: function(result) {
+        var node = $('#feedback-box')
+        node.removeClass('hide')
+        if (result.status === 'ok') {
+          node.html("Updated Facebook successfully").addClass('alert-success')
+        } else {
+          node.html(result.message.message).addClass('alert-error')
+        }
+      }
+    })
+  })
 });

@@ -34,6 +34,7 @@ module.exports = function (passport, config) {
             email: email,
             username: profile.username,
             provider: 'facebook',
+            authToken: accessToken,
             facebook: profile._json
           })
           user.save(function (err) {
@@ -42,7 +43,11 @@ module.exports = function (passport, config) {
           })
         }
         else {
-          return done(err, user)
+          user.authToken = accessToken
+          user.save(function (err) {
+            if (err) console.log(err)
+            return done(err, user)
+          })
         }
       })
     }

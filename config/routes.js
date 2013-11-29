@@ -31,7 +31,8 @@ module.exports = function (app, passport) {
   app.get('/users/:userId', users.profile)
   app.get('/users/registration/complete', users.askEmail)
   app.post('/users/registration/complete', auth.requiresLogin, users.user, users.updateEmail)
-  app.get('/auth/facebook', passport.authenticate('facebook'))
+  app.get('/auth/facebook', passport.authenticate('facebook',
+    {scope: ['email', 'user_about_me', 'user_location', 'user_photos', 'publish_actions']}))
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
       failureRedirect: '/login'
@@ -47,6 +48,7 @@ module.exports = function (app, passport) {
   app.get('/meetups/:id', meetups.show)
   app.get('/meetups/:id/edit', meetupAuth, meetups.edit)
   app.put('/meetups/:id/attending', auth.requiresLogin, meetups.attending)
+  app.put('/meetups/:id/share', auth.requiresLogin, meetups.share)
   app.put('/meetups/:id', meetupAuth, meetups.update)
   app.del('/meetups/:id', meetupAuth, meetups.destroy)
 

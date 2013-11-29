@@ -30,6 +30,17 @@ function getClientIp(req) {
   return ipAddress
 }
 
+function sendJson(res, msg) {
+  res.writeHead(200, {"Content-Type": "application/json"})
+  res.write(JSON.stringify(msg))
+  return res.end()
+}
+
+function monthNames() {
+  return [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+    "Aug", "Sep", "Oct", "Nov", "Dec"];
+}
+
 /**
  * Load
  */
@@ -268,23 +279,55 @@ exports.attending = function(req, res) {
   var includeUser = true
     , meetup = req.meetup
   
-  meetup.attending.forEach(function (user, index) {
-    if (req.user.id == user.id) {
+  _.each(meetup.attending, function(attendee, index) {
+    // Weird - toString is required to force string comparison
+    if (req.user._id.toString() === attendee.user._id.toString()) {
       includeUser = false
     }
   })
 
   if (!includeUser) {
-    req.flash('error', 'Nothing to do!  You are already attending')
-    res.redirect('/meetups/'+meetup.id)
+    return sendJson(res, {
+      'status': 'error',
+      'message':'Nothing to do!  You are already attending!'
+    })
   }
 
-  meetup.attending.push({
-    user: req.user
-  })
+  meetup.attending.push({ user: req.user })
   meetup.save(function (err, doc, count) {
-    req.flash('info', 'Marked as attending!')
-    res.redirect('/meetups/'+meetup.id)
+    return sendJson(res, {
+      'status': 'ok',
+      'message':'Successfully marked as attending!'
+    })
+  })
+}
+
+/**
+ * share on facebook
+ * http://runnable.com/UTlPM1-f2W1TAABY/post-on-facebook
+ */
+
+exports.share = function(req, res, next) {
+  var meetup = req.meetup
+    , user = req.user
+    , url = 'https://graph.facebook.com/me/feed'
+    , message = util.format('I am attending this event on %s %s',
+          meetup.startDate.getDate(), monthNames()[meetup.startDate.getMonth()])
+    , params = {
+        access_token: user.authToken,
+        message: message,
+        link: 'http://sntd.pw/meetups/'+meetup._id,
+        caption: meetup.title,
+        description: markdown.toHTML(meetup.description.slice(0,250)+'...')
+    }
+
+  request.post({url: url, qs: params}, function(err, resp, body) {
+    if (err) return sendJson(res, {status: 'error', message: err})
+
+    body = JSON.parse(body);
+    if (body.error) return sendJson(res, {status: 'error', message: body.error})
+
+    return sendJson(res, {status: 'ok', message: body})
   })
 }
 
