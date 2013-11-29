@@ -279,6 +279,13 @@ exports.attending = function(req, res) {
   var includeUser = true
     , meetup = req.meetup
   
+  if (!req.user) {
+    return sendJson(res, {
+      'status': 'error',
+      'message':'You need to be logged in to complete this action'
+    })
+  }
+
   _.each(meetup.attending, function(attendee, index) {
     // Weird - toString is required to force string comparison
     if (req.user._id.toString() === attendee.user._id.toString()) {
