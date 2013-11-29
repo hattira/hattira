@@ -6,10 +6,14 @@ block content
     .vspace-two Meetups posted by #{user.name}
     .row-fluid
       .offset1
-        ul.vspace-one
-          - for meetup in meetups
-            li
-              a(href='/meetups/#{meetup._id}') #{meetup.title}
+        - if (meetups.length)
+          ul.vspace-one
+            - for meetup in meetups
+              li
+                a(href='/meetups/#{meetup._id}') #{meetup.title}
+        - else
+          p.vspace-two No meetups yet!  
+            a(href='/meetups/new') Post one now.
 
 block extra_js
   script.
