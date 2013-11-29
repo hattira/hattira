@@ -10,7 +10,6 @@ var mongoose = require('mongoose')
 
 
 var FeedbackSchema = new Schema({
-  title: {type : String},
   body: {type : String},
   name: {type : String},
   email: {type : String},
@@ -26,10 +25,6 @@ function errorMessage(val) {
   return util.format('%s is required', val)
 }
 
-FeedbackSchema.path('title').validate(function (title) {
-  return notEmpty(title)
-}, errorMessage('Title'))
-
 FeedbackSchema.path('name').validate(function (name) {
   return notEmpty(name)
 }, errorMessage('Name'))
@@ -40,6 +35,6 @@ FeedbackSchema.path('email').validate(function (email) {
 
 FeedbackSchema.path('body').validate(function (body) {
   return notEmpty(body)
-}, errorMessage('Body'))
+}, errorMessage('Comment'))
 
 mongoose.model('Feedback', FeedbackSchema)
