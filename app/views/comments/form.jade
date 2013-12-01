@@ -7,4 +7,6 @@ form.form-vertical(method="post", action="/meetups/#{meetup._id}/comments")
         textarea#comment.form-control(type='text', rows="6", name="body", placeholder='Add your comment')
         span.help-block You can use &nbsp;
           a(href="http://daringfireball.net/projects/markdown/", target="_blank") markdown.
-    button.btn.btn-primary(type='submit') Add comment
+    button.btn.btn-primary(type='submit')
+      span.glyphicon.glyphicon-plus-sign
+      | &nbsp;Add comment

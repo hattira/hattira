@@ -21,26 +21,25 @@ block content
   .rowfluid.vspace-two
     .col-sm-6.col-xs-12
       p !{meetup.description}
-      .meta.muted
-        - if (meetup.user)
-          - var name = meetup.user.name ? meetup.user.name : meetup.user.username
-          p.no-margin
-            | Created by &nbsp;
-            a(href="/users/"+meetup.user._id)= name
-            | &nbsp;on&nbsp;
-            = formatDate(meetup.createdAt)
-          - if (meetup.tags)
-            p
-              strong Tags: &nbsp;
-              - each tag in meetup.tags.split(',')
-                | &nbsp;
-                a.tag(href="/tags/"+tag)
-                  span.glyphicon.glyphicon-map-marker
-                  | &nbsp;#{tag},
+      - if (meetup.user)
+        - var name = meetup.user.name ? meetup.user.name : meetup.user.username
+        p.no-margin
+          span.text-muted Created by &nbsp;
+          a(href="/users/"+meetup.user._id)= name
+          | &nbsp;on&nbsp;
+          span.orange #{formatDate(meetup.createdAt)}
+        - if (meetup.tags)
           p
-            | Attending:
-            - each attendee in meetup.attending
-              a(href="/users/"+attendee.user.id) &nbsp;#{attendee.user.name},
+            strong Tags: &nbsp;
+            - each tag in meetup.tags.split(',')
+              | &nbsp;
+              a.tag(href="/tags/"+tag)
+                span.glyphicon.glyphicon-map-marker
+                | &nbsp;#{tag},
+        p
+          span.text-muted Attending:
+          - each attendee in meetup.attending
+            a(href="/users/"+attendee.user.id) &nbsp;#{attendee.user.name},
 
       - if (allowEdit)
         p
@@ -72,13 +71,15 @@ block content
     .col-sm-5.col-xs-12
       - if (!showAttending)
         .row-fluid
-          p.muted We will post a simple message on your wall saying you are attending this event
+          p.text-muted We will post a simple message on your wall saying you are attending this event
               | with a link to this event.  Helps you attend the event with friends!
           .span6.offset3
             form(action="#", id="share")
               input(type='hidden', name='_csrf', value="#{csrf_token}")
               input(type="hidden", name="meetup_id", value="#{meetup.id}")
-              input(type='submit', value="Share on Facebook").btn-primary.btn-block
+              button(type='submit').btn-primary.btn-block.btn-lg
+                span.glyphicon.glyphicon-share-alt
+                | &nbsp;Share on Facebook
         .vspace-two
 
       - if (showAttending)
@@ -87,7 +88,10 @@ block content
             form(action="#", id="attending")
               input(type='hidden', name='_csrf', value="#{csrf_token}")
               input(type="hidden", name="meetup_id", value="#{meetup.id}")
-              input(type='submit', value="I'm attending").btn-primary.btn-block.btn-large
+              button(type='submit').btn-primary.btn-block.btn-lg
+                span.glyphicon.glyphicon-share
+                | &nbsp;I'm attending
+                
           #map-canvas.vspace-three
       - else
         #map-canvas
