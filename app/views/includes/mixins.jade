@@ -14,7 +14,7 @@ mixin renderMeetup(meetup, index)
       h3
         a(href='/meetups/'+meetup._id, title=meetup.title) #{meetup.title}
         -if (meetup.isFree)
-          span.free.badge.badge-success free
+          span.free.label.label-success free
       div !{meetup.description}
       .attending
         a(href='/meetups/'+meetup._id) #{meetup.attending.length} attending

@@ -2,10 +2,10 @@ extends ../layouts/default
 
 block content
   h2.vspace-two Profile of #{user.name}
-  .offset1
+  .col-xs-offset-1
     .vspace-two Meetups posted by #{user.name}
-    .row-fluid
-      .offset1
+    .row
+      .col-xs-offset-1
         - if (meetups.length)
           ul.vspace-one
             - for meetup in meetups
