@@ -13,6 +13,10 @@ Built with love using Nodejs and Mongodb.
 
 * Install mongodb
 
+* Built Bootstrap
+
+        $ grunt --gruntfile Gruntfile-bootstrap.js
+
 * Load data about cities and countries
 
         $ node data/loadCities.js
