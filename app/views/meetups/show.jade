@@ -18,7 +18,7 @@ block main
         = formatDatetime(meetup.endDate)
 
 block content
-  .rowfluid.vspace-two
+  .row.vspace-two
     .col-sm-6.col-xs-12
       p !{meetup.description}
       - if (meetup.user)
@@ -56,13 +56,12 @@ block content
               | &nbsp;Delete
 
       p
-        br
-        h3 Comments
+        h3.purple Comments
         - if (meetup.comments.length)
           - each comment in meetup.comments
             include ../comments/comment
         - else
-          p.lead There are no comments for this event yet!
+          p There are no comments for this event yet!
         .vspace-three
         include ../comments/form
 
