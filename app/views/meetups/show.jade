@@ -3,7 +3,7 @@ extends ../layouts/default
 block main
       h1= meetup.title
         -if (meetup.isFree)
-          span.free.badge.badge-success free
+          span.free.label.label-success free
       div#feedback-box.alert.hide
       -if (meetup.website)
         p.no-margin

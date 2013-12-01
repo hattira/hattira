@@ -15,8 +15,8 @@ function showMap(address) {
 }
 
 $(document).ready(function () {
-  $('#startDate').datetimepicker({ language: 'pt-BR' });
-  $('#endDate').datetimepicker({ language: 'pt-BR' });
+  $('#startDate').datetimepicker();
+  $('#endDate').datetimepicker();
 
   $('#citySearch').typeahead({
     remote: {
