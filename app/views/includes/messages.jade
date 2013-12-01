@@ -6,7 +6,7 @@
         li!= inf
 
 - if (typeof errors != 'undefined' && errors.length)
-  .fade.in.alert.alert-block.alert-error
+  .fade.in.alert.alert-block.alert-danger
     button.close(type='button', data-dismiss='alert') ×
     ul
       - each error in errors
