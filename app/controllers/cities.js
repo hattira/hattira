@@ -48,6 +48,9 @@ exports.search = function(req, res) {
   var cities = []
   
   _.each(req.cities, function(city, index) {
+    if (!city.country) {
+      return
+    }
     cities.push(util.format("%s, %s, %s",
       city.name, city.state, city.country.name))
   })
