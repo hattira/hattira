@@ -18,8 +18,8 @@ block main
         = formatDatetime(meetup.endDate)
 
 block content
-  .row-fluid.vspace-two
-    .span6
+  .rowfluid.vspace-two
+    .col-sm-6.col-xs-12
       p !{meetup.description}
       .meta.muted
         - if (meetup.user)
@@ -33,10 +33,10 @@ block content
             p
               strong Tags: &nbsp;
               - each tag in meetup.tags.split(',')
+                | &nbsp;
                 a.tag(href="/tags/"+tag)
-                  | &nbsp;
-                  i.icon-tags
-                  | #{tag}
+                  span.glyphicon.glyphicon-map-marker
+                  | &nbsp;#{tag},
           p
             | Attending:
             - each attendee in meetup.attending
@@ -47,22 +47,29 @@ block content
           br
           form.center.form-inline.confirm(action="/meetups/"+meetup.id, method="post")
             input(type='hidden', name='_csrf', value="#{csrf_token}")
-            a.btn(href='/meetups/'+meetup._id+'/edit', title="edit") Edit
+            a.btn.btn-primary(href='/meetups/'+meetup._id+'/edit', title="edit")
+              span.glyphicon.glyphicon-edit
+              | &nbsp;Edit
             &nbsp;&nbsp;
             input(type="hidden", name="_method", value="DELETE")
-            button.btn.btn-danger(type="submit") delete
+            button.btn.btn-danger(type="submit")
+              span.glyphicon.glyphicon-remove-circle
+              | &nbsp;Delete
 
       p
         br
         h3 Comments
-        - each comment in meetup.comments
-          include ../comments/comment
+        - if (meetup.comments.length)
+          - each comment in meetup.comments
+            include ../comments/comment
+        - else
+          p.lead There are no comments for this event yet!
         .vspace-three
         include ../comments/form
 
-    .span1.vline
+    .col-sm-1.hidden-xs.vline
 
-    .span5
+    .col-sm-5.col-xs-12
       - if (!showAttending)
         .row-fluid
           p.muted We will post a simple message on your wall saying you are attending this event

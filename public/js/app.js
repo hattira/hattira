@@ -19,11 +19,12 @@ $(document).ready(function () {
   $('#endDate').datetimepicker({ language: 'pt-BR' });
 
   $('#citySearch').typeahead({
-    source: function (query, process) {
-      return $.get('/cities/search/'+query, function(data) {
-        return process(data)
-      })
-    }
+    remote: {
+      replace: function() {
+        return '/cities/search/'+ $('#citySearch').val()
+      }
+    },
+    limit: 10
   })
 
   $('#attending').submit(function(e) {
