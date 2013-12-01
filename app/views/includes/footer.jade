@@ -1,35 +1,65 @@
-.row-fluid#footer
-  .container
-    .span10.offset1
-      .row-fluid.vspace-four
+.row#footer
+    .col-sm-10.col-xs-12.col-sm-offset-1
+      .row.vspace-four
         hr
-      .row-fluid
+      .row.hidden-xs
         .pull-right
-          ul.nav.nav-list
+          ul.list-unstyled
             li
               a(href='/meetups/new')
-                i.icon-plus-sign
-                | Create new event
+                span.glyphicon.glyphicon-plus-sign
+                | &nbsp;Create new event
             li
               a(href='/feedback')
-                i.icon-comment
-                | Feedback - tell us what you think
+                span.glyphicon.glyphicon-comment
+                | &nbsp;Feedback - tell us what you think
             li
               a(href='/about')
-                i.icon-info-sign
-                | About
+                span.glyphicon.glyphicon-info-sign
+                | &nbsp;About
             li
               a(href='/support')
-                i.icon-envelope
-                | Contact
+                span.glyphicon.glyphicon-envelope
+                | &nbsp;Contact
             li
               a(href='/privacy')
-                i.icon-wrench
-                | Privacy
+                span.glyphicon.glyphicon-wrench
+                | &nbsp;Privacy
             li
               a(href='/terms')
-                i.icon-fullscreen
-                | Terms &amp; conditions
+                span.glyphicon.glyphicon-fullscreen
+                | &nbsp;Terms &amp; conditions
         p
-          | &copy; 2013 &nbsp;
+          span.glyphicon.glyphicon-copyright-mark
+          | &nbsp;2013&nbsp;
           a(href='http://caulagi.com') Pradip P Caulagi.
+      .row.visible-xs.align-center
+        p
+          span.glyphicon.glyphicon-copyright-mark
+          | &nbsp;2013&nbsp;
+          a(href='http://caulagi.com') Pradip P Caulagi.
+        ul.list-unstyled.vspace-one
+          li
+            a(href='/meetups/new')
+              span.glyphicon.glyphicon-plus-sign
+              | &nbsp;Create new event
+          li
+            a(href='/feedback')
+              span.glyphicon.glyphicon-comment
+              | &nbsp;Feedback - tell us what you think
+          li
+            a(href='/about')
+              span.glyphicon.glyphicon-info-sign
+              | &nbsp;About
+          li
+            a(href='/support')
+              span.glyphicon.glyphicon-envelope
+              | &nbsp;Contact
+          li
+            a(href='/privacy')
+              span.glyphicon.glyphicon-wrench
+              | &nbsp;Privacy
+          li
+            a(href='/terms')
+              span.glyphicon.glyphicon-fullscreen
+              | &nbsp;Terms &amp; conditions

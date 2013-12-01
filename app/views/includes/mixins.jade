@@ -7,8 +7,7 @@ mixin datePrefix(startDate, endDate)
 mixin renderMeetup(meetup, index)
   - if ((index % 3) == 0)
     <div class='row-fluid vspace-one'>
-  .meetup.span4
-    .container-fluid
+  .meetup.col-sm-4.col-xs-6
       .date
         +datePrefix(meetup.startDate, meetup.endDate)
         &nbsp;#{formatDate(meetup.startDate)}

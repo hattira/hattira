@@ -1,15 +1,15 @@
-.row-fluid
+.row
   h3
     .pull-right Browse
 
-.row-fluid.align-right
+.row.align-right
   h4.vspace-two By Cities
   p.vspace-one Coming soon
 
-.row-fluid.align-right
+.row.align-right
   h4 By Tags
   - if (tags.length)
-    ul.unstyled
+    ul.list-unstyled
       -each tag in tags
         li
           a.tag(href="/tags/"+tag) #{tag}

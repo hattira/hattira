@@ -38,6 +38,7 @@ hr {
   padding-right: 5px;
 }
 
+
 .meetup-date {
   font-size: 1.2em;
   margin: 12px 0;
@@ -102,13 +103,13 @@ hr {
   box-shadow: 0 8px 6px -6px black;
 }
 
-#masthead h1 {
+#masthead h1 .navbar-brand {
   font-size: 34px;
+  font-weight: bold;
 }
 
 #masthead h1 .subheading {
   font-size: 56%;
-  margin-left: 20px;
   font-family: 'Dancing Script', cursive;
   letter-spacing: 4px;
   color: #bbb;
@@ -126,8 +127,12 @@ hr {
   margin-bottom: 60px;
 }
 
-#footer .license {
-  margin-left: 10px;
+#footer .glyphicon {
+  color: #aaa;
+}
+
+#footer li {
+  margin-top: 5px;
 }
 
 #login {

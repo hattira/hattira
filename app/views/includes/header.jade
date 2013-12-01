@@ -2,24 +2,21 @@
   .pull-right
     if (req.isAuthenticated())
       .dropdown
-        a(data-toggle="dropdown", href="#").dropdown-toggle
+        a(data-toggle="dropdown", href="#").dropdown-toggle#dropdownProfile
           img(src="https://graph.facebook.com/#{req.user.facebook.id}/picture", alt="Profile image")
-        ul(role="menu").dropdown-menu.pull-right
-          li
-            a(href="/meetups/new") Create new event
+        span.caret
+        ul(role="menu", aria-labelledby="dropdownProfile").dropdown-menu.pull-right
+          li(role="presentation")
+            a(href="/meetups/new", role="menuitem", tabindex="-1") Create new event
+          li(role="presentation")
+            a(href="/users/"+req.user.id, role="menuitem", tabindex="-1", title="Profile") Profile
           li.divider
-          li
-            a(href="/users/"+req.user.id, title="Profile") Profile
-          li.divider
-          li
-            a(href="/logout", title="logout") Logout
+          li(role="presentation")
+            a(href="/logout", role="menuitem", tabindex="-1", title="logout") Logout
     else
-      ul.nav.nav-pills
-        li
-          .input-prepend
-            span.add-on
-              i.icon-user
-            a(href="/login", class="btn btn-success") Login
+      a(href="/login", class="btn btn-success")
+        i.glyphicon.glyphicon-user
+        | &nbsp;&nbsp;|&nbsp;&nbsp; Login
   h1
-    a.brand(href='/') sntd:
+    a.navbar-brand(href='/') sntd:
     span.subheading Something New To Do
