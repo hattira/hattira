@@ -4,7 +4,7 @@ block main
       h1= meetup.title
         -if (meetup.isFree)
           span.free.label.label-success free
-      div#feedback-box.alert.hide
+      div#feedback-box.alert.hide(data-dismiss="alert")
       -if (meetup.website)
         p.no-margin
           a(href="#{meetup.website}", target="_blank") #{meetup.website}

@@ -44,7 +44,7 @@ $(document).ready(function () {
           node.addClass('alert-success')
           location.reload()
         } else {
-          node.addClass('alert-error')
+          node.addClass('alert-danger')
         }
       }
     })
@@ -66,7 +66,7 @@ $(document).ready(function () {
         if (result.status === 'ok') {
           node.html("Updated Facebook successfully").addClass('alert-success')
         } else {
-          node.html(result.message.message).addClass('alert-error')
+          node.html(result.message.message).addClass('alert-danger')
         }
       }
     })
