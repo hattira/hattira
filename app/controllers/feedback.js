@@ -16,8 +16,7 @@ exports.create = function (req, res) {
 
   feedback.save(function (err, doc, count) {
     if (!err) {
-      req.flash('success', 'Thanks for your feedback!')
-      return res.redirect('/')
+      return res.redirect('/feedback/received')
     }
   
     res.render('feedback/new', {
@@ -25,5 +24,11 @@ exports.create = function (req, res) {
       feedback: feedback,
       errors: errors.format(err.errors || err)
     })
+  })
+}
+
+exports.received = function(req, res) {
+  res.render('feedback/received', {
+    title: 'Thank you'
   })
 }
