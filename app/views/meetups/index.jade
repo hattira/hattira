@@ -12,28 +12,23 @@ block content
           span.cursive.green #{city.name}, #{city.state}, #{city.country.name}
 
   - if (upcoming.length || past.length)
-    .row
-      .col-sm-9.col-xs-12
-        - if (upcoming.length)
-          .row
-            h2 Upcoming events
-            - each meetup, index in upcoming
-              +renderMeetup(meetup, index)(end=upcoming.length)
+    .col-sm-9.col-xs-12
+      - if (upcoming.length)
+        h2 Upcoming events
+        - each meetup, index in upcoming
+          +renderMeetup(meetup, index)(end=upcoming.length)
 
-        - if (past.length)
-          h2.vspace-two Past events
-          - each meetup, index in past 
-            +renderMeetup(meetup, index)(end=past.length)
+      - if (past.length)
+        h2.vspace-two Past events
+        - each meetup, index in past 
+          +renderMeetup(meetup, index)(end=past.length)
 
-        - if (pages > 1)
-          .pagination
-            ul
-              != createPagination(pages, page)
-
-      .col-sm-offset-1.col-sm-2.col-xs-12
-        .row
-          .col-xs-12
-            include ./browse
+      - if (pages > 1)
+        .pagination
+          ul
+            != createPagination(pages, page)
+    .col-sm-offset-1.col-sm-2.col-xs-12
+      include ./browse
 
   - else
     p.muted No events in your city yet.&nbsp;

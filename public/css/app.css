@@ -11,9 +11,8 @@ hr {
   border-top: 1px solid #ccc;
 }
 
-.align-center {
-  text-align: center;
-}
+.align-center { text-align: center; }
+.align-right { text-align: right; }
 
 .vspace-one { margin-top: 1em; }
 .vspace-two { margin-top: 2em; }
@@ -37,15 +36,8 @@ hr {
 .orange { color: #f90; }
 .purple { color: #6a026e }
 
-.meetup .container-fluid {
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-
 .meetup-date {
   font-size: 1.2em;
-  margin: 12px 0;
 }
 .vline {
   border-left: 1px solid #222;
@@ -57,20 +49,13 @@ hr {
 }
 
 .meetup {
-  border: 1px solid #ddd;
+  border-top: 2px dotted #ddd;
+  padding-top: 1em;
 }
 
 .meetup .date {
-  background-color: #563d7c;
-  color: #cdbfe3;
-  font-size: 1.1em;
+  font-size: 1.8em;
   text-align: right;
-  margin-top: 5px;
-  padding: 2px;
-}
-
-.meetup .attending {
-  margin: 10px 0;
 }
 
 #content-container {
