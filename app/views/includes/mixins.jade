@@ -1,14 +1,8 @@
-mixin datePrefix(startDate, endDate)
-  - if ((startDate.getDate() == endDate.getDate()) && (startDate.getMonth() == endDate.getMonth()) && (startDate.getYear() == endDate.getYear()))
-    | on
-  - else
-    | from
-  
 mixin renderMeetup(meetup, index)
   .meetup.row
     .col-sm-2.col-xs-4
       .date.purple
-        +datePrefix(meetup.startDate, meetup.endDate)
+        span.glyphicon.glyphicon-calendar.red
         | &nbsp;#{formatDate(meetup.startDate)}
       .vspace-one.align-right
         | #{meetup.venue}
