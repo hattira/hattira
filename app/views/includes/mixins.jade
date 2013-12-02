@@ -1,21 +1,25 @@
-mixin renderMeetup(meetup, index)
-  .meetup.row
-    .col-sm-2.col-xs-4
-      .date.purple
-        span.glyphicon.glyphicon-calendar.red
-        | &nbsp;#{formatDate(meetup.startDate)}
-      .vspace-one.align-right
-        | #{meetup.venue}
-    .col-sm-offset-1.col-sm-6.col-xs-8
+mixin renderOne(second)
+  .col-sm-6.col-xs-12.border-right
+    .date.purple
+      span.glyphicon.glyphicon-calendar.red
+      | &nbsp;#{formatDate(second.startDate)}
+    .content
       h3
-        a(href='/meetups/'+meetup._id, title=meetup.title) #{meetup.title}
-        -if (meetup.isFree)
+        a(href='/meetups/'+second._id, title=second.title) #{second.title}
+        -if (second.isFree)
           span.free.label.label-success free
-      .row
-        div !{meetup.description}
-    .col-sm-offset-1.col-sm-1.hidden-xs
-      -if (meetup.tags.length)
-        ul.list-unstyled
-          -for tag in meetup.tags.split(',')
-            li
-              a(href="/tags/#{tag}") #{tag}
+      div !{second.description}
+    .align-right.orange
+      | #{second.venue}
+
+mixin renderTwo(first, second)
+  .meetup.row.vspace-two
+    +renderOne(first)
+    +renderOne(second)
+
+mixin renderMeetups(meetups)
+  - for (var i = 0; i <= meetups.length-2; i=i+2)
+    +renderTwo(meetups[i], meetups[i+1])
+  - if (i < meetups.length)
+    .meetup.row.vspace-two
+      +renderOne(meetups[i])

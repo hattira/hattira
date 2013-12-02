@@ -14,14 +14,13 @@ block content
   - if (upcoming.length || past.length)
     .col-sm-9.col-xs-12
       - if (upcoming.length)
-        h2 Upcoming events
-        - each meetup, index in upcoming
-          +renderMeetup(meetup, index)(end=upcoming.length)
+        h1 Upcoming events
+        +renderMeetups(upcoming)
 
       - if (past.length)
-        h2.vspace-two Past events
-        - each meetup, index in past 
-          +renderMeetup(meetup, index)(end=past.length)
+        hr.vspace-three
+        h1 Past events
+        +renderMeetups(past)
 
       - if (pages > 1)
         .pagination

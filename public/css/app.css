@@ -48,14 +48,17 @@ hr {
   text-align: center;
 }
 
-.meetup {
-  border-top: 2px dotted #ddd;
-  padding-top: 1em;
+.meetup .content {
+  border: 1px solid #ddd;
+  padding: 1em;
+}
+.meetup .date {
+  text-align: right;
+  font-size: 1.1em;
 }
 
-.meetup .date {
-  font-size: 1.8em;
-  text-align: right;
+.meetup .date .glyphicon {
+  font-size: 1.6em;
 }
 
 #content-container {
