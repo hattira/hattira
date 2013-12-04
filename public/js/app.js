@@ -17,6 +17,7 @@ function showMap(address) {
 $(document).ready(function () {
   $('#startDate').datetimepicker();
   $('#endDate').datetimepicker();
+  $('#marketing').carousel({interval: 5000})
 
   $('#citySearch').typeahead({
     remote: {
