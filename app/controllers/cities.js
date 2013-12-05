@@ -41,6 +41,67 @@ exports.find = function(req, res, next, query) {
 }
 
 /**
+ * Return an object that will power the map reducer to find
+ * the closest city to a lat/long
+ */
+function getMapReducer(scope) {
+  return {
+    verbose: true,
+    scope: scope,
+
+    // Map finds the distance of current location against each city
+    map: function() {
+      if (typeof(Number.prototype.toRad) === "undefined") {
+        Number.prototype.toRad = function() {
+          return this * Math.PI / 180;
+        }
+      }
+
+      // Calculate distance between 2 lat/long
+      // http://www.movable-type.co.uk/scripts/latlong.html
+      //
+      var R = 6371; // km
+      var dLat = (this.latitude-lat).toRad();
+      var dLon = (this.longitude-lon).toRad();
+      var lat1 = lat.toRad();
+      var lat2 = this.latitude.toRad();
+
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      emit(this.name, R*c)
+    },
+
+    // Reduce finds the closest city
+    reduce: function(key, values) {
+      var min = values[0]
+      for (var i = 1; i < values.length; i++) {
+        if (values[i] < min) {
+          min = values[i]
+        }
+      }
+      return min
+    }
+  }
+}
+
+/**
+ * Find and return the city matching the lat/long
+ */
+
+exports.locate = function(req, res) {
+  
+  var lat = parseFloat(req.query.lat)
+    , lon = parseFloat(req.query.lon)
+    , o = getMapReducer({lat: lat, lon: lon})
+
+  City.mapReduce(o, function(err, results) {
+    if (err) return res.locals.sendJson(res, { 'status': 'error', 'message': err })
+    return res.locals.sendJson(res, { 'status': 'ok', 'results': results })
+  })
+}
+
+/**
  * Return the cities we have in memory as array
  */
 

@@ -1,4 +1,4 @@
-function showMap(address) {
+function showVenueMap(address) {
   var pos, mapOptions, map, marker;
   pos = new google.maps.LatLng(address.latitude, address.longitude);
   mapOptions = {

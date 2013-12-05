@@ -1,0 +1,37 @@
+extends ../layouts/default
+
+block content
+
+  h3.vspace-three.align-center
+    | We rely on your location details to show events near you. 
+    | Please allow the website to use your location
+    | at the top of the page.
+
+  .vspace-four
+  include ../includes/marketing
+
+  p.vspace-four.align-center
+    | Still here?!  Perhaps you would like
+    | to see some events for
+    a(href="/meetups/by-city/#{fallbackCityId}") &nbsp;Bangalore, India
+    | &nbsp;?
+
+
+block extra_js
+  script.
+    mixpanel.track('Event listing (index) page')
+
+  script.
+    if (geoPosition.init()) {
+      geoPosition.getCurrentPosition(success, failure, {
+        enableHighAccuracy: false
+      })
+    }
+
+    function success(p) {
+      console.log(p)
+    }
+
+    function failure(p) {
+      console.log(p)
+    }

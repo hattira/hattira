@@ -15,27 +15,6 @@ var mongoose = require('mongoose')
   , markdown = require( "markdown" ).markdown
   , _ = require('underscore')
 
-// https://gist.github.com/qiao/1626318
-function getClientIp(req) {
-  var ipAddress;
-  var forwardedIpsStr = req.header('x-forwarded-for'); 
-  if (forwardedIpsStr) {
-    var forwardedIps = forwardedIpsStr.split(',');
-    ipAddress = forwardedIps[0];
-  }
-  if (!ipAddress) {
-    ipAddress = req.connection.remoteAddress;
-  }
-
-  return ipAddress
-}
-
-function sendJson(res, msg) {
-  res.writeHead(200, {"Content-Type": "application/json"})
-  res.write(JSON.stringify(msg))
-  return res.end()
-}
-
 function monthNames() {
   return [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
     "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -55,40 +34,13 @@ exports.load = function(req, res, next, id){
 }
 
 /**
- * List
+ * Landing page - ask user for his location
  */
 
 exports.index = function(req, res){
-
-  var ip = getClientIp(req)
-    , url = util.format("http://freegeoip.net/json/%s", ip)
-
-  request(url, function(err, response, body) {
-    if (err || response.statusCode != 200) {
-      return res.redirect(util.format('/meetups/by-city/%s', config.fallbackCityId))
-    }
-
-    var freegeo = JSON.parse(body)
-      , city = freegeo.city || config.fallbackCity
-      , fp = City.getFingerprint(city)
-      , options = { criteria: { fingerprint: fp } }
-
-
-    //TODO: Handle the case where lookup by fingerprint fails
-    City.list(options, function(err, cities) {
-      if (err) {
-        console.log('Failed to lookup city with fp:', fp)
-        return res.render('404')
-      }
-
-      City.count().exec(function (err, count) {
-        var cityId = config.fallbackCityId
-        if (cities.length > 0) {
-          cityId = cities[0].id
-        }
-        return res.redirect(util.format('/meetups/by-city/%s', cityId))
-      })
-    })
+  res.render('meetups/landing', {
+    title: "Events around you",
+    fallbackCityId: config.fallbackCityId
   })
 }
 
@@ -280,7 +232,7 @@ exports.attending = function(req, res) {
     , meetup = req.meetup
   
   if (!req.user) {
-    return sendJson(res, {
+    return res.locals.sendJson(res, {
       'status': 'error',
       'message':'You need to be logged in to complete this action'
     })
@@ -294,7 +246,7 @@ exports.attending = function(req, res) {
   })
 
   if (!includeUser) {
-    return sendJson(res, {
+    return res.locals.sendJson(res, {
       'status': 'error',
       'message':'Nothing to do!  You are already attending!'
     })
@@ -302,7 +254,7 @@ exports.attending = function(req, res) {
 
   meetup.attending.push({ user: req.user })
   meetup.save(function (err, doc, count) {
-    return sendJson(res, {
+    return res.locals.sendJson(res, {
       'status': 'ok',
       'message':'Successfully marked as attending!'
     })
@@ -329,12 +281,12 @@ exports.share = function(req, res, next) {
     }
 
   request.post({url: url, qs: params}, function(err, resp, body) {
-    if (err) return sendJson(res, {status: 'error', message: err})
+    if (err) return res.locals.sendJson(res, {status: 'error', message: err})
 
     body = JSON.parse(body);
-    if (body.error) return sendJson(res, {status: 'error', message: body.error})
+    if (body.error) return res.locals.sendJson(res, {status: 'error', message: body.error})
 
-    return sendJson(res, {status: 'ok', message: body})
+    return res.locals.sendJson(res, {status: 'ok', message: body})
   })
 }
 

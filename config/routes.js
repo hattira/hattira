@@ -60,6 +60,7 @@ module.exports = function (app, passport) {
   // city routes
   var cities = require('../app/controllers/cities')
   app.get('/cities/search/:query', cities.search)
+  app.get('/cities/locate', cities.locate)
 
   app.param('cityId', cities.load)
   app.param('query', cities.find)
