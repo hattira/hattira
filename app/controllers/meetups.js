@@ -7,7 +7,6 @@ var mongoose = require('mongoose')
   , env = process.env.NODE_ENV || 'development'
   , config = require('../../config/config')[env]
   , Meetup = mongoose.model('Meetup')
-  , City = mongoose.model('City')
   , async = require('async')
   , util = require('util')
   , errors = require('../../lib/errors')

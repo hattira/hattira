@@ -57,14 +57,6 @@ module.exports = function (app, passport) {
   // home route
   app.get('/', meetups.index)
 
-  // city routes
-  var cities = require('../app/controllers/cities')
-  app.get('/cities/search/:query', cities.search)
-  app.get('/cities/locate', cities.locate)
-
-  app.param('cityId', cities.load)
-  app.param('query', cities.find)
-
   // comment routes
   var comments = require('../app/controllers/comments')
   app.post('/meetups/:id/comments', auth.requiresLogin, comments.create)
