@@ -29,7 +29,7 @@ block extra_js
     }
 
     function success(p) {
-      console.log(p)
+      window.location = "/meetups/by-location?lat="+p.coords.latitude+"&lon="+p.coords.longitude
     }
 
     function failure(p) {

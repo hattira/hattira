@@ -43,48 +43,33 @@ exports.index = function(req, res){
   })
 }
 
-/**
- * Render meetups based on the search criteria
- */
-
-exports.bySearchCriteria = function(req, res, next, options) {
-  var page = (req.param('page') > 0 ? req.param('page') : 1) - 1
+exports.renderMeetups= function(res, meetups) {
+  var past = []
+    , upcoming = []
     , tags = []
-     
-  _.extend(options, { perPage: config.items_per_page, page: page })
+    , now = new Date().getTime()
 
-  Meetup.list(options, function(err, meetups) {
-    if (err) return next(err)
-    Meetup.count().exec(function (err, count) {
-      var past = []
-        , upcoming = []
-        , now = new Date().getTime()
+  _.each(meetups, function(meetup, index) {
+    if (meetup.endDate.getTime() > now) {
+      upcoming.push(meetup)
+    } else {
+      past.push(meetup)
+    }
 
-      _.each(meetups, function(meetup, index) {
-        if (meetup.endDate.getTime() > now) {
-          upcoming.push(meetup)
-        } else {
-          past.push(meetup)
-        }
-
-        meetup.description = markdown.toHTML(meetup.description.slice(0,250)+'...')
-        _.each(meetup.tags.split(','), function (tag, index) {
-          tag = tag.trim()
-          if (tag && _.indexOf(tags, tag) === -1) {
-            tags.push(tag)
-          }
-        })
-      })
-      res.render('meetups/index', {
-        title: 'Events around you',
-        past: past,
-        upcoming: upcoming,
-        tags: _.first(tags, 20),
-        page: page + 1,
-        pages: Math.ceil(count / config.items_per_page),
-        fallbackCityId: config.fallbackCityId
-      })
+    meetup.description = markdown.toHTML(meetup.description.slice(0,250)+'...')
+    _.each(meetup.tags.split(','), function (tag, index) {
+      tag = tag.trim()
+      if (tag && _.indexOf(tags, tag) === -1) {
+        tags.push(tag)
+      }
     })
+  })
+  res.render('meetups/index', {
+    title: 'Events around you',
+    past: past,
+    upcoming: upcoming,
+    tags: _.first(tags, 20),
+    fallbackCityId: config.fallbackCityId
   })
 }
 
@@ -92,10 +77,19 @@ exports.bySearchCriteria = function(req, res, next, options) {
  * List by city
  */
 
-exports.byCity = function(req, res, next){
+exports.byLocation = function(req, res, next){
 
-  var options = { criteria: {city: req.city.id} }
-  return module.exports.bySearchCriteria(req, res, next, options)
+  var coords = { type: 'Point', coordinates: [
+    parseFloat(req.query.lat), parseFloat(req.query.lon),
+  ]}
+  console.log(coords)
+
+  Meetup.find({loc: {$near: coords}}, function(err, results) {
+    if (err) {
+      return res.render('meetups/empty')
+    }
+    return module.exports.renderMeetups(res, results)
+  })
 }
 
 /**
@@ -114,45 +108,23 @@ exports.new = function(req, res){
  */
 
 exports.create = function (req, res, next) {
-  var input = req.body.city.split(',')
-    , city = (input.length && input[0]) || ''
-    , state = (input.length > 1 && input[1].trim()) || ''
-    , options = {
-        criteria: {
-          name: city,
-          state: state
-        }
-      }
-
-  City.list(options, function (err, cities) {
-    if (err) return next(err)
-
-    City.count().exec(function (err, count) {
-      if ( !cities.length ) {
-        return res.render('meetups/new', {
-          title: 'New Meetup',
-          meetup: new Meetup(req.body),
-          errors: ["Unable to find city with that name"]
-        })
-      }
       
-      // something weird.  We need to set the city before
-      // doing new Meetup
-      req.body.city = cities[0].id
-      var meetup = new Meetup(req.body)
-      meetup.user = req.user
-      meetup.save(function (err, doc, count) {
-        if (!err) {
-          req.flash('success', 'Successfully created meetup!')
-          return res.redirect('/meetups/'+doc._id)
-        }
+  var meetup = new Meetup(req.body)
+  meetup.user = req.user
+  meetup.loc = { type: 'Point', coordinates: [
+    parseFloat(req.body.latitude), parseFloat(req.body.longitude)
+  ]}
 
-        return res.render('meetups/new', {
-          title: 'New Meetup',
-          meetup: meetup,
-          errors: errors.format(err.errors || err)
-        })
-      })
+  meetup.save(function (err, doc, count) {
+    if (!err) {
+      req.flash('success', 'Successfully created meetup!')
+      return res.redirect('/meetups/'+doc._id)
+    }
+
+    return res.render('meetups/new', {
+      title: 'New Meetup',
+      meetup: meetup,
+      errors: errors.format(err.errors || err)
     })
   })
 }

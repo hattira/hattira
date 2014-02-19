@@ -1,0 +1,17 @@
+extends ../layouts/default
+
+block content
+
+  h3.vspace-three.align-center
+    | There are no events near you.  Be the first to &nbsp;
+    a(href="/meetups/new") create an event
+
+  p.vspace-four.align-center
+    | Or you could see the listing for
+    a(href="/meetups/by-city/#{fallbackCityId}") &nbsp;Bangalore, India
+    | &nbsp;?
+
+
+block extra_js
+  script.
+    mixpanel.track('Empty listing of events')

@@ -12,23 +12,20 @@ var setTags = function (tags) {
   return _.invoke(tags.split(','), 'trim')
 }
 
-/**
- * Meetup Schema
- */
-
 var MeetupSchema = new Schema({
-  title: {type : String, default : '', trim : true},
-  description: {type : String, default : '', trim : true},
-  website: {type : String, default : '', trim : true},
-  startDate: {type : Date, default : '', trim : true},
-  endDate: {type : Date, default : '', trim : true},
-  venue: {type : String, default : '', trim : true},
-  latitude: {type : Number, default : '', trim : true},
-  longitude: {type : Number, default : '', trim : true},
-  city: {type: Schema.ObjectId, ref : 'City'},
+  title: {type : String},
+  description: {type : String},
+  website: {type : String},
+  startDate: {type : Date},
+  endDate: {type : Date},
+  venue: {type : String},
+  loc: {
+    type: { type: String }, 
+    coordinates: []
+  },
   user: {type : Schema.ObjectId, ref : 'User'},
   comments: [{
-    body: { type : String, default : '' },
+    body: { type : String},
     user: { type : Schema.ObjectId, ref : 'User' },
     createdAt: { type : Date, default : Date.now }
   }],
@@ -39,6 +36,9 @@ var MeetupSchema = new Schema({
   isFree: {type: Boolean},
   createdAt  : {type : Date, default : Date.now}
 })
+
+MeetupSchema.index({ loc : '2dsphere' });
+
 
 /**
  * Validations
@@ -60,19 +60,11 @@ MeetupSchema.path('startDate').validate(function (val) {
   return val && val.getTime && val.getTime()
 }, 'Meetup startDate is required')
 
-MeetupSchema.path('endDate').validate(function (val) {
+MeetupSchema.path("endDate").validate(function (val) {
   return val && val.getTime && val.getTime()
 }, 'Meetup endDate is required')
 
-MeetupSchema.path('latitude').validate(function (latitude) {
-  return latitude && typeof latitude === 'number'
-}, 'Meetup latitude is required')
-
-MeetupSchema.path('longitude').validate(function (longitude) {
-  return longitude && typeof longitude === 'number'
-}, 'Meetup longitude is required')
-
-MeetupSchema.path('isFree').validate(function (isFree) {
+MeetupSchema.path("isFree").validate(function (isFree) {
   return isFree && typeof isFree === 'boolean'
 }, 'Meetup isFree is required')
 
@@ -125,8 +117,6 @@ MeetupSchema.statics = {
       .populate('user', 'name email username')
       .populate('comments.user')
       .populate('attending.user')
-      .populate('city')
-      .populate('city.country', 'name')
       .exec(cb)
   },
 

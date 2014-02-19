@@ -10,8 +10,6 @@ block main
           a(href="#{meetup.website}", target="_blank") #{meetup.website}
       p.no-margin
         | #{meetup.venue}, &nbsp;
-        a(href='/meetups/by-city/#{meetup.city.id}') #{meetup.city.name}
-        | &nbsp;, #{meetup.city.state}, #{meetup.city.country.name}
       .orange
         = formatDatetime(meetup.startDate)
         | &nbsp;to&nbsp;
@@ -99,8 +97,8 @@ block extra_js
   script.
     mixpanel.track('Show event page')
     var address = {
-      latitude: #{meetup.latitude},
-      longitude: #{meetup.longitude},
+      latitude: #{meetup.loc.coordinates[0]},
+      longitude: #{meetup.loc.coordinates[1]},
       venue: "#{meetup.venue}"
     }
-    showMap(address)
+    showVenueMap(address)
