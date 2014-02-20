@@ -40,13 +40,7 @@ block extra_js
     mixpanel.track('Event listing (index) page')
   script.
     var geocoder = new google.maps.Geocoder()
-    var latlng
-
-    if (#{upcoming.length}) {
-      latlng = new google.maps.LatLng(#{upcoming[0].loc.coordinates[0]}, #{upcoming[0].loc.coordinates[1]})
-    } else {
-      latlng = new google.maps.LatLng(#{past[0].loc.coordinates[0]}, #{past[0].loc.coordinates[1]})
-    }
+      , latlng = new google.maps.LatLng(#{coords[0]}, #{coords[1]})
 
     geocoder.geocode({'latLng': latlng}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {

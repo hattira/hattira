@@ -47,6 +47,7 @@ exports.renderMeetups= function(res, meetups) {
   var past = []
     , upcoming = []
     , tags = []
+    , coords
     , now = new Date().getTime()
 
   _.each(meetups, function(meetup, index) {
@@ -64,11 +65,19 @@ exports.renderMeetups= function(res, meetups) {
       }
     })
   })
+
+  if (upcoming.length || past.length) {
+    coords = upcoming.length ? upcoming[0].loc : past[0].loc
+  } else {
+    coords = [0, 0]
+  }
+
   res.render('meetups/index', {
     title: 'Events around you',
     past: past,
     upcoming: upcoming,
     tags: _.first(tags, 20),
+    coords: coords,
     fallbackCityId: config.fallbackCityId
   })
 }
