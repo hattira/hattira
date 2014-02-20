@@ -1,14 +1,14 @@
 {
-  "name": "sntd",
-  "description": "Something New To Do - events In Your City",
+  "name": "hattira",
+  "description": "Events around you",
   "keywords": [
     "express",
     "mongoose",
     "mongodb",
     "passport"
   ],
-  "homepage": "http://sntd.pw",
-  "version": "0.2.0",
+  "homepage": "http://hattira.com",
+  "version": "0.3.0",
   "private": false,
   "author": {
     "name": "Pradip Caulagi",

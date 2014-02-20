@@ -2,11 +2,11 @@ var rootPath = require('path').normalize(__dirname + '/..')
   , _ = require('underscore')
 
 var _base = {
-  db: 'mongodb://localhost/sntd',
+  db: 'mongodb://localhost/hattira',
   root: rootPath,
   items_per_page: 30,
   app: {
-    name: 'sntd: Sommething New To Do - events in your city'
+    name: 'hattira: Events around you'
   },
   facebook: {
     clientID: "1406466249565794",
@@ -26,7 +26,7 @@ var development = _.extend({}, _base, { db: _base.db+'_dev' })
       facebook: {
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: "http://sntd.pw/auth/facebook/callback"
+        callbackURL: "http://hattira.com/auth/facebook/callback"
       },
       fallbackCityId: '51fd5227920fc2020000522c',
       debug: false
