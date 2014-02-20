@@ -13,8 +13,9 @@ var _base = {
     clientSecret: "a2f0757486db1fb8ec396bf16dd86d97",
     callbackURL: "http://localhost:3000/auth/facebook/callback"
   },
-  fallbackCity: 'Bangalore',
-  fallbackCityId: '51fe014e1f004ba72300522c',
+  fallbackLatitude: 12.972558,
+  fallbackLongitude: 77.594911,
+  fallbackCity: "Bangalore",
   MIXPANEL_ID: process.env.MIXPANEL_ID || "86d6a0a2e95c442691e4dc5543dbc833"
 }
 

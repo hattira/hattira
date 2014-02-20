@@ -34,10 +34,12 @@ module.exports = function (app, config, passport) {
   app.set('view engine', 'jade')
 
   app.configure(function () {
-    // expose package.json and mixpanel id to views
     app.use(function (req, res, next) {
       res.locals.pkg = pkg
       res.locals.MIXPANEL_ID = config.MIXPANEL_ID
+      res.locals.fallbackLatitude = config.fallbackLatitude
+      res.locals.fallbackLongitude = config.fallbackLongitude
+      res.locals.fallbackCity = config.fallbackCity
       next()
     })
 

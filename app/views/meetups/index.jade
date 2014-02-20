@@ -32,7 +32,7 @@ block content
     p.muted No events in your city yet.&nbsp;
       a(href="/meetups/new") Create one
     p Or see listing for &nbsp;
-      a(href="/meetups/by-city/#{fallbackCityId}") Bangalore
+      a(href="/meetups/by-location/?lat=#{fallbackLatitude}&lon=#{fallbackLongitude}") #{fallbackCity}
 
 
 block extra_js
@@ -44,7 +44,7 @@ block extra_js
 
     geocoder.geocode({'latLng': latlng}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        if (results[1]) {
+        if (results[0]) {
           $("#loc-human .info").text(results[1].formatted_address);
           $("#loc-human").removeClass("hide");
         }

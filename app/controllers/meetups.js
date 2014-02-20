@@ -43,7 +43,7 @@ exports.index = function(req, res){
   })
 }
 
-exports.renderMeetups= function(res, meetups) {
+exports.renderMeetups= function(req, res, meetups) {
   var past = []
     , upcoming = []
     , tags = []
@@ -66,8 +66,8 @@ exports.renderMeetups= function(res, meetups) {
     })
   })
 
-  if (upcoming.length || past.length) {
-    coords = upcoming.length ? upcoming[0].loc : past[0].loc
+  if (req.session['loc']) {
+    coords = req.session['loc'].coordinates
   } else {
     coords = [0, 0]
   }
@@ -95,7 +95,7 @@ exports.byLocation = function(req, res, next){
       console.log(err)
       return res.render('meetups/empty')
     }
-    return module.exports.renderMeetups(res, results)
+    return module.exports.renderMeetups(req, res, results)
   })
 }
 

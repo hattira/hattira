@@ -12,6 +12,6 @@ exports.index = function (req, res, next) {
       console.log(err)
       return res.render('meetups/empty')
     }
-    return meetups.renderMeetups(res, results)
+    return meetups.renderMeetups(req, res, results)
   })
 }
