@@ -33,7 +33,7 @@ block extra_js
     }
 
     function success(p) {
-      window.location = "/meetups/by-location?lat="+p.coords.latitude+"&lon="+p.coords.longitude
+      window.location = "/meetups/by-location/?lat="+p.coords.latitude+"&lon="+p.coords.longitude
     }
 
     function failure(p) {
