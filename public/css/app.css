@@ -33,9 +33,9 @@ hr {
 
 .red { color: #c33; }
 .blue { color: #6cc; }
-.green { color: #480; }
-.orange { color: #f90; }
-.purple { color: #6a026e }
+.green { color: #27ae60; }
+.orange { color: #d35400; }
+.purple { color: #8e44ad;}
 
 .meetup-date {
   font-size: 1.2em;
@@ -56,10 +56,6 @@ hr {
 .meetup .date {
   text-align: right;
   font-size: 1.1em;
-}
-
-.meetup .date .glyphicon {
-  font-size: 1.6em;
 }
 
 #content-container {

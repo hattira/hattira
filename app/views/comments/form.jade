@@ -1,12 +1,18 @@
-form.form-vertical(method="post", action="/meetups/#{meetup._id}/comments")
-  input(type='hidden', name='_csrf', value="#{csrf_token}")
-  .fieldset
-    legend New comment
-    .form-group
-      .col-xs-12
-        textarea#comment.form-control(type='text', rows="6", name="body", placeholder='Add your comment')
-        span.help-block You can use &nbsp;
-          a(href="http://daringfireball.net/projects/markdown/", target="_blank") markdown.
-    button.btn.btn-primary(type='submit')
-      span.glyphicon.glyphicon-plus-sign
-      | &nbsp;Add comment
+- if (req.user)
+  form.form-vertical(method="post", action="/meetups/#{meetup._id}/comments")
+    input(type='hidden', name='_csrf', value="#{csrf_token}")
+    .fieldset
+      legend New comment
+      .form-group
+        .col-xs-12
+          textarea#comment.form-control(type='text', rows="6", name="body", placeholder='Add your comment')
+          span.help-block You can use &nbsp;
+            a(href="http://daringfireball.net/projects/markdown/", target="_blank") markdown.
+      button.btn.btn-primary(type='submit')
+        span.glyphicon.glyphicon-plus-sign
+        | &nbsp;Add comment
+- else
+  .vspace-two.orange
+    em You need to be &nbsp;
+    a(href="/login") logged in
+    em &nbsp;to be able to comment on this event.
