@@ -17,10 +17,6 @@ Did I succeed?  Let me know!
 
 * Install mongodb
 
-* Built Bootstrap
-
-        $ grunt --gruntfile Gruntfile-bootstrap.js
-
 * GO!
 
         $ npm install
