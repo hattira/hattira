@@ -60,7 +60,8 @@ block content
       .form-group
         label.col-sm-offset-1.col-xs-3.col-sm-2(for='venue') Venue address
         .col-sm-9.col-xs-9
-          input.form-control(type='text', name="venue", id="venue", value=meetup.venue)
+          input.form-control(type='text', name="venue-userinput", value=meetup.venue)
+          input.form-control(type='hidden', name="venue", value=meetup.venue)
           div.help-block#venue-decode-success.hide
             span.glyphicon.glyphicon-ok-circle.text-success &nbsp;
             span.info 
@@ -86,7 +87,7 @@ block content
           button.btn.btn-primary(type='submit')
             span.glyphicon.glyphicon-save
             | &nbsp; Save changes
-          &nbsp;
+          | &nbsp;
           a.btn.btn-default(href='/meetups', title="cancel")
             span.glyphicon.glyphicon-remove-circle
             | &nbsp; Cancel
@@ -96,7 +97,7 @@ block extra_js
     mixpanel.track('Event edit page')
   script.
     var geocoder = new google.maps.Geocoder()
-    $('#venue').blur(function() {
+    $("form input[name='venue-userinput']").blur(function() {
       geocoder.geocode({'address': $(this).val()}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           var lat = $("<input>")
@@ -111,6 +112,7 @@ block extra_js
             .append($(lat))
             .append($(lon))
           $("#venue-decode-success .info").text(results[0].formatted_address)
+          $("form input[name='venue']").val(results[0].formatted_address)
           $("#venue-decode-success").removeClass("hide")
           $("#venue-decode-failure").addClass("hide")
         } else {
