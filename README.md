@@ -17,14 +17,8 @@ Built with love using Nodejs and Mongodb.
 
         $ grunt --gruntfile Gruntfile-bootstrap.js
 
-* Load data about cities and countries
-
-        $ node data/loadCities.js
-
-* Install dependencies and start node
-
         $ npm install
-        $ node_modules/.bin/nodemon server.js 
+        $ npm start
 
 ## Tests
     
