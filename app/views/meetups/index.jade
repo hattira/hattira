@@ -4,13 +4,11 @@ include ../includes/mixins
 block content
   include ../includes/marketing
 
-  -if (req.city)
-    -var city = req.city
-    .city.row
-      .container
-        .pull-right Showing events in 
-          span.cursive.green #{city.name}, #{city.state}, #{city.country.name}
+  .container#loc-human.hide
+    .pull-right Showing events around &nbsp;
+      span.cursive.green.info
 
+  .vspace-two
   - if (upcoming.length || past.length)
     .col-sm-9.col-xs-12
       - if (upcoming.length)
@@ -30,6 +28,7 @@ block content
       include ./browse
 
   - else
+    .vspace-two
     p.muted No events in your city yet.&nbsp;
       a(href="/meetups/new") Create one
     p Or see listing for &nbsp;
@@ -39,3 +38,21 @@ block content
 block extra_js
   script.
     mixpanel.track('Event listing (index) page')
+  script.
+    var geocoder = new google.maps.Geocoder()
+    var latlng
+
+    if (#{upcoming.length}) {
+      latlng = new google.maps.LatLng(#{upcoming[0].loc.coordinates[0]}, #{upcoming[0].loc.coordinates[1]})
+    } else {
+      latlng = new google.maps.LatLng(#{past[0].loc.coordinates[0]}, #{past[0].loc.coordinates[1]})
+    }
+
+    geocoder.geocode({'latLng': latlng}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[1]) {
+          $("#loc-human .info").text(results[1].formatted_address);
+          $("#loc-human").removeClass("hide");
+        }
+      }
+    })
