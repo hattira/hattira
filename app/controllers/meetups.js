@@ -73,19 +73,17 @@ exports.renderMeetups= function(res, meetups) {
   })
 }
 
-/**
- * List by city
- */
-
 exports.byLocation = function(req, res, next){
 
   var coords = { type: 'Point', coordinates: [
     parseFloat(req.query.lat), parseFloat(req.query.lon),
   ]}
+  req.session['loc'] = coords
   console.log(coords)
 
   Meetup.find({loc: {$near: coords}}, function(err, results) {
     if (err) {
+      console.log(err)
       return res.render('meetups/empty')
     }
     return module.exports.renderMeetups(res, results)
