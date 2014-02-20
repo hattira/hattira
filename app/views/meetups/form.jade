@@ -34,28 +34,30 @@ block content
       .form-group
         label.col-sm-offset-1.col-xs-3.col-sm-2(for='meetupDate') Happening on 
         .col-sm-9.col-xs-9
-          #startDate.input-group.date.col-sm-6.col-xs-12
-            - var d1 = meetup.startDate
-            - if (d1)
-              input.form-control(type='text', name="startDate",
-                  value="#{d1.getFullYear()}-#{d1.getMonth()}-#{d1.getDay()} #{d1.getHours()}:#{d1.getMinutes()}",
-                  data-format="YYYY-MM-DD HH:mm", placeholder="Start date and time")
-            - else
-              input.form-control(type='text', name="startDate",
-                  data-format="YYYY-MM-DD HH:mm", placeholder="Start date and time")
-            span.input-group-addon
-              span.glyphicon.glyphicon-calendar
-          #endDate.input-group.date.col-sm-6.col-xs-12
-            - var d2 = meetup.endDate
-            - if (d2)
-              input.form-control(type='text', name="endDate",
-                  value="#{d2.getFullYear()}-#{d2.getMonth()}-#{d2.getDay()} #{d2.getHours()}:#{d2.getMinutes()}",
-                  data-format="YYYY-MM-DD HH:mm", placeholder="End date and time")
-            - else
-              input.form-control(type='text', name="endDate",
-                  data-format="YYYY-MM-DD HH:mm", placeholder="End date and time")
-            span.input-group-addon
-              span.glyphicon.glyphicon-calendar
+          .col-sm-6.col-xs-12
+            #startDate.input-group
+              - var d1 = meetup.startDate
+              - if (d1)
+                input.form-control(type='text', name="startDate",
+                    value="#{d1.getFullYear()}-#{d1.getMonth()}-#{d1.getDay()} #{d1.getHours()}:#{d1.getMinutes()}",
+                    data-format="YYYY-MM-DD HH:mm", placeholder="Start date and time")
+              - else
+                input.form-control(type='text', name="startDate",
+                    data-format="YYYY-MM-DD HH:mm", placeholder="Start date and time")
+              span.input-group-addon
+                span.glyphicon.glyphicon-calendar
+          .col-sm-6.col-xs-12
+            #endDate.input-group
+              - var d2 = meetup.endDate
+              - if (d2)
+                input.form-control(type='text', name="endDate",
+                    value="#{d2.getFullYear()}-#{d2.getMonth()}-#{d2.getDay()} #{d2.getHours()}:#{d2.getMinutes()}",
+                    data-format="YYYY-MM-DD HH:mm", placeholder="End date and time")
+              - else
+                input.form-control(type='text', name="endDate",
+                    data-format="YYYY-MM-DD HH:mm", placeholder="End date and time")
+              span.input-group-addon
+                span.glyphicon.glyphicon-calendar
 
       .form-group
         label.col-sm-offset-1.col-xs-3.col-sm-2(for='venue') Venue address
