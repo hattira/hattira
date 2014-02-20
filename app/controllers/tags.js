@@ -1,14 +1,17 @@
-/**
- * Module dependencies.
- */
-
 var meetups = require('../controllers/meetups')
-
-/**
- * List items tagged with a tag
- */
+  , mongoose = require('mongoose')
+  , Meetup = mongoose.model('Meetup')
 
 exports.index = function (req, res, next) {
-  var options = { criteria: {tags: req.param('tag')} }
-  return meetups.bySearchCriteria(req, res, next, options)
+  var options = {
+    loc: {$near: req.session['loc']},
+    tags: req.param('tag')
+  }
+  Meetup.find(options, function(err, results) {
+    if (err) {
+      console.log(err)
+      return res.render('meetups/empty')
+    }
+    return meetups.renderMeetups(res, results)
+  })
 }

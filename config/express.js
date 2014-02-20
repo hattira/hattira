@@ -34,10 +34,20 @@ module.exports = function (app, config, passport) {
   app.set('view engine', 'jade')
 
   app.configure(function () {
-    // expose package.json to views
+    // expose package.json and mixpanel id to views
     app.use(function (req, res, next) {
       res.locals.pkg = pkg
       res.locals.MIXPANEL_ID = config.MIXPANEL_ID
+      next()
+    })
+
+    // expose a helper function to send json response
+    app.use(function (req, res, next) {
+      res.locals.sendJson = function(res, msg) {
+        res.writeHead(200, {"Content-Type": "application/json"})
+        res.write(JSON.stringify(msg))
+        return res.end()
+      }
       next()
     })
 
@@ -72,11 +82,15 @@ module.exports = function (app, config, passport) {
       app.use(express.csrf())
     }
 
-    // This could be moved to view-helpers :-)
-    app.use(function(req, res, next){
-      res.locals.csrf_token = req.csrfToken()
-      next()
-    })
+    // adds CSRF support
+    if (process.env.NODE_ENV !== 'test') {
+      app.use(express.csrf())
+      // This could be moved to view-helpers :-)
+      app.use(function(req, res, next){
+        res.locals.csrf_token = req.csrfToken()
+        next()
+      })
+    }
 
     // routes should be at the last
     app.use(app.router)

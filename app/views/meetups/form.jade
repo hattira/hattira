@@ -58,34 +58,17 @@ block content
               span.glyphicon.glyphicon-calendar
 
       .form-group
-        label.col-sm-offset-1.col-xs-3.col-sm-2(for='venue') Venue
+        label.col-sm-offset-1.col-xs-3.col-sm-2(for='venue') Venue address
         .col-sm-9.col-xs-9
-          input.form-control(type='text', name="venue", value=meetup.venue)
-          span.help-block Address for the event (excluding city, which is next)
-
-      .form-group
-        label.col-sm-offset-1.col-xs-3.col-sm-2(for='city') City
-        .col-sm-9.col-xs-9
-          - if (meetup.city)
-            input#citySearch.form-control.tt-query(type='text', name="city",
-              value=meetup.city.id, autocomplete="off")
-          - else
-            input#citySearch.form-control.tt-query(type='text', name="city",
-              autocomplete="off")
-
-      .form-group
-        label.col-sm-offset-1.col-xs-3.col-sm-2(for='latitude') Latitude
-        .col-sm-9.col-xs-9
-          input.form-control(type='text', name="latitude", value=meetup.latitude)
-          span.help-block Latitude of venue.  Find
-            a(href='http://www.latlong.net/', target='_blank') &nbsp;here
-
-      .form-group
-        label.col-sm-offset-1.col-xs-3.col-sm-2(for='longitude') Longitude
-        .col-sm-9.col-xs-9
-          input.form-control(type='text', name="longitude", value=meetup.longitude)
-          span.help-block Longitude of venue.  Find
-            a(href='http://www.latlong.net/', target='_blank') &nbsp;here
+          input.form-control(type='text', name="venue-userinput", value=meetup.venue)
+          input.form-control(type='hidden', name="venue", value=meetup.venue)
+          div.help-block#venue-decode-success.hide
+            span.glyphicon.glyphicon-ok-circle.text-success &nbsp;
+            span.info 
+          div.help-block#venue-decode-failure.hide
+            span.glyphicon.glyphicon-exclamation-sign.text-danger &nbsp;
+            | Unable to find venue details: &nbsp;
+            span.info
 
       .form-group
         label.col-sm-offset-1.col-xs-3.col-sm-2(for='tags') Tags
@@ -104,7 +87,7 @@ block content
           button.btn.btn-primary(type='submit')
             span.glyphicon.glyphicon-save
             | &nbsp; Save changes
-          &nbsp;
+          | &nbsp;
           a.btn.btn-default(href='/meetups', title="cancel")
             span.glyphicon.glyphicon-remove-circle
             | &nbsp; Cancel
@@ -112,3 +95,30 @@ block content
 block extra_js
   script.
     mixpanel.track('Event edit page')
+  script.
+    var geocoder = new google.maps.Geocoder()
+    $("form input[name='venue-userinput']").blur(function() {
+      geocoder.geocode({'address': $(this).val()}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          var lat = $("<input>")
+                      .attr("type", "hidden")
+                      .attr("name", "latitude")
+                      .val(results[0].geometry.location['d'])
+          var lon = $("<input>")
+                      .attr("type", "hidden")
+                      .attr("name", "longitude")
+                      .val(results[0].geometry.location['e'])
+          $("form")
+            .append($(lat))
+            .append($(lon))
+          $("#venue-decode-success .info").text(results[0].formatted_address)
+          $("form input[name='venue']").val(results[0].formatted_address)
+          $("#venue-decode-success").removeClass("hide")
+          $("#venue-decode-failure").addClass("hide")
+        } else {
+          $("#venue-decode-failure .info").text(status)
+          $("#venue-decode-failure").removeClass("hide")
+          $("#venue-decode-success").addClass("hide")
+        }
+      })
+    })

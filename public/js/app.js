@@ -1,8 +1,8 @@
-function showMap(address) {
+function showVenueMap(address) {
   var pos, mapOptions, map, marker;
   pos = new google.maps.LatLng(address.latitude, address.longitude);
   mapOptions = {
-    zoom: 7,
+    zoom: 8,
     center: pos,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }

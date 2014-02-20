@@ -7,34 +7,12 @@ var mongoose = require('mongoose')
   , env = process.env.NODE_ENV || 'development'
   , config = require('../../config/config')[env]
   , Meetup = mongoose.model('Meetup')
-  , City = mongoose.model('City')
   , async = require('async')
   , util = require('util')
   , errors = require('../../lib/errors')
   , request = require('request')
   , markdown = require( "markdown" ).markdown
   , _ = require('underscore')
-
-// https://gist.github.com/qiao/1626318
-function getClientIp(req) {
-  var ipAddress;
-  var forwardedIpsStr = req.header('x-forwarded-for'); 
-  if (forwardedIpsStr) {
-    var forwardedIps = forwardedIpsStr.split(',');
-    ipAddress = forwardedIps[0];
-  }
-  if (!ipAddress) {
-    ipAddress = req.connection.remoteAddress;
-  }
-
-  return ipAddress
-}
-
-function sendJson(res, msg) {
-  res.writeHead(200, {"Content-Type": "application/json"})
-  res.write(JSON.stringify(msg))
-  return res.end()
-}
 
 function monthNames() {
   return [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
@@ -55,96 +33,61 @@ exports.load = function(req, res, next, id){
 }
 
 /**
- * List
+ * Landing page - ask user for his location
  */
 
 exports.index = function(req, res){
+  res.render('meetups/landing', {
+    title: "Events around you",
+    fallbackCityId: config.fallbackCityId
+  })
+}
 
-  var ip = getClientIp(req)
-    , url = util.format("http://freegeoip.net/json/%s", ip)
+exports.renderMeetups= function(res, meetups) {
+  var past = []
+    , upcoming = []
+    , tags = []
+    , now = new Date().getTime()
 
-  request(url, function(err, response, body) {
-    if (err || response.statusCode != 200) {
-      return res.redirect(util.format('/meetups/by-city/%s', config.fallbackCityId))
+  _.each(meetups, function(meetup, index) {
+    if (meetup.endDate.getTime() > now) {
+      upcoming.push(meetup)
+    } else {
+      past.push(meetup)
     }
 
-    var freegeo = JSON.parse(body)
-      , city = freegeo.city || config.fallbackCity
-      , fp = City.getFingerprint(city)
-      , options = { criteria: { fingerprint: fp } }
-
-
-    //TODO: Handle the case where lookup by fingerprint fails
-    City.list(options, function(err, cities) {
-      if (err) {
-        console.log('Failed to lookup city with fp:', fp)
-        return res.render('404')
+    meetup.description = markdown.toHTML(meetup.description.slice(0,250)+'...')
+    _.each(meetup.tags.split(','), function (tag, index) {
+      tag = tag.trim()
+      if (tag && _.indexOf(tags, tag) === -1) {
+        tags.push(tag)
       }
-
-      City.count().exec(function (err, count) {
-        var cityId = config.fallbackCityId
-        if (cities.length > 0) {
-          cityId = cities[0].id
-        }
-        return res.redirect(util.format('/meetups/by-city/%s', cityId))
-      })
     })
+  })
+  res.render('meetups/index', {
+    title: 'Events around you',
+    past: past,
+    upcoming: upcoming,
+    tags: _.first(tags, 20),
+    fallbackCityId: config.fallbackCityId
   })
 }
 
-/**
- * Render meetups based on the search criteria
- */
+exports.byLocation = function(req, res, next){
 
-exports.bySearchCriteria = function(req, res, next, options) {
-  var page = (req.param('page') > 0 ? req.param('page') : 1) - 1
-    , tags = []
-     
-  _.extend(options, { perPage: config.items_per_page, page: page })
+  var coords = { type: 'Point', coordinates: [
+    parseFloat(req.query.lat), parseFloat(req.query.lon),
+  ]}
+  req.session['loc'] = coords
+  console.log(coords)
 
-  Meetup.list(options, function(err, meetups) {
-    if (err) return next(err)
-    Meetup.count().exec(function (err, count) {
-      var past = []
-        , upcoming = []
-        , now = new Date().getTime()
-
-      _.each(meetups, function(meetup, index) {
-        if (meetup.endDate.getTime() > now) {
-          upcoming.push(meetup)
-        } else {
-          past.push(meetup)
-        }
-
-        meetup.description = markdown.toHTML(meetup.description.slice(0,250)+'...')
-        _.each(meetup.tags.split(','), function (tag, index) {
-          tag = tag.trim()
-          if (tag && _.indexOf(tags, tag) === -1) {
-            tags.push(tag)
-          }
-        })
-      })
-      res.render('meetups/index', {
-        title: 'Events around you',
-        past: past,
-        upcoming: upcoming,
-        tags: _.first(tags, 20),
-        page: page + 1,
-        pages: Math.ceil(count / config.items_per_page),
-        fallbackCityId: config.fallbackCityId
-      })
-    })
+  Meetup.find({loc: {$near: coords}}, function(err, results) {
+    if (err) {
+      console.log(err)
+      return res.render('meetups/empty')
+    }
+    return module.exports.renderMeetups(res, results)
   })
-}
-
-/**
- * List by city
- */
-
-exports.byCity = function(req, res, next){
-
-  var options = { criteria: {city: req.city.id} }
-  return module.exports.bySearchCriteria(req, res, next, options)
 }
 
 /**
@@ -163,45 +106,23 @@ exports.new = function(req, res){
  */
 
 exports.create = function (req, res, next) {
-  var input = req.body.city.split(',')
-    , city = (input.length && input[0]) || ''
-    , state = (input.length > 1 && input[1].trim()) || ''
-    , options = {
-        criteria: {
-          name: city,
-          state: state
-        }
-      }
-
-  City.list(options, function (err, cities) {
-    if (err) return next(err)
-
-    City.count().exec(function (err, count) {
-      if ( !cities.length ) {
-        return res.render('meetups/new', {
-          title: 'New Meetup',
-          meetup: new Meetup(req.body),
-          errors: ["Unable to find city with that name"]
-        })
-      }
       
-      // something weird.  We need to set the city before
-      // doing new Meetup
-      req.body.city = cities[0].id
-      var meetup = new Meetup(req.body)
-      meetup.user = req.user
-      meetup.save(function (err, doc, count) {
-        if (!err) {
-          req.flash('success', 'Successfully created meetup!')
-          return res.redirect('/meetups/'+doc._id)
-        }
+  var meetup = new Meetup(req.body)
+  meetup.user = req.user
+  meetup.loc = { type: 'Point', coordinates: [
+    parseFloat(req.body.latitude), parseFloat(req.body.longitude)
+  ]}
 
-        return res.render('meetups/new', {
-          title: 'New Meetup',
-          meetup: meetup,
-          errors: errors.format(err.errors || err)
-        })
-      })
+  meetup.save(function (err, doc, count) {
+    if (!err) {
+      req.flash('success', 'Successfully created meetup!')
+      return res.redirect('/meetups/'+doc._id)
+    }
+
+    return res.render('meetups/new', {
+      title: 'New Meetup',
+      meetup: meetup,
+      errors: errors.format(err.errors || err)
     })
   })
 }
@@ -280,7 +201,7 @@ exports.attending = function(req, res) {
     , meetup = req.meetup
   
   if (!req.user) {
-    return sendJson(res, {
+    return res.locals.sendJson(res, {
       'status': 'error',
       'message':'You need to be logged in to complete this action'
     })
@@ -294,7 +215,7 @@ exports.attending = function(req, res) {
   })
 
   if (!includeUser) {
-    return sendJson(res, {
+    return res.locals.sendJson(res, {
       'status': 'error',
       'message':'Nothing to do!  You are already attending!'
     })
@@ -302,7 +223,7 @@ exports.attending = function(req, res) {
 
   meetup.attending.push({ user: req.user })
   meetup.save(function (err, doc, count) {
-    return sendJson(res, {
+    return res.locals.sendJson(res, {
       'status': 'ok',
       'message':'Successfully marked as attending!'
     })
@@ -329,12 +250,12 @@ exports.share = function(req, res, next) {
     }
 
   request.post({url: url, qs: params}, function(err, resp, body) {
-    if (err) return sendJson(res, {status: 'error', message: err})
+    if (err) return res.locals.sendJson(res, {status: 'error', message: err})
 
     body = JSON.parse(body);
-    if (body.error) return sendJson(res, {status: 'error', message: body.error})
+    if (body.error) return res.locals.sendJson(res, {status: 'error', message: body.error})
 
-    return sendJson(res, {status: 'ok', message: body})
+    return res.locals.sendJson(res, {status: 'ok', message: body})
   })
 }
 

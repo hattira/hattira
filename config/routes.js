@@ -42,7 +42,7 @@ module.exports = function (app, passport) {
 
   // meetup routes
   app.get('/meetups', meetups.index)
-  app.get('/meetups/by-city/:cityId', meetups.byCity)
+  app.get('/meetups/by-location', meetups.byLocation)
   app.get('/meetups/new', auth.requiresLogin, meetups.new)
   app.post('/meetups/new', auth.requiresLogin, meetups.create)
   app.get('/meetups/:id', meetups.show)
@@ -56,13 +56,6 @@ module.exports = function (app, passport) {
 
   // home route
   app.get('/', meetups.index)
-
-  // city routes
-  var cities = require('../app/controllers/cities')
-  app.get('/cities/search/:query', cities.search)
-
-  app.param('cityId', cities.load)
-  app.param('query', cities.find)
 
   // comment routes
   var comments = require('../app/controllers/comments')
