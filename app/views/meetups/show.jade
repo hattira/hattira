@@ -47,7 +47,7 @@ block content
             a.btn.btn-primary(href='/meetups/'+meetup._id+'/edit', title="edit")
               span.glyphicon.glyphicon-edit
               | &nbsp;Edit
-            &nbsp;&nbsp;
+            | &nbsp;&nbsp;
             input(type="hidden", name="_method", value="DELETE")
             button.btn.btn-danger(type="submit")
               span.glyphicon.glyphicon-remove-circle
@@ -97,8 +97,8 @@ block extra_js
   script.
     mixpanel.track('Show event page')
     var address = {
-      latitude: #{meetup.loc.coordinates[0]},
-      longitude: #{meetup.loc.coordinates[1]},
+      latitude: #{meetup.loc.coordinates[1]},
+      longitude: #{meetup.loc.coordinates[0]},
       venue: "#{meetup.venue}"
     }
     showVenueMap(address)

@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -85,7 +84,7 @@ exports.renderMeetups= function(req, res, meetups) {
 exports.byLocation = function(req, res, next){
 
   var coords = { type: 'Point', coordinates: [
-    parseFloat(req.query.lat), parseFloat(req.query.lon),
+    parseFloat(req.query.lon), parseFloat(req.query.lat)
   ]}
   req.session['loc'] = coords
   console.log(coords)
@@ -116,13 +115,17 @@ exports.new = function(req, res){
 
 exports.create = function (req, res, next) {
       
+  console.log("CREATE MEETUP")
+  console.log(req.body)
+
   var meetup = new Meetup(req.body)
   meetup.user = req.user
   meetup.loc = { type: 'Point', coordinates: [
-    parseFloat(req.body.latitude), parseFloat(req.body.longitude)
+    parseFloat(req.body.longitude), parseFloat(req.body.latitude)
   ]}
 
   meetup.save(function (err, doc, count) {
+    console.log(err)
     if (!err) {
       req.flash('success', 'Successfully created meetup!')
       return res.redirect('/meetups/'+doc._id)
@@ -152,8 +155,14 @@ exports.edit = function (req, res) {
  */
 
 exports.update = function(req, res){
+  console.log("UPDATE MEETUP")
+  console.log(req.body)
+
   var meetup = req.meetup
   meetup = _.extend(meetup, req.body)
+  meetup.loc = { type: 'Point', coordinates: [
+    parseFloat(req.body.longitude), parseFloat(req.body.latitude)
+  ]}
 
   meetup.save(function(err, doc) {
     if (!err) {
@@ -253,7 +262,7 @@ exports.share = function(req, res, next) {
     , params = {
         access_token: user.authToken,
         message: message,
-        link: 'http://sntd.pw/meetups/'+meetup._id,
+        link: 'http://hattira.com/meetups/'+meetup._id,
         name: meetup.title,
         description: markdown.toHTML(meetup.description.slice(0,250)+'...')
     }
