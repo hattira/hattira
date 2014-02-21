@@ -16,6 +16,8 @@ var _base = {
   fallbackLatitude: 12.972558,
   fallbackLongitude: 77.594911,
   fallbackCity: "Bangalore",
+  NEARBY_RADIUS: 250, // distance in kms
+  RESULTS_PER_PAGE: 20,
   MIXPANEL_ID: process.env.MIXPANEL_ID || "86d6a0a2e95c442691e4dc5543dbc833"
 }
 

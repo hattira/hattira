@@ -104,14 +104,6 @@ MeetupSchema.methods = {
 
 MeetupSchema.statics = {
 
-  /**
-   * Find meetup by id
-   *
-   * @param {ObjectId} id
-   * @param {Function} cb
-   * @api private
-   */
-
   load: function (id, cb) {
     this.findOne({ _id : id })
       .populate('user', 'name email username')
@@ -119,14 +111,6 @@ MeetupSchema.statics = {
       .populate('attending.user')
       .exec(cb)
   },
-
-  /**
-   * List meetups
-   *
-   * @param {Object} options
-   * @param {Function} cb
-   * @api private
-   */
 
   list: function (options, cb) {
     var criteria = options.criteria || {}
@@ -136,6 +120,21 @@ MeetupSchema.statics = {
       .sort({'createdAt': -1}) // sort by date
       .limit(options.perPage)
       .skip(options.perPage * options.page)
+      .exec(cb)
+  },
+
+  searchNear: function(coords, options) {
+    var page = options.page || 0
+      , params = { 
+          maxDistance: radToKilometers(config.NEARBY_RADIUS),
+          spherical: true
+        }
+
+    this.geoNear(coords, params)
+      .populate('user', 'name username')
+      .sort({'createdAt': -1}) // sort by date
+      .limit(config.RESULTS_PER_PAGE)
+      .skip(config.RESULTS_PER_PAGE * options.page)
       .exec(cb)
   }
 

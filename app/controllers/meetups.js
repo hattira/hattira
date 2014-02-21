@@ -18,6 +18,10 @@ function monthNames() {
     "Aug", "Sep", "Oct", "Nov", "Dec"];
 }
 
+function radToKilometers(rad) {
+  return rad/6371
+}
+
 /**
  * Load
  */
@@ -89,12 +93,26 @@ exports.byLocation = function(req, res, next){
   req.session['loc'] = coords
   console.log(coords)
 
-  Meetup.find({loc: {$near: coords}}, function(err, results) {
+  var options = {
+    maxDistance: radToKilometers(config.NEARBY_RADIUS),
+    spherical: true
+  }
+
+  Meetup.geoNear(coords, options, function(err, results, stats) {
     if (err) {
       console.log(err)
       return res.render('meetups/empty')
     }
-    return module.exports.renderMeetups(req, res, results)
+
+    console.log(results)
+    var meetups = [], meetup
+    _.each(results, function(result, index) {
+      meetup = result.obj;
+      meetup.distance = result.dis
+      meetups.push(meetup)
+    })
+
+    return module.exports.renderMeetups(req, res, meetups)
   })
 }
 
