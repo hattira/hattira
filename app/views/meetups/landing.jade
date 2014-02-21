@@ -26,8 +26,8 @@ block extra_js
     mixpanel.track('Event listing (index) page')
 
   script.
-    if (geoPosition.init()) {
-      geoPosition.getCurrentPosition(success, failure, {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, failure, {
         enableHighAccuracy: false
       })
     }
