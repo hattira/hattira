@@ -19,15 +19,6 @@ $(document).ready(function () {
   $('#endDate').datetimepicker();
   $('#marketing').carousel({interval: 5000})
 
-  $('#citySearch').typeahead({
-    remote: {
-      replace: function() {
-        return '/cities/search/'+ $('#citySearch').val()
-      }
-    },
-    limit: 10
-  })
-
   $('#attending').submit(function(e) {
     var id = $(this.meetup_id).val()
       , csrf = $(this._csrf).val()
