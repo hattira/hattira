@@ -4,12 +4,8 @@ head
 
   title= pkg.name + ' - ' + title
   meta(http-equiv="Content-type", content="text/html;charset=UTF-8")
-  - if (req.city)
-    meta(name="keywords", content="Events,#{req.city.name}, #{req.city.name} events, Local")
-    meta(name="description", content="Events in #{req.city.name}")
-  - else
-    meta(name="keywords", content=pkg.keywords.join(","))
-    meta(name="description", content=pkg.description)
+  meta(name="keywords", content=pkg.keywords.join(","))
+  meta(name="description", content=pkg.description)
 
   link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
   //
