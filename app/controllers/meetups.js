@@ -18,10 +18,6 @@ function monthNames() {
     "Aug", "Sep", "Oct", "Nov", "Dec"];
 }
 
-function radToKilometers(rad) {
-  return rad/6371
-}
-
 /**
  * Load
  */
@@ -46,12 +42,19 @@ exports.index = function(req, res){
   })
 }
 
-exports.renderMeetups= function(req, res, meetups) {
+exports.renderMeetups= function(req, res, results) {
   var past = []
+    , meetups = []
     , upcoming = []
     , tags = []
     , coords
     , now = new Date().getTime()
+
+  _.each(results, function(result, index) {
+    meetup = result.obj;
+    meetup.distance = result.dis
+    meetups.push(meetup)
+  })
 
   _.each(meetups, function(meetup, index) {
     if (meetup.endDate.getTime() > now) {
@@ -93,26 +96,14 @@ exports.byLocation = function(req, res, next){
   req.session['loc'] = coords
   console.log(coords)
 
-  var options = {
-    maxDistance: radToKilometers(config.NEARBY_RADIUS),
-    spherical: true
-  }
-
+  var options = Meetup.searchOptions()
   Meetup.geoNear(coords, options, function(err, results, stats) {
     if (err) {
       console.log(err)
       return res.render('meetups/empty')
     }
 
-    console.log(results)
-    var meetups = [], meetup
-    _.each(results, function(result, index) {
-      meetup = result.obj;
-      meetup.distance = result.dis
-      meetups.push(meetup)
-    })
-
-    return module.exports.renderMeetups(req, res, meetups)
+    return module.exports.renderMeetups(req, res, results)
   })
 }
 

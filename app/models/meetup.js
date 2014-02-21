@@ -12,6 +12,11 @@ var setTags = function (tags) {
   return _.invoke(tags.split(','), 'trim')
 }
 
+var radToKilometers = function (rad) {
+  return rad/6371
+}
+
+
 var MeetupSchema = new Schema({
   title: {type : String},
   description: {type : String},
@@ -123,19 +128,12 @@ MeetupSchema.statics = {
       .exec(cb)
   },
 
-  searchNear: function(coords, options) {
-    var page = options.page || 0
-      , params = { 
-          maxDistance: radToKilometers(config.NEARBY_RADIUS),
-          spherical: true
-        }
-
-    this.geoNear(coords, params)
-      .populate('user', 'name username')
-      .sort({'createdAt': -1}) // sort by date
-      .limit(config.RESULTS_PER_PAGE)
-      .skip(config.RESULTS_PER_PAGE * options.page)
-      .exec(cb)
+  searchOptions: function() {
+    return options = {
+      maxDistance: radToKilometers(config.NEARBY_RADIUS),
+      spherical: true,
+      limit: config.RESULTS_PER_PAGE
+    }
   }
 
 }
