@@ -117,8 +117,12 @@ module.exports = function (app, config, passport) {
       res.status(500).render('500', { error: err.stack })
     })
 
-    // assume 404 since no middleware responded
     app.use(function(req, res, next){
+      if ('/robots.txt' == req.url) {
+        res.type('text/plain')
+        return res.send("User-agent: *\nAllow: /");
+      }
+      // Assume 404
       res.status(404).render('404', {
         url: req.originalUrl,
         error: 'Not found'
