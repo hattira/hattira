@@ -1,11 +1,14 @@
 {
   "name": "hattira",
-  "description": "Events around you",
+  "description": "The simplest way to discover events around you",
   "keywords": [
-    "express",
-    "mongoose",
+    "local",
+    "events",
+    "social",
+    "expressjs",
+    "mongoosejs",
     "mongodb",
-    "passport"
+    "nodejs"
   ],
   "homepage": "http://hattira.com",
   "version": "0.3.0",
