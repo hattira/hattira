@@ -83,7 +83,7 @@ exports.upcoming = function(req, res, next) {
   var coords = req.session['loc']
     , options = Meetup.searchOptions()
 
-  options["query"] = {endDate: {$lt: new Date()}}
+  options["query"] = {endDate: {$gt: new Date()}}
   Meetup.geoNear(coords, options, function(err, results, stats) {
     if (err) {
       console.log(err)
@@ -101,7 +101,7 @@ exports.past = function(req, res, next) {
   var coords = req.session['loc']
     , options = Meetup.searchOptions()
 
-  options["query"] = {endDate: {$gt: new Date()}}
+  options["query"] = {endDate: {$lt: new Date()}}
   Meetup.geoNear(coords, options, function(err, results, stats) {
     if (err) {
       console.log(err)
