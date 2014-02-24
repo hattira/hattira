@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
   , errors = require('../../lib/errors')
 
 exports.authCallback = function (req, res, next) {
-  res.redirect('/')
+  res.redirect('/meetups/upcoming')
 }
 
 exports.login = function (req, res) {
@@ -20,7 +20,7 @@ exports.logout = function (req, res) {
 }
 
 exports.session = function (req, res) {
-  res.redirect('/')
+  res.redirect('/meetups/upcoming')
 }
 
 exports.profile = function (req, res, next) {
@@ -51,7 +51,7 @@ exports.askEmail = function (req, res) {
   var user = req.user
   if ( user.email.length ) {
     req.flash('success', 'Email updated successfully!')
-    return res.redirect('/')
+    return res.redirect('/meetups/upcoming')
   }
 
   return emailPage(res, user)

@@ -9,16 +9,11 @@ block content
       span.cursive.green.info
 
   .vspace-two
-  - if (upcoming.length || past.length)
+  - if (meetups.length)
     .col-sm-9.col-xs-12
-      - if (upcoming.length)
-        h1 Upcoming events
-        +renderMeetups(upcoming)
-
-      - if (past.length)
-        hr.vspace-three
-        h1 Past events
-        +renderMeetups(past)
+      - if (meetups.length)
+        h1= title
+        +renderMeetups(meetups)
 
       - if (pages > 1)
         .pagination
@@ -40,7 +35,7 @@ block extra_js
     mixpanel.track('Event listing (index) page')
   script.
     var geocoder = new google.maps.Geocoder()
-      , latlng = new google.maps.LatLng(#{coords[1]}, #{coords[0]})
+      , latlng = new google.maps.LatLng(#{loc.coordinates[1]}, #{loc.coordinates[0]})
 
     geocoder.geocode({'latLng': latlng}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {

@@ -42,13 +42,9 @@ exports.index = function(req, res){
   })
 }
 
-exports.renderMeetups= function(req, res, results) {
-  var past = []
-    , meetups = []
-    , upcoming = []
+exports.renderMeetups = renderMeetups = function(res, results, options) {
+  var meetups = []
     , tags = []
-    , coords
-    , now = new Date().getTime()
 
   _.each(results, function(result, index) {
     meetup = result.obj;
@@ -57,12 +53,6 @@ exports.renderMeetups= function(req, res, results) {
   })
 
   _.each(meetups, function(meetup, index) {
-    if (meetup.endDate.getTime() > now) {
-      upcoming.push(meetup)
-    } else {
-      past.push(meetup)
-    }
-
     meetup.description = markdown.toHTML(meetup.description.slice(0,250)+'...')
     _.each(meetup.tags.split(','), function (tag, index) {
       tag = tag.trim()
@@ -72,38 +62,56 @@ exports.renderMeetups= function(req, res, results) {
     })
   })
 
-  if (req.session['loc']) {
-    coords = req.session['loc'].coordinates
-  } else {
-    coords = [0, 0]
-  }
-
   res.render('meetups/index', {
-    title: 'Events around you',
-    past: past,
-    upcoming: upcoming,
+    title: options.title,
+    meetups: meetups,
     tags: _.first(tags, 20),
-    coords: coords,
+    loc: options.loc,
     fallbackCityId: config.fallbackCityId
   })
 }
 
-exports.byLocation = function(req, res, next){
+exports.byLocation = function(req, res, next) {
 
-  var coords = { type: 'Point', coordinates: [
+  req.session['loc'] = { type: 'Point', coordinates: [
     parseFloat(req.query.lon), parseFloat(req.query.lat)
   ]}
-  req.session['loc'] = coords
-  console.log(coords)
+  res.redirect("/meetups/upcoming")
+}
 
-  var options = Meetup.searchOptions()
+exports.upcoming = function(req, res, next) {
+  var coords = req.session['loc']
+    , options = Meetup.searchOptions()
+
+  options["query"] = {endDate: {$lt: new Date()}}
   Meetup.geoNear(coords, options, function(err, results, stats) {
     if (err) {
       console.log(err)
       return res.render('meetups/empty')
     }
 
-    return module.exports.renderMeetups(req, res, results)
+    return renderMeetups(res, results, {
+      title: "Upcoming events",
+      loc: req.session["loc"]
+    })
+  })
+}
+
+exports.past = function(req, res, next) {
+  var coords = req.session['loc']
+    , options = Meetup.searchOptions()
+
+  options["query"] = {endDate: {$gt: new Date()}}
+  Meetup.geoNear(coords, options, function(err, results, stats) {
+    if (err) {
+      console.log(err)
+      return res.render('meetups/empty')
+    }
+
+    return renderMeetups(res, results, {
+      title: "Past events",
+      loc: req.session["loc"]
+    })
   })
 }
 
@@ -294,6 +302,6 @@ exports.destroy = function(req, res){
   var meetup = req.meetup
   meetup.remove(function(err){
     req.flash('info', 'Deleted successfully')
-    res.redirect('/meetups')
+    res.redirect('/meetups/upcoming')
   })
 }
