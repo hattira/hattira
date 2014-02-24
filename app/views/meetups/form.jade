@@ -91,7 +91,6 @@ block extra_js
    
 
     function updateLatLong(address) {
-      console.log("updating:", address)
       geocoder.geocode({'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           var lat = $("<input>")
@@ -119,7 +118,6 @@ block extra_js
 
     $().ready(function() {
       
-      console.log("#{meetup.title}")
       if ("#{meetup.title}") {
         updateLatLong("#{meetup.venue}")
       }
