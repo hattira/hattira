@@ -23,12 +23,12 @@ block content
       include ./browse
 
   - else
-    .vspace-two
-    p.muted No events in your city yet.&nbsp;
-      a(href="/meetups/new") Create one
-    p Or see listing for &nbsp;
-      a(href="/meetups/by-location/?lat=#{fallbackLatitude}&lon=#{fallbackLongitude}") #{fallbackCity}
-
+    p.vspace-four.muted.align-center
+      | No events matching those parameters.  See
+      a(href="/meetups/past") past events.
+      | &nbsp;Or be the first to
+      a(href="/meetups/new") create an event
+      | &nbps;.
 
 block extra_js
   script.
