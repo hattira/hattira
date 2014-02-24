@@ -23,3 +23,15 @@ mixin renderMeetups(meetups)
   - if (i < meetups.length)
     .meetup.row.vspace-two
       +renderOne(meetups[i])
+
+mixin renderDate(d1, fieldName)
+  - if (d1)
+    input.form-control(type='text',
+        name=fieldName,
+        value="#{d1.getFullYear()}-#{d1.getMonth()+1}-#{d1.getDate()} #{d1.getHours()}:#{d1.getMinutes()}",
+        data-format="YYYY-MM-DD HH:mm")
+  - else
+    input.form-control(type='text',
+        name=fieldName,
+        data-format="YYYY-MM-DD HH:mm",
+        placeholder="End date and time (ex: 2014-04-24 17:00)")
