@@ -8,17 +8,18 @@ block content
 
   .vspace-two
   - if (meetups.length)
-    .col-sm-9.col-xs-12
-      - if (meetups.length)
-        h1= title
-        +renderMeetups(meetups)
+    .row
+      .col-sm-9.col-xs-12
+        - if (meetups.length)
+          h1= title
+          +renderMeetups(meetups)
 
-      - if (pages > 1)
-        .pagination
-          ul
-            != createPagination(pages, page)
-    .col-sm-offset-1.col-sm-2.col-xs-12
-      include ./browse
+        - if (pages > 1)
+          .pagination
+            ul
+              != createPagination(pages, page)
+      .col-sm-offset-1.col-sm-2.col-xs-12
+        include ./browse
 
   - else
     p.vspace-four.muted.align-center
