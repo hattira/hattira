@@ -1,15 +1,15 @@
 extends layouts/default
 
 block main
-  .align-center.vspace-five.row-fluid
+  .align-center.vspace-five.row
     h1 Internal server error
     br
-    span.span8.offset2
+    .col-md-offset-3.col-md-6.col-xs-12
       | Oops!  There was a problem completing your request!  
-      | This is our fault.
-      | We have been notified.  We are on it.  You can also send us a
-      a(href="/feedback") &nbsp;feedback&nbsp;
-      | if you would like to have a conversation about it.
+      | This is our fault.  We have been notified.
+      | We are on it.  You can also send us a mail - 
+      a(href="mailto:support@hattira.com") support 
+      | - to specify more details or escalate priority.
 
 block extra_js
   script.

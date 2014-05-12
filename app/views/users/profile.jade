@@ -1,19 +1,19 @@
 extends ../layouts/default
 
 block content
-  h2.vspace-two Profile of #{user.name}
-  .col-xs-offset-1
-    .vspace-two Meetups posted by #{user.name}
-    .row
-      .col-xs-offset-1
+  .container
+    .row.vspace-three
+      .col-md-offset-3.col-md-3
+        img(src="//graph.facebook.com/#{user.facebook.id}/picture?width=400&height=400").img-responsive.img-circle
+      .col-md-6
+        h3 Meetups posted by #{user.name}
         - if (meetups.length)
           ul.vspace-one
             - for meetup in meetups
               li
                 a(href='/meetups/#{meetup._id}') #{meetup.title}
         - else
-          p.vspace-two No meetups yet!  
-            a(href='/meetups/new') Post one now.
+          p.vspace-two No meetups has been posted by #{user.facebook.first_name} yet!  
 
 block extra_js
   script.

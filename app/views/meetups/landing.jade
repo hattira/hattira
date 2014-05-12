@@ -1,24 +1,22 @@
 extends ../layouts/default
 
 block content
+  include ../includes/marketing
 
-  h3.vspace-three.align-center
-    | hattira is the simplest way to discover events near you.
-  h3.vspace-three.align-center
-    | We rely on your location details for this to work.
-    p
-      | Please allow the website to use your location
-      | at the top of the page.
+  h3.vspace-four.align-center.row
+    .col-md-offset-2.col-md-8#geoloc
+      | This works best if you let us use your geolocation.
+      | Please allow this setting at the top.
+      | Alternatively, you can browse events for 
+      a(href="/meetups/by-location/?lat=#{fallbackLatitude}&lon=#{fallbackLongitude}") #{fallbackCity}
+      | &nbsp; before making up your mind.
+    .col-md-offset-2.col-md-8#geoloc-error.hide
+      | Oops!  There was an error determining your position.  Browse
+      | events for 
+      a(href="/meetups/by-location/?lat=#{fallbackLatitude}&lon=#{fallbackLongitude}") #{fallbackCity}
+      | &nbsp; instead?
 
-  .row.vspace-four
-    .col-md-offset-1.col-md-10
-      img.thumbnail(src="/static/img/geolocation.png", alt="Geolocation")
-
-  p.vspace-four.align-center
-    | Still here?!  Perhaps you would like
-    | to see some events for &nbsp;
-    a(href="/meetups/by-location/?lat=#{fallbackLatitude}&lon=#{fallbackLongitude}") #{fallbackCity}
-    | &nbsp;?
+  .vspace-three &nbsp;
 
 
 block extra_js
@@ -26,16 +24,37 @@ block extra_js
     mixpanel.track('Event listing (index) page')
 
   script.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, failure, {
-        enableHighAccuracy: false
-      })
-    }
+    $().ready(function () {
+      function failure(p) {}
 
-    function success(p) {
-      window.location = "/meetups/by-location/?lat="+p.coords.latitude+"&lon="+p.coords.longitude
-    }
+      function success(p) {
+        var geocoder = new google.maps.Geocoder()
+          , lat = p.coords.latitude
+          , lng = p.coords.longitude
+          , latlng = new google.maps.LatLng(lat, lng);
 
-    function failure(p) {
-      console.log(p)
-    }
+        console.log(latlng)
+        geocoder.geocode({'latLng': latlng}, function(results, status) {
+          console.log(status, results);
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+              var url = '/meetups/by-location/?lat='+lat+'&lon='+lng;
+              var address = results[1].formatted_address;
+              $('#geoloc').html("Show me events around - <a href="+url+">"+address+"</a>");
+            } else {
+              $('#geoloc').addClass('hide')
+              $('#geoloc-error').removeClass('hide')
+            }
+          } else {
+            $('#geoloc').addClass('hide')
+            $('#geoloc-error').removeClass('hide')
+          }
+        })
+      }
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, failure, {
+          enableHighAccuracy: false
+        })
+      }
+    })

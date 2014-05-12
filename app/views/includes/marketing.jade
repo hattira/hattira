@@ -1,33 +1,49 @@
-#marketing.carousel.slide
-  ol.carousel-indicators
-    li(data-target="#marketing", data-slide="0", class="active")
-    li(data-target="#marketing", data-slide="1")
-    li(data-target="#marketing", data-slide="2")
-    li(data-target="#marketing", data-slide="3")
-  .carousel-inner
-    .item.active
+img(src="/static/img/bridge.jpg", alt="Discover").img-responsive
+h1.tagline
+  .col-md-offset-1
+    | The simplest way to discover events near you!
+
+hr.divider
+
+.row.vspace-four
+  .col-md-4
+    .thumbnail
       img(src="http://farm3.staticflickr.com/2120/2281805306_cf8d310c47_b.jpg", alt="Discover")
-      .carousel-caption
+      .caption
         h3 Discover events in your city
-        p Find what's interesting, who's attending and what's happening
-    .item
+        p We use your location to show the events closest to you!
+          | You can further filter by tags.  You can even see who's
+          | attending and plan accordingly!
+  .col-md-4
+    .thumbnail
       img(src="http://farm4.staticflickr.com/3038/2475566694_b0c5fc2b2d_b.jpg", alt="Organize")
-      .carousel-caption
+      .caption
         h3 Create and organize better
-        p 
-          a(href="/meetups/new") Create event,
-          | &nbsp;use Facebook to invite friends; tags to meet like minded people!
-    .item
-      img(src="http://farm1.staticflickr.com/228/516091476_3b68016e58_b.jpg", alt="Social")
-      .carousel-caption
+        p As an organizer, use the social media to let your friends
+          | know.  Further, we use SEO extensively to capture attention for you!
+  .col-md-4
+    .thumbnail
+      img(src="http://farm1.staticflickr.com/228/516091476_3b68016e58_b.jpg", alt="Organize")
+      .caption
         h3 Has the social features you expect
-        p Follow tags and users; share &amp; attend with friends
-    .item
-      img(src="http://farm4.staticflickr.com/3279/2327136912_cceac663f4_b.jpg", alt="Free")
-      .carousel-caption
-        h3 Free to use
-  a.left.carousel-control(href="#marketing", data-slide="prev")
-    span.glyphicon.glyphicon-chevron-left
-  a.right.carousel-control(href="#marketing", data-slide="next")
-    span.glyphicon.glyphicon-chevron-right
-.vspace-four
+        p Tags is one powerful way to discover interesting events.
+          | You can also follow users.  And you can see which of your
+          | friends are attending an event!
+.row
+  .col-md-4
+    .thumbnail
+      img(src="https://farm1.staticflickr.com/114/288491653_a9b6251477_b.jpg", alt="Organize")
+      .caption
+        h3 Safe and secure
+        p We understand how important your data and we let the
+          | experts handle it.  Your data is safe and secure with &nbsp;
+          a(href="http://www.mongohq.com/") MongoHQ
+  .col-md-4
+    .thumbnail
+      img(src="http://farm4.staticflickr.com/3279/2327136912_cceac663f4_b.jpg", alt="Organize")
+      .caption
+        h3.green Free to use!
+        p hattira is completely <strong>free</strong> to use.  Creating events
+          | is free!  So is using all other features.  Enjoy!
+
+hr.divider
