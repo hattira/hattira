@@ -15,6 +15,7 @@ exports.index = function (req, res, next) {
     }
     return meetups.renderMeetups(res, results, {
       title: util.format("Meetups with tag: %s", req.param("tag")),
+      loc: req.session["loc"]
     })
   })
 }
