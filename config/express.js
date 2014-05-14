@@ -37,6 +37,7 @@ module.exports = function (app, config, passport) {
     app.use(function (req, res, next) {
       res.locals.pkg = pkg
       res.locals.MIXPANEL_ID = config.MIXPANEL_ID
+      res.locals.FACEBOOK_APP_ID = config.facebook.clientID
       res.locals.fallbackLatitude = config.fallbackLatitude
       res.locals.fallbackLongitude = config.fallbackLongitude
       res.locals.fallbackCity = config.fallbackCity
