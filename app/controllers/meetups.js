@@ -266,35 +266,6 @@ exports.attending = function(req, res) {
 }
 
 /**
- * share on facebook
- * http://runnable.com/UTlPM1-f2W1TAABY/post-on-facebook
- */
-
-exports.share = function(req, res, next) {
-  var meetup = req.meetup
-    , user = req.user
-    , url = 'https://graph.facebook.com/me/feed'
-    , message = util.format('I am attending this event on %s %s',
-          meetup.startDate.getDate(), monthNames()[meetup.startDate.getMonth()])
-    , params = {
-        access_token: user.authToken,
-        message: message,
-        link: 'http://hattira.com/meetups/'+meetup._id,
-        name: meetup.title,
-        description: markdown.toHTML(meetup.description.slice(0,250)+'...')
-    }
-
-  request.post({url: url, qs: params}, function(err, resp, body) {
-    if (err) return res.locals.sendJson(res, {status: 'error', message: err})
-
-    body = JSON.parse(body);
-    if (body.error) return res.locals.sendJson(res, {status: 'error', message: body.error})
-
-    return res.locals.sendJson(res, {status: 'ok', message: body})
-  })
-}
-
-/**
  * Delete the meetup
  */
 
