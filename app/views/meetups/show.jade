@@ -1,97 +1,81 @@
 extends ../layouts/default
 
 block main
-      h1= meetup.title
-        -if (meetup.isFree)
-          span.free.label.label-success free
-      div#feedback-box.alert.hide(data-dismiss="alert")
-      -if (meetup.website)
-        p.no-margin
-          a(href="#{meetup.website}", target="_blank") #{meetup.website}
+  .row
+    h1= meetup.title
+      -if (meetup.isFree)
+        span.free.label.label-success free
+    div#feedback-box.alert.hide(data-dismiss="alert")
+    -if (meetup.website)
       p.no-margin
-        | #{meetup.venue}, &nbsp;
-      .orange
-        = formatDatetime(meetup.startDate)
-        | &nbsp;to&nbsp;
-        = formatDatetime(meetup.endDate)
+        a(href="#{meetup.website}", target="_blank") #{meetup.website}
+    p.no-margin
+      | #{meetup.venue}, &nbsp;
+    .orange
+      = formatDatetime(meetup.startDate)
+      | &nbsp;to&nbsp;
+      = formatDatetime(meetup.endDate)
+
+  .row.vspace-one
+    <span class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></span>
+    - if (showAttending)
+      .pull-right
+        form(action="#", id="attending")
+          input(type='hidden', name='_csrf', value="#{csrf_token}")
+          input(type="hidden", name="meetup_id", value="#{meetup.id}")
+          button(type='submit').btn.btn-primary
+            span.glyphicon.glyphicon-share
+            | &nbsp;I'm attending
 
 block content
   .row.vspace-two
-    .col-sm-6.col-xs-12
-      p !{meetup.description}
-      - if (meetup.user)
-        - var name = meetup.user.name ? meetup.user.name : meetup.user.username
-        p.no-margin
-          span.text-muted Created by &nbsp;
-          a(href="/users/"+meetup.user._id)= name
-          | &nbsp;on&nbsp;
-          span.orange #{formatDate(meetup.createdAt)}
-        - if (meetup.tags)
-          p
-            strong Tags: &nbsp;
-            - each tag in meetup.tags.split(',')
-              | &nbsp;
-              a.tag(href="/tags/"+tag)
-                span.glyphicon.glyphicon-map-marker
-                | &nbsp;#{tag},
+    p !{meetup.description}
+    - if (meetup.user)
+      - var name = meetup.user.name ? meetup.user.name : meetup.user.username
+      p.no-margin
+        span.text-muted Created by &nbsp;
+        a(href="/users/"+meetup.user._id)= name
+        | &nbsp;on&nbsp;
+        span.orange #{formatDate(meetup.createdAt)}
+      - if (meetup.tags)
         p
-          span.text-muted Attending:
-          - each attendee in meetup.attending
-            a(href="/users/"+attendee.user.id) &nbsp;#{attendee.user.name},
-
-      - if (allowEdit)
-        p
-          br
-          form.center.form-inline.confirm(action="/meetups/"+meetup.id, method="post")
-            input(type='hidden', name='_csrf', value="#{csrf_token}")
-            a.btn.btn-primary(href='/meetups/'+meetup._id+'/edit', title="edit")
-              span.glyphicon.glyphicon-edit
-              | &nbsp;Edit
-            | &nbsp;&nbsp;
-            input(type="hidden", name="_method", value="DELETE")
-            button.btn.btn-danger(type="submit")
-              span.glyphicon.glyphicon-remove-circle
-              | &nbsp;Delete
-
+          strong Tags: &nbsp;
+          - each tag in meetup.tags.split(',')
+            | &nbsp;
+            a.tag(href="/tags/"+tag)
+              span.glyphicon.glyphicon-map-marker
+              | &nbsp;#{tag},
       p
-        h3.purple Comments
-        - if (meetup.comments.length)
-          - each comment in meetup.comments
-            include ../comments/comment
-        - else
-          p There are no comments for this event yet!
-        .vspace-three
-        include ../comments/form
+        span.text-muted Attending:
+        - each attendee in meetup.attending
+          a(href="/users/"+attendee.user.id) &nbsp;#{attendee.user.name},
 
-    .col-sm-1.hidden-xs.vline
+    - if (allowEdit)
+      p
+        br
+        form.center.form-inline.confirm(action="/meetups/"+meetup.id, method="post")
+          input(type='hidden', name='_csrf', value="#{csrf_token}")
+          a.btn.btn-primary(href='/meetups/'+meetup._id+'/edit', title="edit")
+            span.glyphicon.glyphicon-edit
+            | &nbsp;Edit
+          | &nbsp;&nbsp;
+          input(type="hidden", name="_method", value="DELETE")
+          button.btn.btn-danger(type="submit")
+            span.glyphicon.glyphicon-remove-circle
+            | &nbsp;Delete
 
-    .col-sm-5.col-xs-12
-      - if (!showAttending)
-        .row-fluid
-          p.text-muted We will post a simple message on your wall saying you are attending this event
-              | with a link to this event.  Helps you attend the event with friends!
-          .span6.offset3
-            form(action="#", id="share")
-              input(type='hidden', name='_csrf', value="#{csrf_token}")
-              input(type="hidden", name="meetup_id", value="#{meetup.id}")
-              button(type='submit').btn-primary.btn-block.btn-lg
-                span.glyphicon.glyphicon-share-alt
-                | &nbsp;Share on Facebook
-        .vspace-two
-
-      - if (showAttending)
-        .row-fluid
-          .span6.offset3
-            form(action="#", id="attending")
-              input(type='hidden', name='_csrf', value="#{csrf_token}")
-              input(type="hidden", name="meetup_id", value="#{meetup.id}")
-              button(type='submit').btn-primary.btn-block.btn-lg
-                span.glyphicon.glyphicon-share
-                | &nbsp;I'm attending
-                
-          #map-canvas.vspace-three
+    #map-canvas.vspace-three
+    p
+      h3.purple Comments
+      - if (meetup.comments.length)
+        - each comment in meetup.comments
+          include ../comments/comment
       - else
-        #map-canvas
+        p There are no comments for this event yet!
+      .vspace-three
+      include ../comments/form
+
+                
 
 block extra_js
   script.
