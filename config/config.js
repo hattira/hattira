@@ -8,6 +8,11 @@ var _base = {
   app: {
     name: 'hattira: Events around you'
   },
+  twitter: {
+    clientID: "t9RpUnXyRvTEz88YrxdGDOKBr",
+    clientSecret: "SmVIVCHTAyDCgbLkvMMKZMWQxN7J7V8vBqvPdniWErygIF6QKx",
+    callbackURL: "http://localhost:3000/auth/twitter/callback"
+  },
   facebook: {
     clientID: "1406466249565794",
     clientSecret: "a2f0757486db1fb8ec396bf16dd86d97",
@@ -29,6 +34,11 @@ var development = _.extend({}, _base, { db: _base.db+'_dev' })
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
         callbackURL: "http://www.hattira.com/auth/facebook/callback"
+      },
+      twitter: {
+        clientID: process.env.TWITTER_CLIENT_ID,
+        clientSecret: process.env.TWITTER_CLIENT_SECRET,
+        callbackURL: "http://www.hattira.com/auth/twitter/callback"
       },
       fallbackCityId: '51fd5227920fc2020000522c',
       debug: false

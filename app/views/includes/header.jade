@@ -3,7 +3,7 @@
     if (req.isAuthenticated())
       .dropdown
         a(data-toggle="dropdown", href="#").dropdown-toggle#dropdownProfile
-          img(src="https://graph.facebook.com/#{req.user.facebook.id}/picture", alt="Profile image")
+          img(src="#{req.user.picture}", alt="Profile image")
         span.caret
         ul(role="menu", aria-labelledby="dropdownProfile").dropdown-menu.pull-right
           li(role="presentation")

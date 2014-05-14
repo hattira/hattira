@@ -1,9 +1,22 @@
-extends ../layouts/default
+extends auth
 
-block content
-  #login
-    a(href="/auth/facebook", class="btn-auth btn-facebook large") Login with Facebook
+block auth
+  .row
+    form.form-horizontal(action="/users/session", method="post", role="form").col-sm-offset-3.col-sm-6.col-md-offset-4.col-md-4
+      input(type='hidden', name='_csrf', value="#{csrf_token}")
 
-block extra_js
-  script.
-    mixpanel.track('Login page')
+      p.col-sm-offset-2.error= message
+
+      .input-group
+        input#email.form-control(type="email", placeholder="Email", name="email")
+        span.input-group-addon.glyphicon.glyphicon-envelope
+
+      .input-group.vspace-one
+        input#password.form-control(type="password", placeholder="Password", name="password")
+        span.input-group-addon.glyphicon.glyphicon-asterisk
+
+      .form-group.vspace-one
+        .col-sm-offset-2.col-sm-10
+          button.btn.btn-primary(type='submit') Log in
+          | &nbsp; or &nbsp;
+          a.show-signup(href="/signup") Sign up

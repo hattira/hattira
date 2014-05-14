@@ -4,7 +4,7 @@ block content
   .container
     .row.vspace-three
       .col-md-offset-3.col-md-3
-        img(src="//graph.facebook.com/#{user.facebook.id}/picture?width=400&height=400").img-responsive.img-circle
+        img(src="#{user.picture_large}").img-responsive.img-circle
       .col-md-6
         h3 Meetups posted by #{user.name}
         - if (meetups.length)
@@ -13,7 +13,7 @@ block content
               li
                 a(href='/meetups/#{meetup._id}') #{meetup.title}
         - else
-          p.vspace-two No meetups has been posted by #{user.facebook.first_name} yet!  
+          p.vspace-two No meetups has been posted by #{user.first_name} yet!  
 
 block extra_js
   script.

@@ -3,13 +3,19 @@ var mongoose = require('mongoose')
   , Meetup = mongoose.model('Meetup')
   , errors = require('../../lib/errors')
 
-exports.authCallback = function (req, res, next) {
-  res.redirect('/meetups/upcoming')
+var login = function (req, res) {
+  var redirectTo = req.session.returnTo ? req.session.returnTo : '/meetups/upcoming'
+  delete req.session.returnTo
+  res.redirect(redirectTo)
 }
+
+exports.authCallback = login
+
+exports.signin = function (req, res) {}
 
 exports.login = function (req, res) {
   res.render('users/login', {
-    title: 'Login',
+    title: 'Log into hattira',
     message: req.flash('error')
   })
 }
@@ -19,8 +25,41 @@ exports.logout = function (req, res) {
   res.redirect('/login')
 }
 
-exports.session = function (req, res) {
-  res.redirect('/meetups/upcoming')
+exports.signup = function (req, res) {
+  res.render('users/signup', {
+    title: 'Sign up for hattira',
+    user: new User()
+  })
+}
+
+exports.session = login
+
+exports.create = function (req, res) {
+  var user = new User(req.body)
+  user.provider = 'local'
+  user.save(function (err) {
+    if (err) {
+      return res.render('users/signup', {
+        error: errors.format(err.errors),
+        user: user,
+        title: 'Sign up'
+      })
+    }
+
+    // manually login the user once successfully signed up
+    req.logIn(user, function(err) {
+      if (err) return next(err)
+      return res.redirect('/')
+    })
+  })
+}
+
+var getLargePicture = function(user) {
+  if (user.provider === "facebook") {
+    return "//graph.facebook.com/"+user.facebook.id+"/picture?width=400&height=400"
+  } else if (user.provider === "twitter") {
+    return user.twitter.profile_image_url.replace("_normal.png", ".png")
+  }
 }
 
 exports.profile = function (req, res, next) {
@@ -31,6 +70,7 @@ exports.profile = function (req, res, next) {
     if (err) { return next(err) }
 
     Meetup.count().exec(function (err, count) {
+      user.picture_large = getLargePicture(user)
       res.render('users/profile', { 
         title: user.name,
         user: user,

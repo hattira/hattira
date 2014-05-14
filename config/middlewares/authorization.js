@@ -32,7 +32,7 @@ exports.meetup = {
   hasAuthorization : function (req, res, next) {
     if (req.meetup.user.id != req.user.id) {
       req.flash('info', 'You are not authorized')
-      return res.redirect('/meetup/'+req.meetup.id)
+      return res.redirect('/meetups/'+req.meetup.id)
     }
     next()
   }
