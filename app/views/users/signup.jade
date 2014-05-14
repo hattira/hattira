@@ -1,0 +1,30 @@
+extends ../layouts/default
+
+block main
+  center.vspace-two
+    h1= title
+
+block content
+  .row.vspace-two
+    form.form-horizontal(action="/users", method="post", role="form").col-sm-offset-3.col-sm-6.col-md-offset-4.col-md-4
+      input(type='hidden', name='_csrf', value="#{csrf_token}")
+      - if (error)
+        .alert.alert-danger #{error}
+
+      .input-group
+        input#name.form-control(type='text', name="name", placeholder='Full name', value=user.name)
+        span.input-group-addon.glyphicon.glyphicon-user
+
+      .input-group.vspace-one
+        input#email.form-control(type='text', name="email", placeholder='Email', value=user.email)
+        span.input-group-addon.glyphicon.glyphicon-envelope
+
+      .input-group.vspace-one
+        input#password.form-control(type='password', name="password", placeholder='Password')
+        span.input-group-addon.glyphicon.glyphicon-asterisk
+
+      .form-group.vspace-one
+        .col-sm-offset-2.col-sm-10
+          button.btn.btn-primary(type='submit') Sign up
+          | &nbsp; or &nbsp;
+          a.show-login(href="/login") Log in

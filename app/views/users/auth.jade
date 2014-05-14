@@ -1,0 +1,18 @@
+extends ../layouts/default
+
+block main
+  center.vspace-two
+    h1= title
+
+block content
+  .row.align-center.vspace-two
+    a(href="/auth/facebook", class="btn-auth btn-facebook") Login with Facebook
+    a(href="/auth/twitter", class="btn-auth btn-twitter") Login with twitter
+
+  center
+    br
+    | OR
+    br
+
+  .login
+    block auth
