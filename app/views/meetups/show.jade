@@ -17,15 +17,19 @@ block main
       = formatDatetime(meetup.endDate)
 
   .row.vspace-one
-    <span class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></span>
-    - if (showAttending)
-      .pull-right
-        form(action="#", id="attending")
-          input(type='hidden', name='_csrf', value="#{csrf_token}")
-          input(type="hidden", name="meetup_id", value="#{meetup.id}")
-          button(type='submit').btn.btn-primary
-            span.glyphicon.glyphicon-share
-            | &nbsp;I'm attending
+    .social-buttons
+      span
+        a(href="https://twitter.com/share", data-text="Check out this event - #{meetup.title} - ", data-lang="en").twitter-share-button Tweet
+      span
+        <iframe src="//www.facebook.com/plugins/like.php?app_id=#{FACEBOOK_APP_ID}&amp;href=http://www.hattira.com/meetups/#{meetup.id}&amp;layout=standard&amp;action=recommend&amp;show_faces=false&amp;share=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width: 350px; height: 21px;" allowTransparency="false"></iframe>
+      - if (showAttending)
+        .pull-right
+          form(action="#", id="attending")
+            input(type='hidden', name='_csrf', value="#{csrf_token}")
+            input(type="hidden", name="meetup_id", value="#{meetup.id}")
+            button(type='submit').btn.btn-primary.btn-sm
+              span.glyphicon.glyphicon-share
+              | &nbsp;I'm attending
 
 block content
   .row.vspace-two

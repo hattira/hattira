@@ -17,6 +17,12 @@ hr {
 .vspace-five { margin-top: 5em; }
 .align-right { text-align: right; }
 
+.social-buttons {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding-top: 0.6em;
+  padding-bottom: 0.8em;
+}
 
 .tagline {
   position: absolute;
