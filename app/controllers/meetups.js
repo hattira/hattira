@@ -26,6 +26,7 @@ exports.load = function(req, res, next, id){
   Meetup.load(id, function (err, meetup) {
     if (err) return next(err)
     if (!meetup) return next(new Error('not found'))
+    meetup.description_short = meetup.description.slice(0,250)+'...'
     req.meetup = meetup
     next()
   })
