@@ -13,15 +13,18 @@ block content
 
       .input-group
         input#name.form-control(type='text', name="name", placeholder='Full name', value=user.name)
-        span.input-group-addon.glyphicon.glyphicon-user
+        span.input-group-addon
+          i.fa.fa-user
 
       .input-group.vspace-one
         input#email.form-control(type='text', name="email", placeholder='Email', value=user.email)
-        span.input-group-addon.glyphicon.glyphicon-envelope
+        span.input-group-addon
+          i.fa.fa-envelope
 
       .input-group.vspace-one
         input#password.form-control(type='password', name="password", placeholder='Password')
-        span.input-group-addon.glyphicon.glyphicon-asterisk
+        span.input-group-addon
+          i.fa.fa-key
 
       .form-group.vspace-one
         .col-sm-offset-2.col-sm-10
