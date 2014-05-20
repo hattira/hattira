@@ -48,9 +48,11 @@ exports.renderMeetups = renderMeetups = function(res, results, options) {
     , tags = []
 
   _.each(results, function(result, index) {
+  /*
     meetup = result.obj;
     meetup.distance = result.dis
-    meetups.push(meetup)
+  */
+    meetups.push(result.obj || result)
   })
 
   _.each(meetups, function(meetup, index) {
@@ -94,6 +96,19 @@ exports.upcoming = function(req, res, next) {
     return renderMeetups(res, results, {
       title: "Upcoming events",
       loc: req.session["loc"]
+    })
+  })
+}
+
+exports.recent = function(req, res, next) {
+  Meetup.list({}, function(err, results, stats) {
+    if (err) {
+      console.log(err)
+      return res.render('meetups/empty')
+    }
+
+    return renderMeetups(res, results, {
+      title: "Recently added events",
     })
   })
 }

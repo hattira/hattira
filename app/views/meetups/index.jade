@@ -22,25 +22,33 @@ block content
         include ./browse
 
   - else
-    p.vspace-four.muted.align-center
-      | No events matching those parameters.  See
-      a(href="/meetups/past") &nbsp;past events
-      | &nbsp; at this location.  Or be the first to
-      a(href="/meetups/new") &nbsp;create an event
-      | .
+    p.vspace-four.text-warning
+      | No events matching those parameters.  You can instead -
+    dl.dl-horizontal
+      dt
+        a(href="/meetups/past") Past events
+      dd View events in your location that have happened in the past
+      dt
+        a(href="/meetups/recent") Recent events
+      dd View most recent events (from around the world)
+      dt
+        a(href="/meetups/new") Create an event
+      dd Organizing an event?  Know of something interesting happening?
+        | Create an event!
 
 block extra_js
   script.
     mixpanel.track('#{title}')
-  script.
-    var geocoder = new google.maps.Geocoder()
-      , latlng = new google.maps.LatLng(#{loc.coordinates[1]}, #{loc.coordinates[0]})
+  - if (loc)
+    script.
+      var geocoder = new google.maps.Geocoder()
+        , latlng = new google.maps.LatLng(#{loc.coordinates[1]}, #{loc.coordinates[0]})
 
-    geocoder.geocode({'latLng': latlng}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0]) {
-          $("#loc-human .info").text(results[1].formatted_address);
-          $("#loc-human").removeClass("hide");
+      geocoder.geocode({'latLng': latlng}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            $("#loc-human .info").text(results[1].formatted_address);
+            $("#loc-human").removeClass("hide");
+          }
         }
-      }
-    })
+      })

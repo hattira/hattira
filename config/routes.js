@@ -60,6 +60,7 @@ module.exports = function (app, passport) {
   app.get('/meetups/by-location', meetups.byLocation)
   app.get('/meetups/upcoming', meetups.upcoming)
   app.get('/meetups/past', meetups.past)
+  app.get('/meetups/recent', meetups.recent)
   app.get('/meetups/new', auth.requiresLogin, meetups.new)
   app.post('/meetups/new', auth.requiresLogin, meetups.create)
   app.get('/meetups/:id', meetups.show)
