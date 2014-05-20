@@ -57,12 +57,6 @@ exports.renderMeetups = renderMeetups = function(res, results, options) {
 
   _.each(meetups, function(meetup, index) {
     meetup.description = markdown.toHTML(meetup.description.slice(0,250)+'...')
-    _.each(meetup.tags.split(','), function (tag, index) {
-      tag = tag.trim()
-      if (tag && _.indexOf(tags, tag) === -1) {
-        tags.push(tag)
-      }
-    })
   })
 
   res.render('meetups/index', {

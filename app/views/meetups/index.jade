@@ -2,24 +2,19 @@ extends ../layouts/default
 include ../includes/mixins
 
 block content
-  .container#loc-human.hide.vspace-two
+  #loc-human.hide.vspace-two
     .pull-right Showing events around &nbsp;
       span.cursive.green.info
 
   .vspace-two
   - if (meetups.length)
-    .row
-      .col-sm-9.col-xs-12
-        - if (meetups.length)
-          h1= title
-          +renderMeetups(meetups)
+    h1= title
+    +renderMeetups(meetups)
 
-        - if (pages > 1)
-          .pagination
-            ul
-              != createPagination(pages, page)
-      .col-sm-offset-1.col-sm-2.col-xs-12
-        include ./browse
+    - if (pages > 1)
+      .pagination
+        ul
+          != createPagination(pages, page)
 
   - else
     p.vspace-four.text-warning
