@@ -10,12 +10,19 @@ var mongoose = require('mongoose')
 
 describe('Meetups', function () {
 
-  describe('GET /meetups', function () {
+  describe('GET /', function () {
     it('should respond with Content-Type text/html', function (done) {
       agent
-      .get('/meetups')
+      .get('/')
       .expect('Content-Type', "text/html; charset=utf-8")
       .expect(200)
+      .end(done)
+    })
+
+    it('has the markup we expect', function (done) {
+      agent
+      .get('/')
+      .expect(/The simplest way to discover events near you/)
       .end(done)
     })
   })
