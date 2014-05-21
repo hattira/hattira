@@ -111,7 +111,7 @@ MeetupSchema.statics = {
 
   load: function (id, cb) {
     this.findOne({ _id : id })
-      .populate('user', 'name email username')
+      .populate('user', 'name email provider')
       .populate('comments.user')
       .populate('attending.user')
       .exec(cb)
@@ -121,7 +121,7 @@ MeetupSchema.statics = {
     var criteria = options.criteria || {}
 
     this.find(criteria)
-      .populate('user', 'name username')
+      .populate('user', 'name username provider facebook twitter')
       .sort({'createdAt': -1}) // sort by date
       .limit(options.perPage)
       .skip(options.perPage * options.page)

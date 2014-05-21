@@ -14,8 +14,16 @@ mixin renderContent(meetup)
     .row
       .col-sm-8 !{meetup.description}
       .col-sm-offset-1.col-sm-3
-        p.text-danger #{meetup.attending.length} attending.
-        p.text-info #{meetup.venue}
+        -if (meetup.user.provider === "facebook")
+          a(href="/users/#{meetup.user.id}", title="Created by #{meetup.user.name}")
+            img(src="//graph.facebook.com/#{meetup.user.facebook.id}/picture?width=50&height=50").img-circle.img-thumbnail.img-responsive
+        -else
+          a(href="/users/#{meetup.user.id}", title="Created by #{meetup.user.name}")
+            img(src="#{meetup.user.twitter.profile_image_url}").img-circle.img-thumbnail.img-responsive
+
+mixin renderAddress(meetup)
+  p.text-success
+    em &nbsp;#{meetup.venue}
 
 mixin renderMeetup(meetup)
   .date.text-muted= formatDate(meetup.startDate)
@@ -26,6 +34,7 @@ mixin renderMeetup(meetup)
         span.free.label.label-success free
     +renderContent(meetup)
     +renderTags(meetup)
+    +renderAddress(meetup)
 
 mixin renderMeetups(meetups)
   - for (var i = 0; i < meetups.length; i++)
