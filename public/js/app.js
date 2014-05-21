@@ -1,16 +1,23 @@
 function showVenueMap(address) {
-  var pos, mapOptions, map, marker;
-  pos = new google.maps.LatLng(address.latitude, address.longitude);
-  mapOptions = {
-    zoom: 8,
+  var pos = new google.maps.LatLng(address.latitude, address.longitude);
+  var mapOptions = {
+    zoom: 13,
     center: pos,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  marker = new google.maps.Marker({
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  var marker = new google.maps.Marker({
     position: pos,
-    map: map,
-    title: address.venue
+    map: map
+  });
+
+  var info = '<p><b>'+address.venue+'</b></p>';
+  var infoWindow = new google.maps.InfoWindow({
+    content: info
+  })
+
+  google.maps.event.addListener(marker, 'click', function() {
+      infoWindow.open(map,marker);
   });
 }
 
