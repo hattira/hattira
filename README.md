@@ -13,6 +13,8 @@ a simple solution that does two things -
  
 Did I succeed?  Let me know!
 
+![Hattira screenshot](https://farm3.staticflickr.com/2922/14050802727_99c35fe33c_b.jpg)
+
 ## Dev setup
 
 * Install mongodb
