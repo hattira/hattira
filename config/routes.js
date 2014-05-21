@@ -56,7 +56,6 @@ module.exports = function (app, passport) {
   app.param('userId', users.user)
 
   // meetup routes
-  app.get('/meetups', meetups.index)
   app.get('/meetups/by-location', meetups.byLocation)
   app.get('/meetups/upcoming', meetups.upcoming)
   app.get('/meetups/past', meetups.past)
