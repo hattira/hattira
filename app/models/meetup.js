@@ -24,6 +24,9 @@ var MeetupSchema = new Schema({
   startDate: {type : Date},
   endDate: {type : Date},
   venue: {type : String},
+  city: {type : String},
+  state: {type : String},
+  country: {type : String},
   loc: {
     type: { type: String }, 
     coordinates: []

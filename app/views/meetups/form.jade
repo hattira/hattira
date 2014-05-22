@@ -93,17 +93,26 @@ block extra_js
     function updateLatLong(address) {
       geocoder.geocode({'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-          var lat = $("<input>")
-                      .attr("type", "hidden")
-                      .attr("name", "latitude")
-                      .val(results[0].geometry.location['k'])
-          var lon = $("<input>")
-                      .attr("type", "hidden")
-                      .attr("name", "longitude")
-                      .val(results[0].geometry.location['A'])
-          $("form")
-            .append($(lat))
-            .append($(lon))
+          var city, state, country, lat, lon
+
+          lat = $("<input>").attr("type", "hidden").attr("name", "latitude").val(results[0].geometry.location['k'])
+          lon = $("<input>").attr("type", "hidden").attr("name", "longitude").val(results[0].geometry.location['A'])
+
+          $.each(results[0].address_components, function(index, item) {
+            if (item.types && item.types[0] === 'locality') {
+              city = $("<input>").attr("type", "hidden").attr("name", "city").val(item.long_name)
+            } else if (item.types && item.types[0] === 'administrative_area_level_1') {
+              state = $("<input>").attr("type", "hidden").attr("name", "state").val(item.long_name)
+            } else if (item.types && item.types[0] === 'country') {
+              country = $("<input>").attr("type", "hidden").attr("name", "country").val(item.long_name)
+            }
+          })
+
+          $("form").append($(lat)).append($(lon))
+          if (city) { $("form").append($(city)) }
+          if (state) { $("form").append($(state)) }
+          if (country) { $("form").append($(country)) }
+
           $("#venue-decode-success .info").text(results[0].formatted_address)
           $("form input[name='venue']").val(results[0].formatted_address)
           $("#venue-decode-success").removeClass("hide")
