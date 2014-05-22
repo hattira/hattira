@@ -17,13 +17,16 @@ mixin renderContent(meetup)
         -if (meetup.user.provider === "facebook")
           a(href="/users/#{meetup.user.id}", title="Created by #{meetup.user.name}")
             img(src="//graph.facebook.com/#{meetup.user.facebook.id}/picture?width=50&height=50").img-circle.img-thumbnail.img-responsive
-        -else
+        -else if (meetup.user.provider === "twitter")
           a(href="/users/#{meetup.user.id}", title="Created by #{meetup.user.name}")
             img(src="#{meetup.user.twitter.profile_image_url}").img-circle.img-thumbnail.img-responsive
 
 mixin renderAddress(meetup)
   p.text-success
-    em &nbsp;#{meetup.venue}
+    -if (meetup.city)
+      em &nbsp;#{meetup.city}, #{meetup.state}, #{meetup.country}
+    -else
+      em &nbsp;#{meetup.venue}
 
 mixin renderMeetup(meetup)
   .date.text-muted= formatDate(meetup.startDate)
