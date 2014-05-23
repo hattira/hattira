@@ -109,9 +109,18 @@ block extra_js
           })
 
           $("form").append($(lat)).append($(lon))
-          if (city) { $("form").append($(city)) }
-          if (state) { $("form").append($(state)) }
-          if (country) { $("form").append($(country)) }
+          if (city) {
+            $("form input[name='city']").remove()
+            $("form").append($(city))
+          }
+          if (state) {
+            $("form input[name='state']").remove()
+            $("form").append($(state))
+          }
+          if (country) {
+            $("form input[name='country']").remove()
+            $("form").append($(country))
+          }
 
           $("#venue-decode-success .info").text(results[0].formatted_address)
           $("form input[name='venue']").val(results[0].formatted_address)
