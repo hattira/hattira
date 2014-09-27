@@ -32,11 +32,6 @@ var MeetupSchema = new Schema({
     coordinates: []
   },
   user: {type : Schema.ObjectId, ref : 'User'},
-  comments: [{
-    body: { type : String},
-    user: { type : Schema.ObjectId, ref : 'User' },
-    createdAt: { type : Date, default : Date.now }
-  }],
   attending: [{
     user: { type : Schema.ObjectId, ref : 'User' },
   }],
@@ -79,31 +74,11 @@ MeetupSchema.path("isFree").validate(function (isFree) {
 
 MeetupSchema.methods = {
 
-  addComment: function (user, comment, cb) {
-    //var notify = require('../mailer/notify')
-
-    this.comments.push({
-      body: comment.body,
-      user: user._id
-    })
-
-    /*
-    notify.comment({
-      meetup: this,
-      currentUser: user,
-      comment: comment.body
-    })
-    */
-
-    this.save(cb)
-  },
-
   addAttending: function (user, cb) {
     this.attending.push({
       user: user._id
     })
   }
-
 }
 
 /**
@@ -115,7 +90,6 @@ MeetupSchema.statics = {
   load: function (id, cb) {
     this.findOne({ _id : id })
       .populate('user', 'name email provider')
-      .populate('comments.user')
       .populate('attending.user')
       .exec(cb)
   },

@@ -73,10 +73,6 @@ module.exports = function (app, passport) {
   // home route
   app.get('/', meetups.index)
 
-  // comment routes
-  var comments = require('../app/controllers/comments')
-  app.post('/meetups/:id/comments', auth.requiresLogin, comments.create)
-
   // tag routes
   var tags = require('../app/controllers/tags')
   app.get('/tags/:tag', tags.index)

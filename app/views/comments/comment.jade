@@ -1,9 +1,0 @@
-
-- if (comment && comment.user)
-  .comment.vspace-two
-    - var name = comment.user.name ? comment.user.name : comment.user.username
-    | On &nbsp;
-    span.muted #{formatDate(comment.createdAt)}, &nbsp;
-    a(href="/users/"+comment.user._id)= name
-    |  &nbsp;commented:
-    div.vspace-one !{comment.body}

@@ -69,15 +69,8 @@ block content
             | &nbsp;Delete
 
     #map-canvas.vspace-three
-    p
-      h3.purple Comments
-      - if (meetup.comments.length)
-        - each comment in meetup.comments
-          include ../comments/comment
-      - else
-        p There are no comments for this event yet!
-      .vspace-three
-      include ../comments/form
+    p.vspace-two
+      #disqus_thread
 
                 
 
@@ -90,3 +83,10 @@ block extra_js
       venue: "#{meetup.venue}"
     }
     showVenueMap(address)
+
+    var disqus_shortname = 'hattira';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();

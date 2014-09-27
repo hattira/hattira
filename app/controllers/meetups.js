@@ -225,9 +225,6 @@ exports.show = function(req, res, next){
   })
 
   meetup.description = markdown.toHTML(meetup.description)
-  _.each(meetup.comments, function(comment, index) {
-    meetup.comments[index].body = markdown.toHTML(comment.body)
-  })
 
   res.render('meetups/show', {
     title: req.meetup.title,
