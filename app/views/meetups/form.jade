@@ -95,8 +95,8 @@ block extra_js
         if (status == google.maps.GeocoderStatus.OK) {
           var city, state, country, lat, lon
 
-          lat = $("<input>").attr("type", "hidden").attr("name", "latitude").val(results[0].geometry.location['k'])
-          lon = $("<input>").attr("type", "hidden").attr("name", "longitude").val(results[0].geometry.location['A'])
+          lat = $("<input>").attr("type", "hidden").attr("name", "latitude").val(results[0].geometry.location.lat())
+          lon = $("<input>").attr("type", "hidden").attr("name", "longitude").val(results[0].geometry.location.lng())
 
           $.each(results[0].address_components, function(index, item) {
             if (item.types && item.types[0] === 'locality') {
