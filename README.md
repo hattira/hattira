@@ -21,14 +21,25 @@ Did I succeed?  Let me know!
 
 * GO!
 
-        $ npm install
-        $ npm start
+    ```
+    $ npm install
+    $ npm start
+    ```
+
+* Load data
+    
+    ```
+    $ python data/load.py
+    $ node data/loadCities.py
+    ```
 
 ## Tests
     
 * Some basics tests at the moment
 
-        $ npm test
+    ```
+    $ npm test
+    ```
 
 #### History
 
