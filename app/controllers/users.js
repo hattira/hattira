@@ -25,34 +25,7 @@ exports.logout = function (req, res) {
   res.redirect('/login')
 }
 
-exports.signup = function (req, res) {
-  res.render('users/signup', {
-    title: 'Sign up for hattira',
-    user: new User()
-  })
-}
-
 exports.session = login
-
-exports.create = function (req, res) {
-  var user = new User(req.body)
-  user.provider = 'local'
-  user.save(function (err) {
-    if (err) {
-      return res.render('users/signup', {
-        error: errors.format(err.errors),
-        user: user,
-        title: 'Sign up'
-      })
-    }
-
-    // manually login the user once successfully signed up
-    req.logIn(user, function(err) {
-      if (err) return next(err)
-      return res.redirect('/')
-    })
-  })
-}
 
 var getLargePicture = function(user) {
   if (user.provider === "facebook") {

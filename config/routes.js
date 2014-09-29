@@ -27,14 +27,7 @@ module.exports = function (app, passport) {
 
   // user routes
   app.get('/login', users.login)
-  app.get('/signup', users.signup)
   app.get('/logout', users.logout)
-  app.post('/users', users.create)
-  app.post('/users/session',
-    passport.authenticate('local', {
-      failureRedirect: '/login',
-      failureFlash: 'Invalid email or password.'
-    }), users.session)
   app.get('/users/:userId', users.profile)
   app.get('/users/registration/complete', users.askEmail)
   app.post('/users/registration/complete', auth.requiresLogin, users.user, users.updateEmail)
