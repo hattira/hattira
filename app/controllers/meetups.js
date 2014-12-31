@@ -210,8 +210,8 @@ exports.update = function(req, res){
 
 exports.show = function(req, res, next){
   var allowEdit = false
-    , showAttending = true
     , meetup = req.meetup
+    , showAttending = meetup.endDate > (new Date())
     , user = req.user
 
   if (user && user.id && (meetup.user.id == user.id)) {
@@ -219,7 +219,7 @@ exports.show = function(req, res, next){
   }
 
   meetup.attending.forEach(function (attendee, index) {
-    if (user && user.id && (user.id === attendee.user.id)) {
+    if (user && user.id && user.id === attendee.user.id) {
       showAttending = false
     }
   })
