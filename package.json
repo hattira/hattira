@@ -36,7 +36,6 @@
     "connect-mongo": "latest",
     "connect-flash": "latest",
     "passport": "latest",
-    "passport-local": "latest",
     "passport-twitter": "latest",
     "passport-facebook": "latest",
     "underscore": "latest",

@@ -1,6 +1,5 @@
 
 var mongoose = require('mongoose')
-  , LocalStrategy = require('passport-local').Strategy
   , TwitterStrategy = require('passport-twitter').Strategy
   , FacebookStrategy = require('passport-facebook').Strategy
   , User = mongoose.model('User')
@@ -26,25 +25,6 @@ module.exports = function (passport, config) {
       done(err, user)
     })
   })
-
-  // use local strategy
-  passport.use(new LocalStrategy({
-      usernameField: 'email',
-      passwordField: 'password'
-    },
-    function(email, password, done) {
-      User.findOne({ email: email }, function (err, user) {
-        if (err) { return done(err) }
-        if (!user) {
-          return done(null, false, { message: 'Unknown user' })
-        }
-        if (!user.authenticate(password)) {
-          return done(null, false, { message: 'Invalid password' })
-        }
-        return done(null, user)
-      })
-    }
-  ))
 
   // use twitter strategy
   passport.use(new TwitterStrategy({
