@@ -1,4 +1,4 @@
-# [hattira][2] - events around you
+# [hattira][1] - events around you
 
 [![Build Status](https://travis-ci.org/caulagi/sntd.png?branch=master)](https://travis-ci.org/caulagi/sntd)
 
@@ -17,18 +17,19 @@ Did I succeed?  Let me know!
 
 ## Dev setup
 
-* Install mongodb
+* Install mongodb and nodejs
 
 * GO!
 
-        $ npm install
-        $ npm start
+        $ sudo npm install -g yo bower grunt-cli
+        $ npm install && bower install
+        $ grunt serve
 
 ## Tests
     
 * Some basics tests at the moment
 
-        $ npm test
+        $ grunt test
 
 #### History
 
@@ -39,9 +40,4 @@ repeat it multiple times for people to grok it.  So I just
 choose a name in a language you probably don't know.  It should
 now be super simple to understand what I am talking about.  Hattira!
 
-## License
-
-Licensed under [MIT][1]
-
-[1]: https://github.com/caulagi/sntd/blob/master/LICENSE
-[2]: http://hattira.com
+[1]: http://hattira.com
