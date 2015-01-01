@@ -14,14 +14,6 @@ header#banner.hero-unit
         li
           a(href='#', tooltip='{{thing.info}}')
             | {{thing.name}}
-            button.close(type='button', ng-click='deleteThing(thing)') ×
-
-  form.thing-form
-    label Syncs in realtime across clients
-    p.input-group
-      input.form-control(type='text', placeholder='Add a new thing here.', ng-model='newThing')
-      span.input-group-btn
-        button.btn.btn-primary(type='submit', ng-click='addThing()') Add New
 
 footer.footer
   .container
