@@ -1,5 +1,3 @@
-div(ng-include='"components/navbar/navbar.html"')
-
 header#banner.hero-unit
   .container
     h1 'Allo, 'Allo!
@@ -14,12 +12,3 @@ header#banner.hero-unit
         li
           a(href='#', tooltip='{{thing.info}}')
             | {{thing.name}}
-
-footer.footer
-  .container
-    p
-      | Angular Fullstack v2.0.13
-      = ' | '
-      a(href='https://twitter.com/tyhenkel') @tyhenkel
-      = ' | '
-      a(href='https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open') Issues
