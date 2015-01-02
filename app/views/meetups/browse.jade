@@ -1,9 +1,0 @@
-.row.align-right
-  h3 Browse by tags
-  - if (tags.length)
-    ul.list-unstyled
-      -each tag in tags
-        li
-          a.tag(href="/tags/"+tag) #{tag}
-  - else
-     | There are no tags yet

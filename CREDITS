@@ -1,9 +1,0 @@
-Thanks to several projects and libraries that inspired 
-us and made this possible.  The accompanying package.json
-has the list of dependencies that this projects uses.
-
-In addition, we used the following -
-
-* https://github.com/madhums/node-express-mongoose-demo for the skeleton project that made it very easy to get started.
-
-* https://github.com/necolas/css3-social-signin-buttons for the twitter login
