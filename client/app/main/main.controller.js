@@ -2,21 +2,19 @@
 
 angular.module('sntdApp')
   .controller('MainCtrl', function ($scope, $http) {
-    $scope.awesomeThings = [];
+    $scope.meetups = [];
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
+    $http.get('/api/meetups').success(function(meetups) {
+      $scope.meetups = meetups;
     });
 
-    $scope.addThing = function() {
-      if($scope.newThing === '') {
-        return;
-      }
-      $http.post('/api/things', { name: $scope.newThing });
-      $scope.newThing = '';
+    $scope.addMeetup = function() {
+      $http.post('/api/meetups', { 
+        name: $scope.title
+      });
     };
 
-    $scope.deleteThing = function(thing) {
-      $http.delete('/api/things/' + thing._id);
+    $scope.deleteThing = function(meetup) {
+      $http.delete('/api/meetups/' + thing._id);
     };
   });
