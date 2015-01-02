@@ -7,4 +7,8 @@ angular.module('sntdApp')
         url: '/about',
         templateUrl: 'app/footer/about/about.html'
       })
+      .state('contact', {
+        url: '/contact',
+        templateUrl: 'app/footer/contact/contact.html'
+      })
   });
