@@ -37,8 +37,8 @@ header#banner.hero-unit
 .container
   .row
     .col-lg-12
-      h1.page-header Features:
-      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='thing in awesomeThings')
+      h1.page-header Upcoming meetups
+      ul.col-md-6.col-sm-12(ng-repeat='meetup in meetups')
         li
-          a(href='#', tooltip='{{thing.info}}')
-            | {{thing.name}}
+          a(href='#', tooltip='{{meetup.title}}')
+            | {{meetup.title}}
