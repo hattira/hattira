@@ -65,12 +65,6 @@ MeetupSchema.statics = {
       limit: config.RESULTS_PER_PAGE
     }
   }
-
 }
-
-
-
-
-
 
 module.exports = mongoose.model('Meetup', MeetupSchema);

@@ -23,7 +23,10 @@ exports.show = function(req, res) {
 // Creates a new meetup in the DB.
 exports.create = function(req, res) {
   Meetup.create(req.body, function(err, meetup) {
-    if(err) { return handleError(res, err); }
+    if (err) {
+      console.log(err);
+      return handleError(res, err);
+    }
     return res.json(201, meetup);
   });
 };

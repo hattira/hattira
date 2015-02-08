@@ -1,2 +1,26 @@
-.col-md-12
-    | This is the meetup view.
+.container
+  .row
+    .col-sm-12.col-md-offset-3.col-md-6
+      p.lead.vspace-one Create a new event
+      form.form(name='form', ng-submit='register(form)', novalidate='')
+        .form-group(ng-class='{ "has-success": form.name.$valid && submitted,\
+        "has-error": form.name.$invalid && submitted }')
+          label Name
+          input.form-control(type='text', name='name', ng-model='user.name', required='')
+          p.help-block(ng-show='form.name.$error.required && submitted')
+            | A name is required
+
+        .form-group(ng-class='{ "has-success": form.email.$valid && submitted,\
+        "has-error": form.email.$invalid && submitted }')
+          label Email
+          input.form-control(type='email', name='email', ng-model='user.email', required='', mongoose-error='')
+          p.help-block(ng-show='form.email.$error.email && submitted')
+            | Doesn't look like a valid email.
+          p.help-block(ng-show='form.email.$error.required && submitted')
+            | What's your email address?
+          p.help-block(ng-show='form.email.$error.mongoose')
+            | {{ errors.email }}
+        div.align-center
+          button.btn.btn-success.btn-login(type='submit')
+            | Create event
+          = ' '
