@@ -4,6 +4,8 @@ angular.module('sntdApp')
   .controller('MainCtrl', function ($scope, $http) {
     $scope.meetups = [];
 
+    $scope.myInterval = 8000;
+
     $http.get('/api/meetups').success(function(meetups) {
       $scope.meetups = meetups;
     });

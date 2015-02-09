@@ -1,38 +1,32 @@
-header#banner.hero-unit
-  .container.align-center
-    h1 The simplest way to discover events around you!
-    ul.list-unstyled.vspace-two
-      li.vspace-one
-        strong Local
-        | &nbsp;&nbsp;
-        i.fa.fa-cogs.fa-lg
-        | &nbsp;&nbsp;
-        | Always see events closest to you!
-      li.vspace-one
-        strong Discover
-        | &nbsp;&nbsp;
-        i.fa.fa-binoculars.fa-lg
-        | &nbsp;&nbsp;
-        | Follow topics and people to find interesting events!
-      li.vspace-one
-        strong Organize better
-        | &nbsp;&nbsp;
-        i.fa.fa-users.fa-lg
-        | &nbsp;&nbsp;
-        | &nbsp; &nbsp;We will do SEO and social stuff to get you participants!
-      li.vspace-one
-        strong Secure
-        | &nbsp;&nbsp;
-        i.fa.fa-lock.fa-lg
-        | &nbsp;&nbsp;
-        | Your data is stored on 
-        a(href="https://www.compose.io/", target="_blank") <mark>Compose servers</mark>
-      li.vspace-one
-        span.fa-stack.fa-lg
-          i.fa.fa-cc-visa.fa-stack-1x
-          i.fa.fa-ban.fa-stack-2x.text-danger
-        | &nbsp;&nbsp;
-        strong Free to use!
+div(data-ride="carousel").carousel.slide 
+  carousel(interval="myInterval")
+    slide
+      img(ng-src="")
+      .carousel-caption
+        h1 Local
+        p Find the events closest to your location
+    slide
+      img(ng-src="")
+      .carousel-caption
+        h1 Discover
+        p Follow topics and people to find interesting events!
+    slide
+      img(ng-src="")
+      .carousel-caption
+        h1 Organize better
+        p We will do SEO and social stuff to get you participants
+          | so that you can concentrate on organizing!
+    slide
+      img(ng-src="")
+      .carousel-caption
+        h1 Secure
+        p Your data is safe with us.  We store your data safe on &nbsp;
+          a(href="https://www.compose.io/", target="_blank") Compose servers
+    slide
+      img(ng-src="")
+      .carousel-caption
+        h1 Free!
+        p We like free stuff too.  So we made Hattira free for everyone!
 
 .container
   .row
