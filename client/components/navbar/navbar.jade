@@ -1,19 +1,13 @@
-.navbar-wrapper(ng-controller='NavbarCtrl')
-  .container
-    .navbar.navbar.navbar-static-top
-      .container
-        .navbar-header
-          button(type="button", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar").navbar-toggle.collapsed
-            span.sr-only Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href="#") Hattira
-        .navbar-collapse.collapse
-          ul.nav.navbar-nav
-            li
-              a(href="/") Home
-            li
-              a(href="/about") About
-            li
-              a(href="/contact") Contact
+nav.navbar.navbar-default(ng-controller='NavbarCtrl')
+  .container-fluid
+    .navbar-header
+      button(type="button", data-toggle="collapse", data-target="#navbar-menu").navbar-toggle.collapsed
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href="/")
+        img(alt="Brand", src="assets/images/hattira.png").img-rounded
+        | &nbsp; Hattira
+    #navbar-menu.navbar-collapse.collapse
+      a(href="/login").btn.btn-success.login.pull-right Login

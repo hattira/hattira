@@ -1,32 +1,49 @@
-div(data-ride="carousel").carousel.slide 
-  carousel(interval="myInterval")
-    slide
-      img(ng-src="")
-      .carousel-caption
-        h1 Local
-        p Find the events closest to your location
-    slide
-      img(ng-src="")
-      .carousel-caption
-        h1 Discover
-        p Follow topics and people to find interesting events!
-    slide
-      img(ng-src="")
-      .carousel-caption
-        h1 Organize better
-        p We will do SEO and social stuff to get you participants
-          | so that you can concentrate on organizing!
-    slide
-      img(ng-src="")
-      .carousel-caption
-        h1 Secure
-        p Your data is safe with us.  We store your data safe on &nbsp;
-          a(href="https://www.compose.io/", target="_blank") Compose servers
-    slide
-      img(ng-src="")
-      .carousel-caption
-        h1 Free!
-        p We like free stuff too.  So we made Hattira free for everyone!
+.marketing
+  .jumbotron
+    .container
+      h1 The simplest way to discover events around you
+      p Hattira is a location aware, social solution to
+        | help you discover interesting events around you!
+  .container
+    .row
+      .col-md-3
+        .row
+          .col-xs-4
+            span.fa-stack.fa-lg.organize
+              i.fa.fa-square-o.fa-stack-2x
+              i.fa.fa-send.fa-stack-1x
+          .col-xs-8
+            h2 Organize better
+            p We will do SEO and social stuff to get you participants
+              | so that you can concentrate on organizing!
+      .col-md-3
+        .row
+          .col-xs-4
+            span.fa-stack.fa-lg.mobile
+              i.fa.fa-square-o.fa-stack-2x
+              i.fa.fa-mobile.fa-stack-1x
+          .col-xs-8
+            h2 Mobile ready
+            p What good is a solution today that doesn't work on all devices?
+      .col-md-3
+        .row
+          .col-xs-4
+            span.fa-stack.fa-lg.secure
+              i.fa.fa-square-o.fa-stack-2x
+              i.fa.fa-lock.fa-stack-1x
+          .col-xs-8
+            h2 Secure
+            p Your data is safe with us.  We store your data on &nbsp;
+              a(href="https://www.compose.io/", target="_blank") Compose servers
+      .col-md-3
+        .row
+          .col-xs-4
+            span.fa-stack.fa-lg.free
+              i.fa.fa-beer.fa-stack-1x
+              i.fa.fa-square-o.fa-stack-2x
+          .col-xs-8
+            h2 Free
+            p Hattira is free to use for everyone - even for organizers!
 
 .container
   .row
