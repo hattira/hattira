@@ -16,7 +16,7 @@ angular.module('sntdApp')
       });
     };
 
-    $scope.deleteThing = function(meetup) {
-      $http.delete('/api/meetups/' + thing._id);
+    $scope.deleteMeetup = function(meetup) {
+      $http.delete('/api/meetups/' + meetup._id);
     };
   });

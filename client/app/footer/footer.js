@@ -10,5 +10,5 @@ angular.module('sntdApp')
       .state('contact', {
         url: '/contact',
         templateUrl: 'app/footer/contact/contact.html'
-      })
+      });
   });

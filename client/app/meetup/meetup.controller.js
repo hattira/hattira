@@ -5,7 +5,7 @@ angular.module('sntdApp')
     $scope.meetup = {};
     $scope.errors = {};
 
-    $http.get("/api/meetups/create").success(function(meetup) {
+    $http.get('/api/meetups/create').success(function(meetup) {
       $scope.meetup = meetup;
     });
 

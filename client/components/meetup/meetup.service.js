@@ -14,15 +14,14 @@ angular.module('sntdApp')
       createMeetup: function(meetup, callback) {
         var cb = callback || angular.noop;
 
-        return
-          $http
-            .post("/api/meetups/create", meetup)
+        return $http
+            .post('/api/meetups/create', meetup)
             .success(function(data) {
-              return cb(meetup);
+              return cb(data);
             })
             .error(function(err) {
               return cb(err);
-            })
+            });
       }
     };
   });

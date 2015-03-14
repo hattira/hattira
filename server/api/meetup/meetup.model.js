@@ -1,8 +1,8 @@
 'use strict';
 
-var mongoose = require('mongoose')
-  , _ = require('lodash')
-  , Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+    _ = require('lodash'),
+    Schema = mongoose.Schema;
 
 var setTags = function (tags) {
   return _.invoke(tags.split(','), 'trim')
@@ -56,14 +56,6 @@ MeetupSchema.statics = {
       .limit(options.perPage)
       .skip(options.perPage * options.page)
       .exec(cb)
-  },
-
-  searchOptions: function() {
-    return options = {
-      maxDistance: radToKilometers(config.NEARBY_RADIUS),
-      spherical: true,
-      limit: config.RESULTS_PER_PAGE
-    }
   }
 }
 
