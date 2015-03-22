@@ -9,5 +9,18 @@ nav.navbar.navbar-default(ng-controller='NavbarCtrl')
       a.navbar-brand(href="/")
         img(alt="Brand", src="assets/images/hattira.png").img-rounded
         | &nbsp; Hattira
-    #navbar-menu.navbar-collapse.collapse
-      a(href="/login").btn.btn-success.login.pull-right Login
+    #navbar-menu.collapse.navbar-collapse
+      ul(ng-show="!isLoggedIn").nav.navbar-nav.navbar-right
+        li
+          a(href="/login").btn.btn-success.navbar-btn
+            i.fa.fa-user.fa-fw
+            | &nbsp;Login
+      ul(ng-show='isLoggedIn').nav.navbar-nav.navbar-right
+        li.dropdown
+          a(href="#", data-toggle="dropdown", role="button").dropdown-toggle Hello {{getCurrentUser.name}}
+            span.caret
+          ul(role="menu").dropdown-menu
+            li
+              a(href="/meetups/create") Create event
+            li
+              a(href="/logout") Logout
