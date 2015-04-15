@@ -31,13 +31,4 @@ Did I succeed?  Let me know!
 
         $ grunt test
 
-#### History
-
-Ah, so you noticed the mismatch between the repo name and
-the project?  We started the project as sntd for 
-Something New To Do.  But it was a hard name, and I had to
-repeat it multiple times for people to grok it.  So I just
-choose a name in a language you probably don't know.  It should
-now be super simple to understand what I am talking about.  Hattira!
-
 [1]: http://hattira.com
