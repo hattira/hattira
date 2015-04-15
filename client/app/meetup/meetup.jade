@@ -1,26 +1,35 @@
 .container
-  .row
-    .col-sm-12.col-md-offset-3.col-md-6
-      p.lead.vspace-one Create a new event
-      form.form(name='form', ng-submit='register(form)', novalidate='')
-        .form-group(ng-class='{ "has-success": form.name.$valid && submitted,\
-        "has-error": form.name.$invalid && submitted }')
-          label Name
-          input.form-control(type='text', name='name', ng-model='user.name', required='')
-          p.help-block(ng-show='form.name.$error.required && submitted')
-            | A name is required
+  .col-sm-12.col-md-offset-3.col-md-6
+    p.lead.vspace-one Create a new event
+    form.form(name='form', ng-submit='register(form)', enctype='multipart/form-data')
+      .form-group
+        label Title - what is the event called?
+        input.form-control(type='text', name='name', ng-model='meetup.title', required='')
 
-        .form-group(ng-class='{ "has-success": form.email.$valid && submitted,\
-        "has-error": form.email.$invalid && submitted }')
-          label Email
-          input.form-control(type='email', name='email', ng-model='user.email', required='', mongoose-error='')
-          p.help-block(ng-show='form.email.$error.email && submitted')
-            | Doesn't look like a valid email.
-          p.help-block(ng-show='form.email.$error.required && submitted')
-            | What's your email address?
-          p.help-block(ng-show='form.email.$error.mongoose')
-            | {{ errors.email }}
-        div.align-center
-          button.btn.btn-success.btn-login(type='submit')
-            | Create event
-          = ' '
+      .form-group
+        label Address - where is the event happening?
+        input.form-control(type='text', name='address', ng-model='meetup.address', required='')
+
+      .form-group
+        label Describe who should attend and what will happen
+        textarea.form-control(name='description', ng-model='meetup.description', rows=8)
+        p.help-block You can use &nbsp;
+          a(href="http://daringfireball.net/projects/markdown/", target="_blank") markdown.
+
+      .form-group
+        label Website for the event, if it exists
+        input.form-control(type='link', name='website', ng-model='meetup.website')
+
+      .form-group
+        label Cover photo
+        input.form-control(type='file', name='cover', ng-model='meetup.cover')
+
+      .form-group
+        label Tags - comma separated list of keywords
+        input.form-control(type='text', name='tags', ng-model='meetup.tags')
+        p.help-block Example: webdev, mobile dev, django, python, programming
+
+      div.align-center
+        button.btn.btn-success.btn-login(type='submit')
+          | Create event
+        = ' '

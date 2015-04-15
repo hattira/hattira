@@ -14,8 +14,9 @@ angular.module('sntdApp')
 
       if(form.$valid) {
         Meetup.createMeetup({
-          name: $scope.user.name,
-          email: $scope.user.email,
+          title: $scope.meetup.title,
+          description: $scope.meetup.description,
+          tags: $scope.meetup.tags,
         })
         .catch( function(err) {
           err = err.data;

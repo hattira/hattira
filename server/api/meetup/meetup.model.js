@@ -15,6 +15,7 @@ var radToKilometers = function (rad) {
 var MeetupSchema = new Schema({
   title: String,
   description: String,
+  cover: String,
   startDate: Date,
   endDate: Date,
   venue: String,
@@ -25,7 +26,10 @@ var MeetupSchema = new Schema({
     type: String,
     coordinates: []
   },
-  user: {type : Schema.ObjectId, ref : 'User'},
+  author: {type : Schema.ObjectId, ref : 'User'},
+  admins: [{
+    user: { type : Schema.ObjectId, ref : 'User' },
+  }],
   attending: [{
     user: { type : Schema.ObjectId, ref : 'User' },
   }],
@@ -42,8 +46,9 @@ MeetupSchema.statics = {
 
   load: function (id, cb) {
     this.findOne({ _id : id })
-      .populate('user', 'name email provider')
+      .populate('author', 'name email provider')
       .populate('attending.user')
+      .populate('admins.user')
       .exec(cb)
   },
 
