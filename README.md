@@ -1,6 +1,6 @@
 # [hattira][1] - events around you
 
-[![Build Status](https://travis-ci.org/caulagi/sntd.png?branch=master)](https://travis-ci.org/caulagi/sntd)
+[![Build Status](https://travis-ci.org/caulagi/hattira.svg?branch=master)](https://travis-ci.org/caulagi/sntd)
 
 hattira - Events around you - is a webapp to allow people
 to easily discover what is happening in a city.  The key
